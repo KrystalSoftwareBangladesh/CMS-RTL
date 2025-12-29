@@ -19,10 +19,10 @@ const sizeClasses = {
 }
 
 const variantClasses = {
-  primary: 'bg-white text-primary hover:bg-gray-100',
-  secondary: 'bg-secondary text-white hover:bg-secondary-light',
-  outline: 'border-2 border-white text-white hover:bg-white hover:text-primary',
-  white: 'bg-white text-primary-dark hover:bg-gray-50'
+  primary: 'bg-white text-slate-800 hover:bg-gray-100',
+  secondary: 'bg-teal-500 text-white hover:bg-teal-400',
+  outline: 'border-2 border-white text-white hover:bg-white hover:text-slate-800',
+  white: 'bg-white text-slate-800 hover:bg-gray-50'
 }
 </script>
 

@@ -11,7 +11,7 @@ defineProps<Props>()
 <template>
   <div class="group">
     <div class="flex items-start gap-4">
-      <span class="text-5xl font-bold text-secondary/30 group-hover:text-secondary transition-colors">
+      <span class="text-5xl font-bold text-teal-500/30 group-hover:text-teal-500 transition-colors">
         {{ number }}
       </span>
       <div>

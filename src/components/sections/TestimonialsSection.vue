@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import SectionHeader from '@/components/base/SectionHeader.vue'
+import { testimonials } from '@/data/testimonials'
 import avatarImage from '@/assets/images/professional_busines_c8bc027d.jpg'
-
-const testimonial = {
-  quote: 'When our own odds did not manage to get where we wanted. The Transport took care of the rest. When our own odds did not manage to get where we wanted. The Transport took care of the rest. When our own odds did not manage to get where we wanted. The Transport took care of the rest.',
-  author: 'Albert Flores',
-  role: 'CEO at Verge Company'
-}
 </script>
 
 <template>
@@ -19,8 +14,12 @@ const testimonial = {
       />
 
       <div class="max-w-3xl mx-auto">
-        <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-lg">
-          <div class="absolute top-8 left-8 text-8xl text-secondary/20 font-serif leading-none">
+        <div
+          v-for="(testimonial, index) in testimonials"
+          :key="index"
+          class="relative bg-white rounded-3xl p-8 md:p-12 shadow-lg"
+        >
+          <div class="absolute top-8 left-8 text-8xl text-teal-500/20 font-serif leading-none">
             "
           </div>
 

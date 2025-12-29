@@ -1,20 +1,19 @@
 <script setup lang="ts">
 import BaseButton from '@/components/base/BaseButton.vue'
+import { partners } from '@/data/navigation'
 import heroImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
 
 const slides = ['01', '02', '03']
 const currentSlide = 1
-
-const partners = ['PARADIE', 'Homey', 'DIAMOND', 'Minty', 'Product']
 </script>
 
 <template>
-  <section class="relative min-h-screen bg-primary overflow-hidden">
+  <section class="relative min-h-screen bg-slate-800 overflow-hidden">
     <div
       class="absolute inset-0 bg-cover bg-center bg-no-repeat"
       :style="{ backgroundImage: `url(${heroImage})` }"
     >
-      <div class="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/80 to-primary/40"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-800/80 to-slate-700/40"></div>
     </div>
 
     <div class="relative z-10 container mx-auto px-6 pt-32 pb-20">

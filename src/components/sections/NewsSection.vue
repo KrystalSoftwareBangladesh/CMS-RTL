@@ -1,28 +1,13 @@
 <script setup lang="ts">
 import SectionHeader from '@/components/base/SectionHeader.vue'
+import { newsItems } from '@/data/news'
 import portImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
 import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 
-const news = [
-  {
-    image: portImage,
-    title: 'New design for cargo and warehouse',
-    author: 'Hamish Slavit',
-    date: 'December 14, 2024'
-  },
-  {
-    image: truckImage,
-    title: 'Outports launches 10 charter flights',
-    author: 'Kylie Brown',
-    date: 'December 14, 2024'
-  },
-  {
-    image: portImage,
-    title: 'Transport transit time be guaranteed',
-    author: 'Zayn Ghani',
-    date: 'December 14, 2024'
-  }
-]
+const newsWithImages = newsItems.map((item, index) => ({
+  ...item,
+  image: index % 2 === 0 ? portImage : truckImage
+}))
 </script>
 
 <template>
@@ -36,7 +21,7 @@ const news = [
 
       <div class="grid md:grid-cols-3 gap-8">
         <article
-          v-for="item in news"
+          v-for="item in newsWithImages"
           :key="item.title"
           class="group cursor-pointer"
         >
@@ -47,7 +32,7 @@ const news = [
               class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-secondary transition-colors">
+          <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-teal-500 transition-colors">
             {{ item.title }}
           </h3>
           <div class="flex items-center gap-4 text-sm text-gray-500">

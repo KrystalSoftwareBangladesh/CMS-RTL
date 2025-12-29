@@ -1,17 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
+import { navLinks } from '@/data/navigation'
 
 const isMenuOpen = ref(false)
-
-const navLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'About Us', path: '/about' },
-  { name: 'Services', path: '/services' },
-  { name: 'Portfolio', path: '/portfolio' },
-  { name: 'News', path: '/news' },
-  { name: 'Contact', path: '/contact' }
-]
 </script>
 
 <template>
@@ -21,9 +13,9 @@ const navLinks = [
         <RouterLink to="/" class="flex items-center gap-2">
           <div class="bg-white/10 backdrop-blur-sm rounded-lg px-3 py-2">
             <span class="text-white font-bold text-sm tracking-wider">THE</span>
-            <span class="text-secondary font-bold text-lg block -mt-1">TRANSPORT</span>
+            <span class="text-teal-400 font-bold text-lg block -mt-1">TRANSPORT</span>
           </div>
-          <svg class="w-8 h-6 text-secondary" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-8 h-6 text-teal-400" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
           </svg>
         </RouterLink>
@@ -66,7 +58,7 @@ const navLinks = [
 
       <div
         v-if="isMenuOpen"
-        class="md:hidden mt-4 bg-primary-dark/90 backdrop-blur-sm rounded-lg p-4"
+        class="md:hidden mt-4 bg-slate-900/90 backdrop-blur-sm rounded-lg p-4"
       >
         <RouterLink
           v-for="link in navLinks"
