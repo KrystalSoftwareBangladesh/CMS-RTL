@@ -44,8 +44,8 @@ onUnmounted(() => {
             v-for="link in navLinks"
             :key="link.path"
             :to="link.path"
-            class="text-white/80 hover:text-white transition-colors text-sm font-medium"
-            active-class="text-white"
+            class="relative text-white/70 hover:text-white transition-colors text-sm font-medium py-2"
+            active-class="!text-teal-400 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-teal-400 after:rounded-full"
           >
             {{ link.name }}
           </RouterLink>
@@ -83,7 +83,8 @@ onUnmounted(() => {
           v-for="link in navLinks"
           :key="link.path"
           :to="link.path"
-          class="block py-2 text-white/80 hover:text-white transition-colors"
+          class="block py-2 text-white/70 hover:text-white transition-colors"
+          active-class="!text-teal-400 border-l-2 border-teal-400 pl-3"
           @click="isMenuOpen = false"
         >
           {{ link.name }}
