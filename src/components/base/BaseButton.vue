@@ -5,7 +5,7 @@ interface Props {
   href?: string
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'md'
 })
