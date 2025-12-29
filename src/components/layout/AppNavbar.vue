@@ -44,8 +44,10 @@ onUnmounted(() => {
             v-for="link in navLinks"
             :key="link.path"
             :to="link.path"
-            class="text-white/80 hover:text-white transition-colors text-sm font-medium"
-            active-class="text-white"
+            :class="[
+              'relative text-white/70 hover:text-white transition-colors text-sm font-medium py-2',
+              isScrolled ? 'router-link-active-styled' : ''
+            ]"
           >
             {{ link.name }}
           </RouterLink>
@@ -83,7 +85,10 @@ onUnmounted(() => {
           v-for="link in navLinks"
           :key="link.path"
           :to="link.path"
-          class="block py-2 text-white/80 hover:text-white transition-colors"
+          :class="[
+            'block py-2 text-white/70 hover:text-white transition-colors',
+            isScrolled ? 'router-link-active-styled-mobile' : ''
+          ]"
           @click="isMenuOpen = false"
         >
           {{ link.name }}
@@ -92,3 +97,26 @@ onUnmounted(() => {
     </div>
   </nav>
 </template>
+
+<style scoped>
+.router-link-active-styled.router-link-active {
+  color: rgb(45 212 191);
+}
+
+.router-link-active-styled.router-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: rgb(45 212 191);
+  border-radius: 9999px;
+}
+
+.router-link-active-styled-mobile.router-link-active {
+  color: rgb(45 212 191);
+  border-left: 2px solid rgb(45 212 191);
+  padding-left: 0.75rem;
+}
+</style>
