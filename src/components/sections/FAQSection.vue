@@ -1,0 +1,72 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import SectionHeader from '@/components/base/SectionHeader.vue'
+
+const faqs = [
+  {
+    question: 'How do I contact customer support?',
+    answer: 'Provide contact information for customer support, including phone numbers, email addresses, and any available chat support.'
+  },
+  {
+    question: 'How early should I arrive before departure?',
+    answer: 'We recommend arriving at least 30 minutes before your scheduled pickup time to ensure smooth processing.'
+  },
+  {
+    question: 'How do logistics providers manage supply chain risks?',
+    answer: 'We implement comprehensive risk management strategies including insurance, real-time tracking, and contingency planning.'
+  },
+  {
+    question: 'What happens if my bus/train/plane is delayed?',
+    answer: 'In case of delays, we will notify you immediately and provide alternative arrangements at no additional cost.'
+  }
+]
+
+const openIndex = ref<number | null>(0)
+
+const toggleFAQ = (index: number) => {
+  openIndex.value = openIndex.value === index ? null : index
+}
+</script>
+
+<template>
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <SectionHeader
+        title="Frequently Asked Question"
+        :centered="true"
+      />
+
+      <div class="max-w-3xl mx-auto space-y-4">
+        <div
+          v-for="(faq, index) in faqs"
+          :key="index"
+          class="border border-gray-200 rounded-xl overflow-hidden"
+        >
+          <button
+            class="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors"
+            @click="toggleFAQ(index)"
+          >
+            <span class="font-medium text-gray-900">{{ faq.question }}</span>
+            <svg
+              :class="[
+                'w-5 h-5 text-gray-500 transition-transform',
+                openIndex === index ? 'rotate-180' : ''
+              ]"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div
+            v-if="openIndex === index"
+            class="px-6 pb-6 text-gray-600"
+          >
+            {{ faq.answer }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

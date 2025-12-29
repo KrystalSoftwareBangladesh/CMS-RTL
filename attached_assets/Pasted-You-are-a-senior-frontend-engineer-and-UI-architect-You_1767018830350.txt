@@ -1,0 +1,110 @@
+You are a senior frontend engineer and UI architect.
+
+Your task is to CLONE the UI/UX design from the uploaded image files (WEBP format) as accurately as possible.
+
+IMPORTANT CONTEXT:
+- The uploaded images are the DESIGN SOURCE OF TRUTH
+- Images include layouts, spacing, colors, typography, icons, and branding
+- All data must be STATIC (NO API integration)
+- All images and logos must be used from LOCAL assets (uploaded WEBP files)
+- The goal is clean, scalable, reusable UI for a CMS-style application
+
+TECH STACK:
+- Vue 3 (Composition API)
+- Tailwind CSS
+- Vite-based structure
+- No external UI libraries (no Bootstrap, no MUI)
+- No backend or API calls
+
+GENERAL RULES:
+1. Reproduce the layout, spacing, typography, and color system as close as possible to the design images
+2. Extract a reusable design system from the images
+3. Use semantic HTML and accessible markup
+4. Use mobile-first responsive design
+5. Keep everything modular and reusable
+
+ASSET HANDLING:
+- Assume all images and logos are available locally in `/src/assets/images/`
+- Use `.webp` format only
+- Do NOT hotlink images
+- Logos, icons, and illustrations must be imported and reused
+
+COMPONENT ARCHITECTURE (VERY IMPORTANT):
+Break the UI into highly reusable components such as:
+- BaseButton (variants: primary, secondary, outline)
+- BaseCard
+- BaseBadge
+- BaseInput / BaseSelect
+- SectionHeader
+- PageHero
+- StatCard
+- FeatureCard
+- ServiceCard
+- Navbar
+- Footer
+
+Use props and slots heavily to maximize reusability.
+
+FOLDER STRUCTURE:
+Organize the project like this:
+
+src/
+ ├─ components/
+ │   ├─ base/
+ │   │   ├─ BaseButton.vue
+ │   │   ├─ BaseCard.vue
+ │   │   └─ BaseBadge.vue
+ │   ├─ layout/
+ │   │   ├─ Navbar.vue
+ │   │   └─ Footer.vue
+ │   └─ sections/
+ │       ├─ HeroSection.vue
+ │       ├─ FeatureSection.vue
+ │       ├─ ServiceSection.vue
+ │       └─ CTASection.vue
+ ├─ pages/
+ │   ├─ Home.vue
+ │   ├─ About.vue
+ │   ├─ Services.vue
+ │   └─ Contact.vue
+ ├─ assets/
+ │   └─ images/   (WEBP files)
+ └─ data/
+     ├─ services.ts
+     ├─ features.ts
+     └─ stats.ts
+
+STATIC DATA:
+- All text, titles, descriptions, counts, and labels must come from static data files
+- No hardcoded text inside components except defaults
+- Use arrays and objects for repeatable UI sections
+
+DESIGN SYSTEM:
+- Derive colors from the images and define them in Tailwind config
+- Use consistent spacing scale
+- Use font sizes and weights based on visual hierarchy in the images
+- Support light theme only (no dark mode for now)
+
+RESPONSIVENESS:
+- Desktop first from the design
+- Then adapt for tablet and mobile
+- Use Tailwind responsive utilities properly
+
+DELIVERABLE:
+- Fully working Vue pages that visually match the uploaded images
+- Clean reusable component-based architecture
+- Static demo-ready CMS UI
+- No TODOs, no placeholders, no lorem ipsum
+
+IMPORTANT:
+Do NOT invent new layouts.
+Do NOT change visual hierarchy.
+Follow the images exactly.
+
+Start by identifying:
+1. Global layout structure
+2. Reusable components
+3. Color and typography system
+4. Page-by-page implementation
+
+Then generate the code accordingly.
