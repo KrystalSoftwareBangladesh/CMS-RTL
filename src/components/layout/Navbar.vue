@@ -7,7 +7,7 @@ const isMenuOpen = ref(false)
 </script>
 
 <template>
-  <nav class="absolute top-0 left-0 right-0 z-50 py-6">
+  <nav class="fixed top-0 left-0 right-0 z-50 py-4 bg-slate-900/95 backdrop-blur-sm">
     <div class="container mx-auto px-6">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="flex items-center gap-2">
