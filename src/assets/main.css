@@ -1,36 +1,29 @@
 @import "tailwindcss";
-@import './base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+@theme {
+  --color-primary: #0d3d4c;
+  --color-primary-light: #1a5568;
+  --color-primary-dark: #082c38;
+  --color-secondary: #14b8a6;
+  --color-secondary-light: #2dd4bf;
+  --color-accent: #f59e0b;
+  --color-dark: #1a1a2e;
+  --color-light: #f8fafc;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Poppins', system-ui, sans-serif;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+@layer base {
+  html {
+    scroll-behavior: smooth;
   }
-}
 
-@media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
+    font-family: var(--font-sans);
   }
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
   }
 }

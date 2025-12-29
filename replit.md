@@ -1,42 +1,71 @@
-# CMS-RTL
+# CMS-RTL - Transportation Logistics Website
 
 ## Overview
-A Vue 3 frontend application built with Vite, TypeScript, Pinia for state management, and Vue Router for navigation.
+A Vue 3 transportation/logistics website UI built with Vite, TypeScript, Tailwind CSS, and Vue Router. Features a modular component architecture with reusable base components and centralized data management.
 
 ## Project Architecture
 - **Framework**: Vue 3 with Composition API
 - **Build Tool**: Vite 7
-- **State Management**: Pinia
+- **Styling**: Tailwind CSS v4 with custom theme
 - **Routing**: Vue Router 4
 - **Language**: TypeScript
-- **Testing**: Vitest (unit), Playwright (e2e)
+- **Fonts**: Inter (body), Poppins (headings)
 
 ## Directory Structure
 ```
 src/
-├── assets/        # Static assets and CSS
-├── components/    # Reusable Vue components
-├── router/        # Vue Router configuration
-├── stores/        # Pinia stores
-├── views/         # Page-level components
-├── App.vue        # Root component
-└── main.ts        # Application entry point
+├── assets/
+│   ├── images/          # Stock images and assets
+│   └── main.css         # Tailwind configuration and base styles
+├── components/
+│   ├── base/            # Reusable UI components
+│   │   ├── BaseButton.vue
+│   │   ├── BaseCard.vue
+│   │   ├── SectionHeader.vue
+│   │   └── ServiceCard.vue
+│   ├── layout/          # Layout components
+│   │   ├── Navbar.vue
+│   │   └── Footer.vue
+│   └── sections/        # Page sections
+│       ├── HeroSection.vue
+│       ├── AboutSection.vue
+│       ├── ServicesSection.vue
+│       ├── ProjectSection.vue
+│       ├── CTASection.vue
+│       ├── FAQSection.vue
+│       ├── TestimonialsSection.vue
+│       └── NewsSection.vue
+├── data/                # Static content data
+│   ├── faq.ts
+│   ├── navigation.ts
+│   ├── news.ts
+│   ├── services.ts
+│   └── testimonials.ts
+├── router/              # Vue Router configuration
+├── views/               # Page-level components
+│   └── HomeView.vue
+├── App.vue
+└── main.ts
 ```
+
+## Color Palette
+- Primary: Slate-800 (dark backgrounds)
+- Accent: Teal-500 (highlights, buttons)
+- Text: Gray scale (50-900)
+- Background: White, Gray-50
 
 ## Development
 - Dev server runs on port 5000
-- Uses `npm run dev` to start development
+- Uses `pnpm run dev` to start development
 
 ## Scripts
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run test:unit` - Run unit tests
-- `npm run test:e2e` - Run e2e tests
-- `npm run lint` - Run linting
-- `npm run format` - Format code
+- `pnpm run dev` - Start development server
+- `pnpm run build` - Build for production
+- `pnpm run preview` - Preview production build
+- `pnpm run lint` - Run linting
+- `pnpm run format` - Format code
 
 ## Deployment
 - Static site deployment
-- Build command: `npm run build`
+- Build command: `pnpm run build`
 - Output directory: `dist`
