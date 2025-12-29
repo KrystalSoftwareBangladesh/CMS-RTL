@@ -1,13 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { navLinks } from '@/data/navigation'
 
 const isMenuOpen = ref(false)
+const isScrolled = ref(false)
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <template>
-  <nav class="fixed top-0 left-0 right-0 z-50 py-4 bg-slate-900/95 backdrop-blur-sm">
+  <nav
+    :class="[
+      'fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300',
+      isScrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+    ]"
+  >
     <div class="container mx-auto px-6">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="flex items-center gap-2">
