@@ -221,6 +221,7 @@
     "title": "Hva Kundene Våre Sier"
   },
   "admin": {
+    "login": { "title": "Admin Innlogging", "subtitle": "Logg inn for å administrere nettstedet", "email": "E-postadresse", "emailPlaceholder": "Skriv inn din e-post", "password": "Passord", "passwordPlaceholder": "Skriv inn passord", "signIn": "Logg inn", "signingIn": "Logger inn...", "errorRequired": "Vennligst skriv inn e-post og passord", "errorInvalid": "Ugyldig e-post eller passord", "hint": "Demo-legitimasjon:" },
     "nav": { "dashboard": "Dashbord", "services": "Tjenester", "news": "Nyheter", "projects": "Prosjekter", "testimonials": "Attester", "faq": "FAQ", "settings": "Innstillinger" },
     "backToSite": "Tilbake til nettstedet",
     "profile": { "admin": "Admin", "viewProfile": "Se profil", "logout": "Logg ut" },

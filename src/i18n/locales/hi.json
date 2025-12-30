@@ -221,6 +221,7 @@
     "title": "हमारे ग्राहक क्या कहते हैं"
   },
   "admin": {
+    "login": { "title": "एडमिन लॉगिन", "subtitle": "अपनी वेबसाइट प्रबंधित करने के लिए साइन इन करें", "email": "ईमेल पता", "emailPlaceholder": "अपना ईमेल दर्ज करें", "password": "पासवर्ड", "passwordPlaceholder": "अपना पासवर्ड दर्ज करें", "signIn": "साइन इन", "signingIn": "साइन इन हो रहा है...", "errorRequired": "कृपया ईमेल और पासवर्ड दोनों दर्ज करें", "errorInvalid": "अमान्य ईमेल या पासवर्ड", "hint": "डेमो क्रेडेंशियल:" },
     "nav": { "dashboard": "डैशबोर्ड", "services": "सेवाएं", "news": "समाचार", "projects": "प्रोजेक्ट्स", "testimonials": "प्रशंसापत्र", "faq": "FAQ", "settings": "सेटिंग्स" },
     "backToSite": "वेबसाइट पर वापस",
     "profile": { "admin": "एडमिन", "viewProfile": "प्रोफ़ाइल देखें", "logout": "लॉग आउट" },

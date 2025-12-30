@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { languages } from '@/i18n'
 
@@ -10,6 +11,7 @@ interface Props {
 
 defineProps<Props>()
 
+const router = useRouter()
 const { locale, t } = useI18n()
 const isLangOpen = ref(false)
 const isProfileOpen = ref(false)
@@ -23,6 +25,12 @@ const changeLanguage = (code: string) => {
   locale.value = code
   localStorage.setItem('locale', code)
   isLangOpen.value = false
+}
+
+const handleLogout = () => {
+  localStorage.removeItem('admin-auth')
+  localStorage.removeItem('admin-user')
+  router.push('/admin/login')
 }
 </script>
 
@@ -91,7 +99,10 @@ const changeLanguage = (code: string) => {
               </svg>
               {{ t('admin.profile.viewProfile') }}
             </button>
-            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3">
+            <button 
+              @click="handleLogout"
+              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3"
+            >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>

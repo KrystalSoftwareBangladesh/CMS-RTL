@@ -221,6 +221,19 @@
     "title": "Ce Que Disent Nos Clients"
   },
   "admin": {
+    "login": {
+      "title": "Connexion Admin",
+      "subtitle": "Connectez-vous pour gérer votre site",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "Entrez votre e-mail",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "signIn": "Se connecter",
+      "signingIn": "Connexion...",
+      "errorRequired": "Veuillez entrer l'e-mail et le mot de passe",
+      "errorInvalid": "E-mail ou mot de passe invalide",
+      "hint": "Identifiants de démonstration:"
+    },
     "nav": {
       "dashboard": "Tableau de bord",
       "services": "Services",

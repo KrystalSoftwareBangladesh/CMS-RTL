@@ -221,6 +221,19 @@
     "title": "What Our Clients Say"
   },
   "admin": {
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Sign in to manage your website",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "signIn": "Sign In",
+      "signingIn": "Signing In...",
+      "errorRequired": "Please enter both email and password",
+      "errorInvalid": "Invalid email or password",
+      "hint": "Demo credentials for testing:"
+    },
     "nav": {
       "dashboard": "Dashboard",
       "services": "Services",
