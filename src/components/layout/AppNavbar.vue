@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { navLinks } from '@/data/navigation'
@@ -10,7 +10,10 @@ const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 const isLangOpen = ref(false)
 
-const currentLang = () => languages.find(l => l.code === locale.value) || languages[0]
+const currentLang = computed(() => {
+  const found = languages.find(l => l.code === locale.value)
+  return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
+})
 
 const changeLanguage = (code: string) => {
   locale.value = code
@@ -65,8 +68,8 @@ onUnmounted(() => {
               @click="isLangOpen = !isLangOpen"
               class="flex items-center gap-2 text-white/80 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/10"
             >
-              <span class="text-lg">{{ currentLang().flag }}</span>
-              <span class="text-sm font-medium">{{ currentLang().code.toUpperCase() }}</span>
+              <span class="text-lg">{{ currentLang.flag }}</span>
+              <span class="text-sm font-medium">{{ currentLang.code.toUpperCase() }}</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -121,7 +124,7 @@ onUnmounted(() => {
           ]"
           @click="isMenuOpen = false"
         >
-          {{ link.name }}
+          {{ t(link.key) }}
         </RouterLink>
         <div class="border-t border-white/20 mt-3 pt-3">
           <p class="text-white/50 text-xs mb-2">Language</p>
