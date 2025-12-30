@@ -24,7 +24,7 @@ onUnmounted(() => {
   <nav
     :class="[
       'fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300',
-      isScrolled ? 'bg-primary/90 backdrop-blur-md shadow-lg' : 'bg-transparent'
+      isScrolled ? 'bg-secondary-light/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
     ]"
   >
     <div class="container mx-auto px-6">
@@ -94,7 +94,7 @@ onUnmounted(() => {
 
 <style scoped>
 .router-link-active-styled.router-link-active {
-  color: #F59E0B;
+  color: var(--color-secondary);
 }
 
 .router-link-active-styled.router-link-active::after {
@@ -104,13 +104,13 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: #F59E0B;
+  background-color: var(--color-secondary);
   border-radius: 9999px;
 }
 
 .router-link-active-styled-mobile.router-link-active {
-  color: #F59E0B;
-  border-left: 2px solid #F59E0B;
+  color: var(--color-secondary);
+  border-left: 2px solid var(--color-secondary);
   padding-left: 0.75rem;
 }
 </style>
