@@ -1,10 +1,22 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { navLinks } from '@/data/navigation'
+import { languages } from '@/i18n'
 
+const { locale } = useI18n()
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
+const isLangOpen = ref(false)
+
+const currentLang = () => languages.find(l => l.code === locale.value) || languages[0]
+
+const changeLanguage = (code: string) => {
+  locale.value = code
+  localStorage.setItem('locale', code)
+  isLangOpen.value = false
+}
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -48,14 +60,38 @@ onUnmounted(() => {
         </div>
 
         <div class="hidden md:flex items-center gap-4">
+          <div class="relative">
+            <button 
+              @click="isLangOpen = !isLangOpen"
+              class="flex items-center gap-2 text-white/80 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/10"
+            >
+              <span class="text-lg">{{ currentLang().flag }}</span>
+              <span class="text-sm font-medium">{{ currentLang().code.toUpperCase() }}</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div 
+              v-if="isLangOpen"
+              class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50"
+            >
+              <button
+                v-for="lang in languages"
+                :key="lang.code"
+                @click="changeLanguage(lang.code)"
+                :class="[
+                  'w-full px-4 py-2 text-left text-sm hover:bg-gray-100 flex items-center gap-3',
+                  locale === lang.code ? 'bg-gray-50 text-secondary font-medium' : 'text-gray-700'
+                ]"
+              >
+                <span class="text-lg">{{ lang.flag }}</span>
+                <span>{{ lang.name }}</span>
+              </button>
+            </div>
+          </div>
           <button class="text-white/80 hover:text-white transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </button>
-          <button class="text-white/80 hover:text-white transition-colors">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </button>
         </div>
@@ -87,6 +123,23 @@ onUnmounted(() => {
         >
           {{ link.name }}
         </RouterLink>
+        <div class="border-t border-white/20 mt-3 pt-3">
+          <p class="text-white/50 text-xs mb-2">Language</p>
+          <div class="flex flex-wrap gap-2">
+            <button
+              v-for="lang in languages"
+              :key="lang.code"
+              @click="changeLanguage(lang.code)"
+              :class="[
+                'px-3 py-1.5 rounded-lg text-sm flex items-center gap-2',
+                locale === lang.code ? 'bg-secondary text-white' : 'bg-white/10 text-white/80'
+              ]"
+            >
+              <span>{{ lang.flag }}</span>
+              <span>{{ lang.code.toUpperCase() }}</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </nav>

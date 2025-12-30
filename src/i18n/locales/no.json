@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Hjem",
+    "about": "Om Oss",
+    "services": "Tjenester",
+    "portfolio": "Portefølje",
+    "news": "Nyheter",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "subtitle": "GLOBALE HANDELSLØSNINGER",
+    "title": "Løft Handel Globalt",
+    "description": "Rising Trading Ltd. forbinder bedrifter på tvers av grenser med pålitelige import-, eksport- og distribusjonstjenester i over 50 land.",
+    "getQuote": "Få et Tilbud",
+    "ourServices": "Våre Tjenester"
+  },
+  "about": {
+    "label": "VÅR HISTORIE",
+    "title": "Bygger Tillit Gjennom Pålitelig Logistikk",
+    "description1": "Grunnlagt i 1998, startet Rising Trading Ltd. som en liten regional transportør med et enkelt oppdrag: levere varer trygt og i tide. I løpet av årene har vi vokst til en global logistikkleverandør.",
+    "description2": "Vår suksess er bygget på tillit, innovasjon og en urokkelig forpliktelse til kundetilfredshet.",
+    "yearsExperience": "Års Erfaring",
+    "countriesServed": "Land Betjent",
+    "teamMembers": "Teammedlemmer"
+  },
+  "services": {
+    "label": "VÅRE TJENESTER",
+    "title": "Omfattende Handelsløsninger",
+    "description": "Vi tilbyr ende-til-ende handels- og logistikktjenester tilpasset dine behov."
+  },
+  "cta": {
+    "title": "Klar til å Utvide Din Globale Rekkevidde?",
+    "description": "Samarbeid med Rising Trading Ltd. for pålitelige og effektive handelsløsninger.",
+    "button": "Kom i Gang i Dag"
+  },
+  "footer": {
+    "tagline": "Løft Handel Globalt. Din pålitelige partner i globale handelsløsninger.",
+    "services": "Tjenester",
+    "resources": "Ressurser",
+    "contactUs": "Kontakt Oss",
+    "subscribe": "Abonner",
+    "copyright": "Copyright 2024 Rising Trading Ltd. Alle rettigheter reservert."
+  },
+  "contact": {
+    "title": "Kontakt Oss",
+    "subtitle": "Ta kontakt med teamet vårt",
+    "name": "Navn",
+    "email": "E-post",
+    "message": "Melding",
+    "send": "Send Melding"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Ofte Stilte Spørsmål"
+  },
+  "testimonials": {
+    "label": "ATTESTER",
+    "title": "Hva Kundene Våre Sier"
+  },
+  "news": {
+    "label": "NYHETER",
+    "title": "Siste Nytt",
+    "readMore": "Les Mer"
+  }
+}

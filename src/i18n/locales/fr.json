@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À Propos",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "news": "Actualités",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "SOLUTIONS COMMERCIALES MONDIALES",
+    "title": "Élevez le Commerce Mondial",
+    "description": "Rising Trading Ltd. connecte les entreprises à travers les frontières avec des services fiables d'importation, d'exportation et de distribution dans plus de 50 pays.",
+    "getQuote": "Obtenir un Devis",
+    "ourServices": "Nos Services"
+  },
+  "about": {
+    "label": "NOTRE HISTOIRE",
+    "title": "Bâtir la Confiance par une Logistique Fiable",
+    "description1": "Fondée en 1998, Rising Trading Ltd. a commencé comme un petit transporteur régional avec une mission simple: livrer les marchandises en toute sécurité et à temps. Au fil des années, nous sommes devenus un fournisseur logistique mondial.",
+    "description2": "Notre succès repose sur la confiance, l'innovation et un engagement indéfectible envers la satisfaction client.",
+    "yearsExperience": "Années d'Expérience",
+    "countriesServed": "Pays Desservis",
+    "teamMembers": "Membres de l'Équipe"
+  },
+  "services": {
+    "label": "NOS SERVICES",
+    "title": "Solutions Commerciales Complètes",
+    "description": "Nous offrons des services de commerce et de logistique de bout en bout adaptés à vos besoins."
+  },
+  "cta": {
+    "title": "Prêt à Étendre Votre Portée Mondiale?",
+    "description": "Associez-vous à Rising Trading Ltd. pour des solutions commerciales fiables et efficaces.",
+    "button": "Commencer Aujourd'hui"
+  },
+  "footer": {
+    "tagline": "Élevez le Commerce Mondial. Votre partenaire de confiance en solutions commerciales.",
+    "services": "Services",
+    "resources": "Ressources",
+    "contactUs": "Contactez-nous",
+    "subscribe": "S'abonner",
+    "copyright": "Copyright 2024 Rising Trading Ltd. Tous droits réservés."
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "subtitle": "Contactez notre équipe",
+    "name": "Nom",
+    "email": "E-mail",
+    "message": "Message",
+    "send": "Envoyer"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Questions Fréquemment Posées"
+  },
+  "testimonials": {
+    "label": "TÉMOIGNAGES",
+    "title": "Ce Que Disent Nos Clients"
+  },
+  "news": {
+    "label": "ACTUALITÉS",
+    "title": "Dernières Nouvelles",
+    "readMore": "Lire la Suite"
+  }
+}

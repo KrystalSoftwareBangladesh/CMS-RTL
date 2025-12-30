@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "portfolio": "Portfolio",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "hero": {
+    "subtitle": "GLOBAL TRADING SOLUTIONS",
+    "title": "Elevate Trade Worldwide",
+    "description": "Rising Trading Ltd. connects businesses across borders with reliable import, export, and distribution services spanning over 50 countries.",
+    "getQuote": "Get a Quote",
+    "ourServices": "Our Services"
+  },
+  "about": {
+    "label": "OUR STORY",
+    "title": "Building Trust Through Reliable Logistics",
+    "description1": "Founded in 1998, Rising Trading Ltd. began as a small regional carrier with a simple mission: deliver goods safely and on time. Over the years, we've grown into a global logistics provider, serving businesses of all sizes across more than 50 countries.",
+    "description2": "Our success is built on a foundation of trust, innovation, and an unwavering commitment to customer satisfaction.",
+    "yearsExperience": "Years of Experience",
+    "countriesServed": "Countries Served",
+    "teamMembers": "Team Members"
+  },
+  "services": {
+    "label": "OUR SERVICES",
+    "title": "Comprehensive Trading Solutions",
+    "description": "We offer end-to-end trading and logistics services tailored to meet your specific business needs."
+  },
+  "cta": {
+    "title": "Ready to Expand Your Global Reach?",
+    "description": "Partner with Rising Trading Ltd. for reliable, efficient, and cost-effective trading solutions.",
+    "button": "Get Started Today"
+  },
+  "footer": {
+    "tagline": "Elevate Trade Worldwide. Your trusted partner in global trading solutions.",
+    "services": "Services",
+    "resources": "Resources",
+    "contactUs": "Contact Us",
+    "subscribe": "Subscribe",
+    "copyright": "Copyright 2024 Rising Trading Ltd. All rights reserved."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with our team",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently Asked Questions"
+  },
+  "testimonials": {
+    "label": "TESTIMONIALS",
+    "title": "What Our Clients Say"
+  },
+  "news": {
+    "label": "NEWS & UPDATES",
+    "title": "Latest News",
+    "readMore": "Read More"
+  }
+}

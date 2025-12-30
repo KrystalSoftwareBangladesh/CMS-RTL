@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "services": "服务",
+    "portfolio": "案例",
+    "news": "新闻",
+    "contact": "联系"
+  },
+  "hero": {
+    "subtitle": "全球贸易解决方案",
+    "title": "提升全球贸易",
+    "description": "Rising Trading Ltd. 通过可靠的进出口和分销服务，连接全球50多个国家的企业。",
+    "getQuote": "获取报价",
+    "ourServices": "我们的服务"
+  },
+  "about": {
+    "label": "我们的故事",
+    "title": "通过可靠的物流建立信任",
+    "description1": "Rising Trading Ltd. 成立于1998年，最初是一家小型区域承运商，使命简单：安全准时地交付货物。多年来，我们已发展成为全球物流供应商。",
+    "description2": "我们的成功建立在信任、创新和对客户满意度的坚定承诺之上。",
+    "yearsExperience": "年经验",
+    "countriesServed": "服务国家",
+    "teamMembers": "团队成员"
+  },
+  "services": {
+    "label": "我们的服务",
+    "title": "全面的贸易解决方案",
+    "description": "我们提供端到端的贸易和物流服务，满足您的特定业务需求。"
+  },
+  "cta": {
+    "title": "准备好扩展您的全球业务了吗？",
+    "description": "与 Rising Trading Ltd. 合作，获得可靠、高效、经济的贸易解决方案。",
+    "button": "立即开始"
+  },
+  "footer": {
+    "tagline": "提升全球贸易。您值得信赖的全球贸易解决方案合作伙伴。",
+    "services": "服务",
+    "resources": "资源",
+    "contactUs": "联系我们",
+    "subscribe": "订阅",
+    "copyright": "版权所有 2024 Rising Trading Ltd. 保留所有权利。"
+  },
+  "contact": {
+    "title": "联系我们",
+    "subtitle": "与我们的团队取得联系",
+    "name": "姓名",
+    "email": "电子邮件",
+    "message": "留言",
+    "send": "发送消息"
+  },
+  "faq": {
+    "label": "常见问题",
+    "title": "常见问题解答"
+  },
+  "testimonials": {
+    "label": "客户评价",
+    "title": "客户怎么说"
+  },
+  "news": {
+    "label": "新闻动态",
+    "title": "最新消息",
+    "readMore": "阅读更多"
+  }
+}
