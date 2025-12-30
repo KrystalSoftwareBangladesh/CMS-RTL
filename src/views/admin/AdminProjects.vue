@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
@@ -7,13 +7,13 @@ import BaseButton from '@/components/base/BaseButton.vue'
 
 const { t } = useI18n()
 
-const columns = [
+const columns = computed(() => [
   { key: 'title', label: t('admin.projects.columns.title') },
   { key: 'category', label: t('admin.projects.columns.category') },
   { key: 'deliveries', label: t('admin.projects.columns.deliveries') },
   { key: 'countries', label: t('admin.projects.columns.countries') },
   { key: 'status', label: t('admin.projects.columns.status') }
-]
+])
 
 const projects = ref([
   { id: 1, title: 'Global Supply Chain Optimization', category: 'Logistics', deliveries: '50,000+', countries: 12, status: 'Active' },

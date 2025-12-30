@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
@@ -7,13 +7,13 @@ import BaseButton from '@/components/base/BaseButton.vue'
 
 const { t } = useI18n()
 
-const columns = [
+const columns = computed(() => [
   { key: 'name', label: t('admin.testimonials.columns.name') },
   { key: 'company', label: t('admin.testimonials.columns.company') },
   { key: 'rating', label: t('admin.testimonials.columns.rating') },
   { key: 'status', label: t('admin.testimonials.columns.status') },
   { key: 'createdAt', label: t('admin.testimonials.columns.createdAt') }
-]
+])
 
 const testimonials = ref([
   { id: 1, name: 'Michael Chen', company: 'Tech Innovations Ltd.', rating: 5, status: 'Published', createdAt: '2024-12-18' },

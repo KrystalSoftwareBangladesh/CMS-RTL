@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
@@ -7,13 +7,13 @@ import BaseButton from '@/components/base/BaseButton.vue'
 
 const { t } = useI18n()
 
-const columns = [
+const columns = computed(() => [
   { key: 'title', label: t('admin.news.columns.title') },
   { key: 'category', label: t('admin.news.columns.category') },
   { key: 'author', label: t('admin.news.columns.author') },
   { key: 'status', label: t('admin.news.columns.status') },
   { key: 'publishedAt', label: t('admin.news.columns.publishedAt') }
-]
+])
 
 const articles = ref([
   { id: 1, title: 'The Future of Sustainable Logistics', category: 'Sustainability', author: 'Admin', status: 'Published', publishedAt: '2024-12-20' },

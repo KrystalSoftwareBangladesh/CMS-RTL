@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
@@ -7,12 +7,12 @@ import BaseButton from '@/components/base/BaseButton.vue'
 
 const { t } = useI18n()
 
-const columns = [
+const columns = computed(() => [
   { key: 'question', label: t('admin.faq.columns.question') },
   { key: 'category', label: t('admin.faq.columns.category') },
   { key: 'order', label: t('admin.faq.columns.order') },
   { key: 'status', label: t('admin.faq.columns.status') }
-]
+])
 
 const faqs = ref([
   { id: 1, question: 'What shipping methods do you offer?', category: 'Shipping', order: 1, status: 'Published' },
