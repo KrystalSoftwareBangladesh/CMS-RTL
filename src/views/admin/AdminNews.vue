@@ -72,7 +72,7 @@ const handleDelete = (item: Record<string, unknown>) => {
         <span 
           :class="[
             'px-3 py-1 rounded-full text-xs font-medium',
-            value === 'Published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+            (value as string) === 'Published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
           ]"
         >
           {{ value }}
