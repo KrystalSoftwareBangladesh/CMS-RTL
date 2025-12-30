@@ -6,6 +6,14 @@ import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 const route = useRoute()
 
+defineProps<{
+  collapsed: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'toggle'): void
+}>()
+
 const menuItems = [
   { path: '/admin', icon: 'dashboard', key: 'admin.nav.dashboard', exact: true },
   { path: '/admin/services', icon: 'services', key: 'admin.nav.services' },
@@ -35,14 +43,33 @@ const iconPaths = computed(() => ({
 </script>
 
 <template>
-  <aside class="w-64 bg-primary min-h-screen fixed left-0 top-0 z-40">
-    <div class="p-6 border-b border-white/10">
-      <RouterLink to="/" class="flex items-center gap-3">
-        <img src="/logo.png" alt="Rising Trading Ltd." class="h-10" />
+  <aside 
+    :class="[
+      'bg-primary min-h-screen fixed left-0 top-0 z-40 transition-all duration-300',
+      collapsed ? 'w-20' : 'w-64'
+    ]"
+  >
+    <div class="p-4 border-b border-white/10 flex items-center justify-between">
+      <RouterLink to="/" class="flex items-center gap-3 overflow-hidden">
+        <img src="/logo.png" alt="Rising Trading Ltd." :class="['h-10 flex-shrink-0', collapsed ? 'mx-auto' : '']" />
       </RouterLink>
+      <button 
+        @click="emit('toggle')"
+        class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+        :class="collapsed ? 'absolute right-2 top-4' : ''"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path 
+            stroke-linecap="round" 
+            stroke-linejoin="round" 
+            stroke-width="2" 
+            :d="collapsed ? 'M13 5l7 7-7 7M5 5l7 7-7 7' : 'M11 19l-7-7 7-7m8 14l-7-7 7-7'" 
+          />
+        </svg>
+      </button>
     </div>
     
-    <nav class="p-4">
+    <nav class="p-2">
       <ul class="space-y-1">
         <li v-for="item in menuItems" :key="item.path">
           <RouterLink
@@ -51,27 +78,33 @@ const iconPaths = computed(() => ({
               'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
               isActive(item) 
                 ? 'bg-secondary text-white' 
-                : 'text-white/70 hover:bg-white/10 hover:text-white'
+                : 'text-white/70 hover:bg-white/10 hover:text-white',
+              collapsed ? 'justify-center' : ''
             ]"
+            :title="collapsed ? t(item.key) : undefined"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="iconPaths[item.icon as keyof typeof iconPaths]" />
             </svg>
-            <span class="font-medium">{{ t(item.key) }}</span>
+            <span v-if="!collapsed" class="font-medium">{{ t(item.key) }}</span>
           </RouterLink>
         </li>
       </ul>
     </nav>
     
-    <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-white/10">
+    <div class="absolute bottom-0 left-0 right-0 p-2 border-t border-white/10">
       <RouterLink 
         to="/" 
-        class="flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white transition-colors"
+        :class="[
+          'flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white transition-colors rounded-lg',
+          collapsed ? 'justify-center' : ''
+        ]"
+        :title="collapsed ? t('admin.backToSite') : undefined"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
-        <span class="font-medium">{{ t('admin.backToSite') }}</span>
+        <span v-if="!collapsed" class="font-medium">{{ t('admin.backToSite') }}</span>
       </RouterLink>
     </div>
   </aside>
