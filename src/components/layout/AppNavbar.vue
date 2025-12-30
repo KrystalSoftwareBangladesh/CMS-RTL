@@ -94,7 +94,7 @@ onUnmounted(() => {
 
 <style scoped>
 .router-link-active-styled.router-link-active {
-  color: var(--color-secondary);
+  color: #F59E0B;
 }
 
 .router-link-active-styled.router-link-active::after {
@@ -104,13 +104,13 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   height: 2px;
-  background-color: var(--color-secondary);
+  background-color: #F59E0B;
   border-radius: 9999px;
 }
 
 .router-link-active-styled-mobile.router-link-active {
-  color: var(--color-secondary);
-  border-left: 2px solid var(--color-secondary);
+  color: #F59E0B;
+  border-left: 2px solid #F59E0B;
   padding-left: 0.75rem;
 }
 </style>
