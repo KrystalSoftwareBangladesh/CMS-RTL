@@ -62,12 +62,13 @@ src/
 │   └── testimonials.ts
 ├── i18n/                # Internationalization
 │   ├── index.ts         # i18n configuration
-│   └── locales/         # Translation files
+│   └── locales/         # Translation files (200+ keys per language)
 │       ├── en.json      # English
 │       ├── fr.json      # French
 │       ├── no.json      # Norwegian
 │       ├── hi.json      # Hindi
-│       └── zh.json      # Chinese
+│       ├── zh.json      # Chinese
+│       └── bn.json      # Bengali
 ├── router/              # Vue Router configuration
 ├── views/               # Page-level components
 │   ├── HomeView.vue
@@ -105,7 +106,22 @@ All colors are defined in `src/assets/main.css` using CSS variables:
 - Build command: `npm run build`
 - Output directory: `dist`
 
+## Translation Structure
+All translations are organized by sections with 200+ keys per language:
+- **nav**: Navigation menu items
+- **hero**: Homepage hero section
+- **about**: About page and section content
+- **services**: Services page with all service types and descriptions
+- **portfolio**: Portfolio page with project titles, descriptions, and stats
+- **news**: News page with article titles, excerpts, and newsletter section
+- **contact**: Contact page with form labels and location info
+- **cta**: Call-to-action sections
+- **footer**: Footer links and content
+- **faq**: All 5 FAQ questions and answers
+- **testimonials**: Testimonial section labels
+
 ## Design Patterns
 - Active navbar indicators only show when scrolled (frosted glass state)
 - Consistent component reuse across all pages (BaseCard, BaseButton, SectionHeader)
 - All section components use theme colors for consistency
+- Dynamic translations via useI18n() composable in all Vue components

@@ -1,33 +1,18 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import FAQSection from '@/components/sections/FAQSection.vue'
 import truckImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
 
-const contactInfo = [
-  {
-    icon: 'location',
-    title: 'Visit Us',
-    lines: ['Dhaka, Bangladesh', 'Business District', 'Rising Trading Ltd.']
-  },
-  {
-    icon: 'phone',
-    title: 'Call Us',
-    lines: ['+880 1XXX-XXXXXX', '+880 2XXX-XXXXXX', 'Sun-Thu: 9AM - 6PM']
-  },
-  {
-    icon: 'email',
-    title: 'Email Us',
-    lines: ['info@risingtradingltd.com', 'support@risingtradingltd.com', 'sales@risingtradingltd.com']
-  }
-]
+const { t } = useI18n()
 
 const offices = [
-  { city: 'Dhaka', country: 'Bangladesh', type: 'Headquarters' },
-  { city: 'Chittagong', country: 'Bangladesh', type: 'Regional Office' },
-  { city: 'Singapore', country: 'Asia', type: 'Trade Partner' },
-  { city: 'Dubai', country: 'UAE', type: 'Trade Partner' }
+  { city: 'Dhaka', country: 'Bangladesh', typeKey: 'headquarters' },
+  { city: 'Chittagong', country: 'Bangladesh', typeKey: 'regionalOffice' },
+  { city: 'Singapore', country: 'Asia', typeKey: 'tradePartner' },
+  { city: 'Dubai', country: 'UAE', typeKey: 'tradePartner' }
 ]
 </script>
 
@@ -41,9 +26,9 @@ const offices = [
         <div class="absolute inset-0 bg-primary-dark/80"></div>
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Contact Us</h1>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('contact.pageTitle') }}</h1>
         <p class="text-white/70 text-lg max-w-2xl mx-auto">
-          Get in touch with our team for quotes, support, or partnership inquiries
+          {{ t('contact.pageSubtitle') }}
         </p>
       </div>
     </section>
@@ -51,27 +36,44 @@ const offices = [
     <section class="py-20 bg-white">
       <div class="container mx-auto px-6">
         <div class="grid lg:grid-cols-3 gap-8 mb-16">
-          <BaseCard
-            v-for="info in contactInfo"
-            :key="info.title"
-            :hover="true"
-            class="text-center"
-          >
+          <BaseCard :hover="true" class="text-center">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
-              <svg v-if="info.icon === 'location'" class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <svg v-else-if="info.icon === 'phone'" class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('contact.visitUs') }}</h3>
+            <div class="space-y-1">
+              <p class="text-gray-600 text-sm">Dhaka, Bangladesh</p>
+              <p class="text-gray-600 text-sm">Business District</p>
+              <p class="text-gray-600 text-sm">Rising Trading Ltd.</p>
+            </div>
+          </BaseCard>
+          <BaseCard :hover="true" class="text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
+              <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              <svg v-else class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            </div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('contact.callUs') }}</h3>
+            <div class="space-y-1">
+              <p class="text-gray-600 text-sm">+880 1XXX-XXXXXX</p>
+              <p class="text-gray-600 text-sm">+880 2XXX-XXXXXX</p>
+              <p class="text-gray-600 text-sm">Sun-Thu: 9AM - 6PM</p>
+            </div>
+          </BaseCard>
+          <BaseCard :hover="true" class="text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-secondary/10 flex items-center justify-center">
+              <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ info.title }}</h3>
+            <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('contact.emailUs') }}</h3>
             <div class="space-y-1">
-              <p v-for="line in info.lines" :key="line" class="text-gray-600 text-sm">{{ line }}</p>
+              <p class="text-gray-600 text-sm">info@risingtradingltd.com</p>
+              <p class="text-gray-600 text-sm">support@risingtradingltd.com</p>
+              <p class="text-gray-600 text-sm">sales@risingtradingltd.com</p>
             </div>
           </BaseCard>
         </div>
@@ -79,15 +81,15 @@ const offices = [
         <div class="grid lg:grid-cols-2 gap-12">
           <div>
             <SectionHeader
-              label="Send a Message"
-              title="Get in Touch"
-              subtitle="Fill out the form and our team will get back to you within 24 hours."
+              :label="t('contact.sendMessage')"
+              :title="t('contact.getInTouch')"
+              :subtitle="t('contact.formSubtitle')"
               :centered="false"
             />
             <form class="space-y-6">
               <div class="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('contact.firstName') }}</label>
                   <input
                     type="text"
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
@@ -95,7 +97,7 @@ const offices = [
                   />
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('contact.lastName') }}</label>
                   <input
                     type="text"
                     class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
@@ -104,7 +106,7 @@ const offices = [
                 </div>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('contact.email') }}</label>
                 <input
                   type="email"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
@@ -112,7 +114,7 @@ const offices = [
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('contact.phone') }}</label>
                 <input
                   type="tel"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent"
@@ -120,36 +122,35 @@ const offices = [
                 />
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Service Interested In</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('contact.serviceInterested') }}</label>
                 <select class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent">
-                  <option value="">Select a service</option>
-                  <option value="road">Road Freight</option>
-                  <option value="air">Air Freight</option>
-                  <option value="sea">Sea Freight</option>
-                  <option value="rail">Rail Freight</option>
-                  <option value="warehouse">Warehousing</option>
-                  <option value="other">Other</option>
+                  <option value="">{{ t('contact.selectService') }}</option>
+                  <option value="road">{{ t('services.roadFreight') }}</option>
+                  <option value="air">{{ t('services.airFreight') }}</option>
+                  <option value="sea">{{ t('services.seaFreight') }}</option>
+                  <option value="rail">{{ t('services.railFreight') }}</option>
+                  <option value="warehouse">{{ t('services.warehousing') }}</option>
                 </select>
               </div>
               <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">{{ t('contact.message') }}</label>
                 <textarea
                   rows="5"
                   class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent resize-none"
-                  placeholder="Tell us about your logistics needs..."
+                  :placeholder="t('contact.messagePlaceholder')"
                 ></textarea>
               </div>
               <BaseButton variant="secondary" size="lg">
-                Send Message
+                {{ t('contact.send') }}
               </BaseButton>
             </form>
           </div>
 
           <div>
             <SectionHeader
-              label="Our Locations"
-              title="Global Offices"
-              subtitle="We have offices around the world to serve you better."
+              :label="t('contact.locationsLabel')"
+              :title="t('contact.locationsTitle')"
+              :subtitle="t('contact.locationsSubtitle')"
               :centered="false"
             />
             <div class="space-y-4 mb-8">
@@ -168,7 +169,7 @@ const offices = [
                     </div>
                     <div>
                       <h4 class="font-semibold text-gray-900">{{ office.city }}, {{ office.country }}</h4>
-                      <p class="text-sm text-gray-500">{{ office.type }}</p>
+                      <p class="text-sm text-gray-500">{{ t(`contact.${office.typeKey}`) }}</p>
                     </div>
                   </div>
                   <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
