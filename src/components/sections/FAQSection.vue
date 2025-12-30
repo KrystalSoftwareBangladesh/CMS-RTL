@@ -1,9 +1,34 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
-import { faqs } from '@/data/faq'
+
+const { t } = useI18n()
 
 const openIndex = ref<number | null>(0)
+
+const faqs = computed(() => [
+  {
+    question: t('faq.question1'),
+    answer: t('faq.answer1')
+  },
+  {
+    question: t('faq.question2'),
+    answer: t('faq.answer2')
+  },
+  {
+    question: t('faq.question3'),
+    answer: t('faq.answer3')
+  },
+  {
+    question: t('faq.question4'),
+    answer: t('faq.answer4')
+  },
+  {
+    question: t('faq.question5'),
+    answer: t('faq.answer5')
+  }
+])
 
 const toggleFAQ = (index: number) => {
   openIndex.value = openIndex.value === index ? null : index
@@ -14,7 +39,7 @@ const toggleFAQ = (index: number) => {
   <section class="py-20 bg-white">
     <div class="container mx-auto px-6">
       <SectionHeader
-        title="Frequently Asked Question"
+        :title="t('faq.title')"
         :centered="true"
       />
 

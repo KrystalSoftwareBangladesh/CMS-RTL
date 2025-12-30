@@ -1,15 +1,18 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import { testimonials } from '@/data/testimonials'
 import avatarImage from '@/assets/images/professional_busines_c8bc027d.jpg'
+
+const { t } = useI18n()
 </script>
 
 <template>
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-6">
       <SectionHeader
-        label="Testimonials"
-        title="What Our Customer Say"
+        :label="t('testimonials.label')"
+        :title="t('testimonials.title')"
         :centered="true"
       />
 

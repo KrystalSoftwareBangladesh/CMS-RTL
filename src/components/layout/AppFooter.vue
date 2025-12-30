@@ -1,19 +1,7 @@
 <script setup lang="ts">
-const services = [
-  'Import & Export',
-  'Wholesale Trade',
-  'Supply Chain',
-  'Distribution',
-  'Logistics'
-]
+import { useI18n } from 'vue-i18n'
 
-const resources = [
-  'Documentation',
-  'About us',
-  'News & Updates',
-  'Contact',
-  'Partner with us'
-]
+const { t } = useI18n()
 
 const contactInfo = {
   phone: '+880 1XXX-XXXXXX',
@@ -30,7 +18,7 @@ const contactInfo = {
             <img src="/logo.png" alt="Rising Trading Ltd." class="h-12" />
           </div>
           <p class="text-gray-600 text-sm mb-6">
-            Elevate Trade Worldwide. Your trusted partner in global trading solutions.
+            {{ t('footer.tagline') }}
           </p>
           <div class="flex flex-col gap-2">
             <input
@@ -39,35 +27,35 @@ const contactInfo = {
               class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-secondary"
             />
             <button class="bg-secondary text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-secondary-light transition-colors w-full">
-              Subscribe
+              {{ t('footer.subscribe') }}
             </button>
           </div>
         </div>
 
         <div>
-          <h4 class="font-semibold text-gray-900 mb-4">Services</h4>
+          <h4 class="font-semibold text-gray-900 mb-4">{{ t('footer.services') }}</h4>
           <ul class="space-y-3">
-            <li v-for="service in services" :key="service">
-              <a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">
-                {{ service }}
-              </a>
-            </li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.importExport') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.wholesaleTrade') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.supplyChain') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.distribution') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.logistics') }}</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="font-semibold text-gray-900 mb-4">Resources</h4>
+          <h4 class="font-semibold text-gray-900 mb-4">{{ t('footer.resources') }}</h4>
           <ul class="space-y-3">
-            <li v-for="resource in resources" :key="resource">
-              <a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">
-                {{ resource }}
-              </a>
-            </li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.documentation') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.aboutUs') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.newsUpdates') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.contact') }}</a></li>
+            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.partnerWithUs') }}</a></li>
           </ul>
         </div>
 
         <div>
-          <h4 class="font-semibold text-gray-900 mb-4">Contact Us</h4>
+          <h4 class="font-semibold text-gray-900 mb-4">{{ t('footer.contactUs') }}</h4>
           <ul class="space-y-3">
             <li class="text-gray-600 text-sm">{{ contactInfo.phone }}</li>
             <li class="text-gray-600 text-sm">{{ contactInfo.email }}</li>
@@ -80,7 +68,7 @@ const contactInfo = {
       <div class="container mx-auto px-6 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <p class="text-gray-500 text-sm">
-            Copyright 2024 Rising Trading Ltd. All rights reserved.
+            {{ t('footer.copyright') }}
           </p>
           <div class="flex items-center gap-4">
             <a href="#" class="text-gray-400 hover:text-secondary transition-colors">

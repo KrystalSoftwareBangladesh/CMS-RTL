@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
@@ -8,9 +9,11 @@ import truckImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 import yellowTruckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 
+const { t } = useI18n()
+
 const featuredArticle = {
-  title: 'The Future of Sustainable Logistics: Green Transportation Solutions',
-  excerpt: 'Discover how the logistics industry is transforming with eco-friendly practices, electric vehicles, and carbon-neutral shipping options that are reshaping global trade.',
+  titleKey: 'news.featuredTitle',
+  excerptKey: 'news.featuredExcerpt',
   author: 'Sarah Mitchell',
   date: 'December 28, 2024',
   category: 'Sustainability',
@@ -21,8 +24,8 @@ const featuredArticle = {
 const articles = [
   {
     id: 1,
-    title: 'New Design for Cargo and Warehouse Optimization',
-    excerpt: 'Innovative warehouse layouts are revolutionizing storage efficiency and reducing operational costs.',
+    titleKey: 'news.article1Title',
+    excerptKey: 'news.article1Excerpt',
     author: 'Hamish Slavit',
     date: 'December 24, 2024',
     category: 'Warehousing',
@@ -31,8 +34,8 @@ const articles = [
   },
   {
     id: 2,
-    title: 'Outports Launches 10 New Charter Flights',
-    excerpt: 'Expanding air freight capacity to meet growing demand for time-sensitive deliveries.',
+    titleKey: 'news.article2Title',
+    excerptKey: 'news.article2Excerpt',
     author: 'Kylie Brown',
     date: 'December 22, 2024',
     category: 'Air Freight',
@@ -41,8 +44,8 @@ const articles = [
   },
   {
     id: 3,
-    title: 'How to Guarantee Transport Transit Time',
-    excerpt: 'Best practices for ensuring on-time deliveries and managing customer expectations.',
+    titleKey: 'news.article3Title',
+    excerptKey: 'news.article3Excerpt',
     author: 'Zayn Ghani',
     date: 'December 20, 2024',
     category: 'Operations',
@@ -51,8 +54,8 @@ const articles = [
   },
   {
     id: 4,
-    title: 'Digital Transformation in Supply Chain Management',
-    excerpt: 'How AI and IoT are revolutionizing logistics tracking and inventory management.',
+    titleKey: 'news.article4Title',
+    excerptKey: 'news.article4Excerpt',
     author: 'Emma Watson',
     date: 'December 18, 2024',
     category: 'Technology',
@@ -61,8 +64,8 @@ const articles = [
   },
   {
     id: 5,
-    title: 'Global Shipping Trends for 2025',
-    excerpt: 'Key predictions and market insights for the upcoming year in international logistics.',
+    titleKey: 'news.article5Title',
+    excerptKey: 'news.article5Excerpt',
     author: 'Michael Chen',
     date: 'December 15, 2024',
     category: 'Industry',
@@ -71,8 +74,8 @@ const articles = [
   },
   {
     id: 6,
-    title: 'Last-Mile Delivery Innovations',
-    excerpt: 'New technologies and strategies improving the final leg of the delivery journey.',
+    titleKey: 'news.article6Title',
+    excerptKey: 'news.article6Excerpt',
     author: 'Lisa Park',
     date: 'December 12, 2024',
     category: 'Technology',
@@ -94,9 +97,9 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
         <div class="absolute inset-0 bg-primary-dark/80"></div>
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">News & Insights</h1>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('news.pageTitle') }}</h1>
         <p class="text-white/70 text-lg max-w-2xl mx-auto">
-          Stay updated with the latest trends, insights, and updates from the logistics industry
+          {{ t('news.pageSubtitle') }}
         </p>
       </div>
     </section>
@@ -108,19 +111,19 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
             <div class="relative h-64 lg:h-auto">
               <img
                 :src="featuredArticle.image"
-                :alt="featuredArticle.title"
+                :alt="t(featuredArticle.titleKey)"
                 class="w-full h-full object-cover rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none"
               />
               <div class="absolute top-4 left-4">
                 <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
-                  Featured
+                  {{ t('news.featured') }}
                 </span>
               </div>
             </div>
             <div class="p-8 lg:p-12 flex flex-col justify-center">
               <span class="text-secondary text-sm font-medium mb-2">{{ featuredArticle.category }}</span>
-              <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">{{ featuredArticle.title }}</h2>
-              <p class="text-gray-600 mb-6">{{ featuredArticle.excerpt }}</p>
+              <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">{{ t(featuredArticle.titleKey) }}</h2>
+              <p class="text-gray-600 mb-6">{{ t(featuredArticle.excerptKey) }}</p>
               <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
                 <span>{{ featuredArticle.author }}</span>
                 <span>•</span>
@@ -130,7 +133,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
               </div>
               <div>
                 <BaseButton variant="secondary">
-                  Read Article
+                  {{ t('news.readArticle') }}
                 </BaseButton>
               </div>
             </div>
@@ -142,9 +145,9 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
     <section class="py-20 bg-gray-50">
       <div class="container mx-auto px-6">
         <SectionHeader
-          label="Latest Articles"
-          title="Industry News & Updates"
-          subtitle="Explore our latest insights on logistics, technology, and industry trends."
+          :label="t('news.latestArticles')"
+          :title="t('news.industryNews')"
+          :subtitle="t('news.industrySubtitle')"
         />
 
         <div class="flex flex-wrap justify-center gap-3 mb-12">
@@ -167,7 +170,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
             <div class="relative h-48 overflow-hidden rounded-t-2xl">
               <img
                 :src="article.image"
-                :alt="article.title"
+                :alt="t(article.titleKey)"
                 class="w-full h-full object-cover"
               />
               <div class="absolute top-4 left-4">
@@ -177,8 +180,8 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
               </div>
             </div>
             <div class="p-6">
-              <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ article.title }}</h3>
-              <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ article.excerpt }}</p>
+              <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ t(article.titleKey) }}</h3>
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ t(article.excerptKey) }}</p>
               <div class="flex items-center justify-between text-sm text-gray-500">
                 <span>{{ article.author }}</span>
                 <span>{{ article.readTime }}</span>
@@ -189,7 +192,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
 
         <div class="text-center mt-12">
           <BaseButton variant="secondary" size="lg">
-            Load More Articles
+            {{ t('news.loadMore') }}
           </BaseButton>
         </div>
       </div>
@@ -199,19 +202,19 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
       <div class="container mx-auto px-6">
         <div class="max-w-2xl mx-auto text-center">
           <SectionHeader
-            label="Newsletter"
-            title="Stay Informed"
-            subtitle="Subscribe to our newsletter for the latest logistics news and insights delivered to your inbox."
+            :label="t('news.newsletter')"
+            :title="t('news.stayInformed')"
+            :subtitle="t('news.newsletterSubtitle')"
             :light="true"
           />
           <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
             <input
               type="email"
-              placeholder="Enter your email"
+              :placeholder="t('news.enterEmail')"
               class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-secondary"
             />
             <BaseButton variant="secondary">
-              Subscribe
+              {{ t('footer.subscribe') }}
             </BaseButton>
           </div>
         </div>

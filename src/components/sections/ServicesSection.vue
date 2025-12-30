@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import ServiceCard from '@/components/base/ServiceCard.vue'
-import { services } from '@/data/services'
 import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -24,7 +26,7 @@ import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
               </svg>
               <div>
                 <div class="text-2xl font-bold">2.5K+</div>
-                <div class="text-sm text-white/80">Happy Clients</div>
+                <div class="text-sm text-white/80">{{ t('portfolio.happyClients') }}</div>
               </div>
             </div>
           </div>
@@ -32,19 +34,32 @@ import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 
         <div>
           <SectionHeader
-            label="Our Services"
-            title="Your Time Is Saved Via Logistic And Transportation Solutions."
-            subtitle="Speed Supply has various services and can be chosen according to our client's requirement."
+            :label="t('services.sectionLabel')"
+            :title="t('services.sectionTitle')"
+            :subtitle="t('services.sectionSubtitle')"
             :centered="false"
           />
 
           <div class="space-y-8">
             <ServiceCard
-              v-for="service in services"
-              :key="service.number"
-              :number="service.number"
-              :title="service.title"
-              :description="service.description"
+              number="01"
+              :title="t('services.roadFreight')"
+              :description="t('services.roadFreightDesc')"
+            />
+            <ServiceCard
+              number="02"
+              :title="t('services.airFreight')"
+              :description="t('services.airFreightDesc')"
+            />
+            <ServiceCard
+              number="03"
+              :title="t('services.seaFreight')"
+              :description="t('services.seaFreightDesc')"
+            />
+            <ServiceCard
+              number="04"
+              :title="t('services.railFreight')"
+              :description="t('services.railFreightDesc')"
             />
           </div>
         </div>

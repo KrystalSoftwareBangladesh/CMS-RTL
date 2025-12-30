@@ -8,8 +8,21 @@ A Vue 3 website for Rising Trading Ltd. - a global trading company based in Bang
 - **Build Tool**: Vite 7
 - **Styling**: Tailwind CSS v4 with custom theme
 - **Routing**: Vue Router 4
+- **i18n**: vue-i18n for multi-language support
 - **Language**: TypeScript
 - **Fonts**: Inter (body), Poppins (headings)
+
+## Multi-Language Support
+The website supports 6 languages for the countries served:
+- **English** (USA, UK, Canada, Australia)
+- **French** (Canada)
+- **Norwegian** (Norway)
+- **Hindi** (India)
+- **Chinese** (China)
+- **Bengali** (Bangladesh)
+
+Translation files are in `src/i18n/locales/`. Use `useI18n()` and `t('key')` to translate text.
+Language selection is persisted to localStorage.
 
 ## Brand Colors (based on logo)
 - **Primary (Navy)**: #2D3A5C - Main brand color for headers, dark sections
@@ -47,6 +60,15 @@ src/
 │   ├── news.ts
 │   ├── services.ts
 │   └── testimonials.ts
+├── i18n/                # Internationalization
+│   ├── index.ts         # i18n configuration
+│   └── locales/         # Translation files (200+ keys per language)
+│       ├── en.json      # English
+│       ├── fr.json      # French
+│       ├── no.json      # Norwegian
+│       ├── hi.json      # Hindi
+│       ├── zh.json      # Chinese
+│       └── bn.json      # Bengali
 ├── router/              # Vue Router configuration
 ├── views/               # Page-level components
 │   ├── HomeView.vue
@@ -84,7 +106,22 @@ All colors are defined in `src/assets/main.css` using CSS variables:
 - Build command: `npm run build`
 - Output directory: `dist`
 
+## Translation Structure
+All translations are organized by sections with 200+ keys per language:
+- **nav**: Navigation menu items
+- **hero**: Homepage hero section
+- **about**: About page and section content
+- **services**: Services page with all service types and descriptions
+- **portfolio**: Portfolio page with project titles, descriptions, and stats
+- **news**: News page with article titles, excerpts, and newsletter section
+- **contact**: Contact page with form labels and location info
+- **cta**: Call-to-action sections
+- **footer**: Footer links and content
+- **faq**: All 5 FAQ questions and answers
+- **testimonials**: Testimonial section labels
+
 ## Design Patterns
 - Active navbar indicators only show when scrolled (frosted glass state)
 - Consistent component reuse across all pages (BaseCard, BaseButton, SectionHeader)
 - All section components use theme colors for consistency
+- Dynamic translations via useI18n() composable in all Vue components

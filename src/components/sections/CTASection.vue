@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseButton from '@/components/base/BaseButton.vue'
 import heroImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -15,13 +18,13 @@ import heroImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
     <div class="relative z-10 container mx-auto px-6">
       <div class="max-w-2xl">
         <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
-          Let's Connect With Us And Work Together
+          {{ t('cta.title') }}
         </h2>
         <p class="text-white/70 mb-8">
-          Tell us your requirement, we will work on it and give you best result.
+          {{ t('cta.description') }}
         </p>
         <BaseButton variant="outline" size="md">
-          Contact Us
+          {{ t('cta.button') }}
         </BaseButton>
       </div>
     </div>

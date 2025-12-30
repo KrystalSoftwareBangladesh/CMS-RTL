@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { partners } from '@/data/navigation'
 import heroImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
 
+const { t } = useI18n()
 const slides = ['01', '02', '03']
 const currentSlide = 1
 </script>
@@ -20,14 +22,13 @@ const currentSlide = 1
       <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
         <div>
           <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-            <span class="italic">Elevate Trade</span><br />
-            Worldwide
+            <span class="italic">{{ t('hero.title') }}</span>
           </h1>
           <p class="text-white/70 text-lg mb-8 max-w-md">
-            Your trusted partner for global trading solutions. We deliver excellence in import, export, and distribution services.
+            {{ t('hero.description') }}
           </p>
           <BaseButton variant="primary" size="md">
-            Learn More
+            {{ t('hero.getQuote') }}
             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>

@@ -1,15 +1,15 @@
 export interface NavLink {
-  name: string
+  key: string
   path: string
 }
 
 export const navLinks: NavLink[] = [
-  { name: 'Home', path: '/' },
-  { name: 'About Us', path: '/about' },
-  { name: 'Services', path: '/services' },
-  { name: 'Portfolio', path: '/portfolio' },
-  { name: 'News', path: '/news' },
-  { name: 'Contact', path: '/contact' }
+  { key: 'nav.home', path: '/' },
+  { key: 'nav.about', path: '/about' },
+  { key: 'nav.services', path: '/services' },
+  { key: 'nav.portfolio', path: '/portfolio' },
+  { key: 'nav.news', path: '/news' },
+  { key: 'nav.contact', path: '/contact' }
 ]
 
 export const partners: string[] = ['PARADIE', 'Homey', 'DIAMOND', 'Minty', 'Product']
