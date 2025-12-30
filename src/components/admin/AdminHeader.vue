@@ -27,7 +27,7 @@ const changeLanguage = (code: string) => {
 </script>
 
 <template>
-  <header class="bg-white border-b border-gray-200 px-8 py-4">
+  <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-30">
     <div class="flex items-center justify-between">
       <div>
         <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
