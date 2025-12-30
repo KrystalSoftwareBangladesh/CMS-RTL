@@ -45,6 +45,12 @@ src/
 │   ├── layout/          # Layout components
 │   │   ├── AppNavbar.vue   # Uses company logo
 │   │   └── AppFooter.vue   # Uses company logo
+│   ├── admin/           # Admin panel components
+│   │   ├── AdminLayout.vue    # Main admin layout wrapper
+│   │   ├── AdminSidebar.vue   # Navigation sidebar
+│   │   ├── AdminHeader.vue    # Header with language/profile
+│   │   ├── StatCard.vue       # Dashboard statistics cards
+│   │   └── DataTable.vue      # Reusable data table with CRUD actions
 │   └── sections/        # Page sections
 │       ├── HeroSection.vue
 │       ├── AboutSection.vue
@@ -76,7 +82,15 @@ src/
 │   ├── ServicesView.vue
 │   ├── PortfolioView.vue
 │   ├── NewsView.vue
-│   └── ContactView.vue
+│   ├── ContactView.vue
+│   └── admin/           # Admin panel views
+│       ├── AdminDashboard.vue
+│       ├── AdminServices.vue
+│       ├── AdminNews.vue
+│       ├── AdminProjects.vue
+│       ├── AdminTestimonials.vue
+│       ├── AdminFAQ.vue
+│       └── AdminSettings.vue
 ├── App.vue
 └── main.ts
 public/
@@ -119,9 +133,22 @@ All translations are organized by sections with 200+ keys per language:
 - **footer**: Footer links and content
 - **faq**: All 5 FAQ questions and answers
 - **testimonials**: Testimonial section labels
+- **admin**: Complete admin panel translations (nav, dashboard, services, news, projects, testimonials, faq, settings)
 
 ## Design Patterns
 - Active navbar indicators only show when scrolled (frosted glass state)
 - Consistent component reuse across all pages (BaseCard, BaseButton, SectionHeader)
 - All section components use theme colors for consistency
 - Dynamic translations via useI18n() composable in all Vue components
+
+## Admin Panel
+Access the admin panel at `/admin`. Features include:
+- **Dashboard**: Overview with statistics, recent activity, and quick actions
+- **Services**: Manage logistics services (CRUD operations)
+- **News**: Manage news articles and blog posts
+- **Projects**: Manage portfolio projects
+- **Testimonials**: Manage customer testimonials
+- **FAQ**: Manage frequently asked questions
+- **Settings**: Company information, social links, SEO settings
+
+Admin panel uses the same theme colors and reuses base components (BaseCard, BaseButton) for consistency. Full multi-language support with reactive translations when switching languages.
