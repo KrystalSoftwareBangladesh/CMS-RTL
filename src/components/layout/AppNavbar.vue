@@ -5,7 +5,7 @@ import { useI18n } from 'vue-i18n'
 import { navLinks } from '@/data/navigation'
 import { languages } from '@/i18n'
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
 const isLangOpen = ref(false)
@@ -55,7 +55,7 @@ onUnmounted(() => {
               isScrolled ? 'router-link-active-styled' : ''
             ]"
           >
-            {{ link.name }}
+            {{ t(link.key) }}
           </RouterLink>
         </div>
 
