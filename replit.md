@@ -13,12 +13,13 @@ A Vue 3 website for Rising Trading Ltd. - a global trading company based in Bang
 - **Fonts**: Inter (body), Poppins (headings)
 
 ## Multi-Language Support
-The website supports 5 languages for the countries served:
+The website supports 6 languages for the countries served:
 - **English** (USA, UK, Canada, Australia)
 - **French** (Canada)
 - **Norwegian** (Norway)
 - **Hindi** (India)
 - **Chinese** (China)
+- **Bengali** (Bangladesh)
 
 Translation files are in `src/i18n/locales/`. Use `useI18n()` and `t('key')` to translate text.
 Language selection is persisted to localStorage.
