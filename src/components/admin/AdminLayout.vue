@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import AdminSidebar from './AdminSidebar.vue'
 import AdminHeader from './AdminHeader.vue'
 
@@ -10,10 +10,13 @@ interface Props {
 
 defineProps<Props>()
 
-const sidebarCollapsed = ref(false)
+const STORAGE_KEY = 'admin-sidebar-collapsed'
+
+const sidebarCollapsed = ref(localStorage.getItem(STORAGE_KEY) === 'true')
 
 const toggleSidebar = () => {
   sidebarCollapsed.value = !sidebarCollapsed.value
+  localStorage.setItem(STORAGE_KEY, String(sidebarCollapsed.value))
 }
 </script>
 
