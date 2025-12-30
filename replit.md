@@ -8,8 +8,20 @@ A Vue 3 website for Rising Trading Ltd. - a global trading company based in Bang
 - **Build Tool**: Vite 7
 - **Styling**: Tailwind CSS v4 with custom theme
 - **Routing**: Vue Router 4
+- **i18n**: vue-i18n for multi-language support
 - **Language**: TypeScript
 - **Fonts**: Inter (body), Poppins (headings)
+
+## Multi-Language Support
+The website supports 5 languages for the countries served:
+- **English** (USA, UK, Canada, Australia)
+- **French** (Canada)
+- **Norwegian** (Norway)
+- **Hindi** (India)
+- **Chinese** (China)
+
+Translation files are in `src/i18n/locales/`. Use `useI18n()` and `t('key')` to translate text.
+Language selection is persisted to localStorage.
 
 ## Brand Colors (based on logo)
 - **Primary (Navy)**: #2D3A5C - Main brand color for headers, dark sections
@@ -47,6 +59,14 @@ src/
 │   ├── news.ts
 │   ├── services.ts
 │   └── testimonials.ts
+├── i18n/                # Internationalization
+│   ├── index.ts         # i18n configuration
+│   └── locales/         # Translation files
+│       ├── en.json      # English
+│       ├── fr.json      # French
+│       ├── no.json      # Norwegian
+│       ├── hi.json      # Hindi
+│       └── zh.json      # Chinese
 ├── router/              # Vue Router configuration
 ├── views/               # Page-level components
 │   ├── HomeView.vue
