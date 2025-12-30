@@ -39,7 +39,7 @@ onUnmounted(() => {
             :key="link.path"
             :to="link.path"
             :class="[
-              'relative text-white/70 hover:text-white transition-colors text-sm font-medium py-2',
+              'relative text-white/70 hover:text-white transition-colors text-sm font-bold py-2',
               isScrolled ? 'router-link-active-styled' : ''
             ]"
           >
@@ -80,7 +80,7 @@ onUnmounted(() => {
           :key="link.path"
           :to="link.path"
           :class="[
-            'block py-2 text-white/70 hover:text-white transition-colors',
+            'block py-2 text-white/70 hover:text-white transition-colors font-bold',
             isScrolled ? 'router-link-active-styled-mobile' : ''
           ]"
           @click="isMenuOpen = false"
