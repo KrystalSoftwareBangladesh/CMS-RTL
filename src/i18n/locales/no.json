@@ -219,5 +219,26 @@
   "testimonials": {
     "label": "ATTESTER",
     "title": "Hva Kundene Våre Sier"
+  },
+  "notFound": {
+    "title": "Siden Ikke Funnet",
+    "description": "Beklager, siden du leter etter eksisterer ikke eller har blitt flyttet.",
+    "backHome": "Tilbake til forsiden",
+    "contactUs": "Kontakt Oss",
+    "helpLinks": "Disse kan være nyttige:"
+  },
+  "admin": {
+    "login": { "title": "Admin Innlogging", "subtitle": "Logg inn for å administrere nettstedet", "email": "E-postadresse", "emailPlaceholder": "Skriv inn din e-post", "password": "Passord", "passwordPlaceholder": "Skriv inn passord", "signIn": "Logg inn", "signingIn": "Logger inn...", "errorRequired": "Vennligst skriv inn e-post og passord", "errorInvalid": "Ugyldig e-post eller passord", "hint": "Demo-legitimasjon:" },
+    "nav": { "dashboard": "Dashbord", "services": "Tjenester", "news": "Nyheter", "projects": "Prosjekter", "testimonials": "Attester", "faq": "FAQ", "settings": "Innstillinger" },
+    "backToSite": "Tilbake til nettstedet",
+    "profile": { "admin": "Admin", "viewProfile": "Se profil", "logout": "Logg ut" },
+    "table": { "actions": "Handlinger", "loading": "Laster...", "noData": "Ingen data tilgjengelig" },
+    "dashboard": { "title": "Dashbord", "subtitle": "Velkommen tilbake! Her er en oversikt over nettstedet ditt.", "totalServices": "Totale tjenester", "totalProjects": "Totale prosjekter", "newsArticles": "Nyhetsartikler", "pageViews": "Sidevisninger", "recentActivity": "Nylig aktivitet", "viewAll": "Se alle", "quickActions": "Hurtighandlinger", "addService": "Legg til tjeneste", "addNews": "Legg til artikkel", "addProject": "Legg til prosjekt", "settings": "Innstillinger" },
+    "services": { "title": "Administrer tjenester", "subtitle": "Legg til, rediger eller fjern tjenester", "searchPlaceholder": "Søk...", "addNew": "Legg til", "columns": { "name": "Tjenestenavn", "description": "Beskrivelse", "status": "Status", "updatedAt": "Sist oppdatert" } },
+    "news": { "title": "Administrer nyheter", "subtitle": "Opprett og administrer artikler", "searchPlaceholder": "Søk...", "addNew": "Legg til", "allCategories": "Alle kategorier", "columns": { "title": "Tittel", "category": "Kategori", "author": "Forfatter", "status": "Status", "publishedAt": "Publisert" } },
+    "projects": { "title": "Administrer prosjekter", "subtitle": "Vis dine vellykkede prosjekter", "searchPlaceholder": "Søk...", "addNew": "Legg til", "allCategories": "Alle kategorier", "columns": { "title": "Prosjekttittel", "category": "Kategori", "deliveries": "Leveranser", "countries": "Land", "status": "Status" } },
+    "testimonials": { "title": "Administrer attester", "subtitle": "Administrer kundeanmeldelser", "searchPlaceholder": "Søk...", "addNew": "Legg til", "columns": { "name": "Kundenavn", "company": "Selskap", "rating": "Vurdering", "status": "Status", "createdAt": "Lagt til" } },
+    "faq": { "title": "Administrer FAQ", "subtitle": "Rediger ofte stilte spørsmål", "searchPlaceholder": "Søk...", "addNew": "Legg til", "allCategories": "Alle kategorier", "columns": { "question": "Spørsmål", "category": "Kategori", "order": "Rekkefølge", "status": "Status" } },
+    "settings": { "title": "Innstillinger", "subtitle": "Konfigurer nettstedinnstillinger", "companyInfo": "Firmainformasjon", "companyName": "Firmanavn", "email": "E-post", "phone": "Telefon", "address": "Adresse", "socialLinks": "Sosiale medier", "seoSettings": "SEO-innstillinger", "metaTitle": "Meta-tittel", "metaDescription": "Meta-beskrivelse", "dangerZone": "Faresone", "clearCache": "Tøm cache", "clearCacheDesc": "Dette vil tømme alle bufrede data.", "clearCacheBtn": "Tøm cache", "saveChanges": "Lagre endringer" }
   }
 }

@@ -219,5 +219,26 @@
   "testimonials": {
     "label": "প্রশংসাপত্র",
     "title": "আমাদের গ্রাহকরা কী বলেন"
+  },
+  "notFound": {
+    "title": "পেজ পাওয়া যায়নি",
+    "description": "দুঃখিত, আপনি যে পেজটি খুঁজছেন সেটি বিদ্যমান নেই বা সরানো হয়েছে।",
+    "backHome": "হোমে ফিরুন",
+    "contactUs": "যোগাযোগ করুন",
+    "helpLinks": "এগুলি সহায়ক হতে পারে:"
+  },
+  "admin": {
+    "login": { "title": "অ্যাডমিন লগইন", "subtitle": "আপনার ওয়েবসাইট পরিচালনা করতে সাইন ইন করুন", "email": "ইমেইল ঠিকানা", "emailPlaceholder": "আপনার ইমেইল লিখুন", "password": "পাসওয়ার্ড", "passwordPlaceholder": "আপনার পাসওয়ার্ড লিখুন", "signIn": "সাইন ইন", "signingIn": "সাইন ইন হচ্ছে...", "errorRequired": "অনুগ্রহ করে ইমেইল এবং পাসওয়ার্ড উভয়ই লিখুন", "errorInvalid": "ভুল ইমেইল বা পাসওয়ার্ড", "hint": "ডেমো ক্রেডেনশিয়াল:" },
+    "nav": { "dashboard": "ড্যাশবোর্ড", "services": "সেবা", "news": "সংবাদ", "projects": "প্রকল্প", "testimonials": "প্রশংসাপত্র", "faq": "FAQ", "settings": "সেটিংস" },
+    "backToSite": "ওয়েবসাইটে ফিরুন",
+    "profile": { "admin": "অ্যাডমিন", "viewProfile": "প্রোফাইল দেখুন", "logout": "লগ আউট" },
+    "table": { "actions": "অ্যাকশন", "loading": "লোড হচ্ছে...", "noData": "কোনো ডেটা নেই" },
+    "dashboard": { "title": "ড্যাশবোর্ড", "subtitle": "স্বাগতম! আপনার ওয়েবসাইটের ওভারভিউ।", "totalServices": "মোট সেবা", "totalProjects": "মোট প্রকল্প", "newsArticles": "সংবাদ নিবন্ধ", "pageViews": "পেজ ভিউ", "recentActivity": "সাম্প্রতিক কার্যক্রম", "viewAll": "সব দেখুন", "quickActions": "দ্রুত অ্যাকশন", "addService": "সেবা যোগ করুন", "addNews": "নিবন্ধ যোগ করুন", "addProject": "প্রকল্প যোগ করুন", "settings": "সাইট সেটিংস" },
+    "services": { "title": "সেবা পরিচালনা", "subtitle": "সেবা যোগ, সম্পাদনা বা মুছুন", "searchPlaceholder": "অনুসন্ধান...", "addNew": "যোগ করুন", "columns": { "name": "সেবার নাম", "description": "বিবরণ", "status": "অবস্থা", "updatedAt": "সর্বশেষ আপডেট" } },
+    "news": { "title": "সংবাদ পরিচালনা", "subtitle": "নিবন্ধ তৈরি ও পরিচালনা করুন", "searchPlaceholder": "অনুসন্ধান...", "addNew": "যোগ করুন", "allCategories": "সব বিভাগ", "columns": { "title": "শিরোনাম", "category": "বিভাগ", "author": "লেখক", "status": "অবস্থা", "publishedAt": "প্রকাশিত" } },
+    "projects": { "title": "প্রকল্প পরিচালনা", "subtitle": "আপনার সফল প্রকল্প প্রদর্শন করুন", "searchPlaceholder": "অনুসন্ধান...", "addNew": "যোগ করুন", "allCategories": "সব বিভাগ", "columns": { "title": "প্রকল্পের শিরোনাম", "category": "বিভাগ", "deliveries": "ডেলিভারি", "countries": "দেশ", "status": "অবস্থা" } },
+    "testimonials": { "title": "প্রশংসাপত্র পরিচালনা", "subtitle": "গ্রাহক পর্যালোচনা পরিচালনা করুন", "searchPlaceholder": "অনুসন্ধান...", "addNew": "যোগ করুন", "columns": { "name": "গ্রাহকের নাম", "company": "কোম্পানি", "rating": "রেটিং", "status": "অবস্থা", "createdAt": "যোগ করার তারিখ" } },
+    "faq": { "title": "FAQ পরিচালনা", "subtitle": "প্রায়শই জিজ্ঞাসিত প্রশ্ন সম্পাদনা", "searchPlaceholder": "অনুসন্ধান...", "addNew": "যোগ করুন", "allCategories": "সব বিভাগ", "columns": { "question": "প্রশ্ন", "category": "বিভাগ", "order": "ক্রম", "status": "অবস্থা" } },
+    "settings": { "title": "সেটিংস", "subtitle": "ওয়েবসাইট সেটিংস কনফিগার করুন", "companyInfo": "কোম্পানির তথ্য", "companyName": "কোম্পানির নাম", "email": "ইমেইল", "phone": "ফোন", "address": "ঠিকানা", "socialLinks": "সামাজিক মাধ্যম", "seoSettings": "SEO সেটিংস", "metaTitle": "মেটা শিরোনাম", "metaDescription": "মেটা বিবরণ", "dangerZone": "বিপদ অঞ্চল", "clearCache": "ক্যাশ মুছুন", "clearCacheDesc": "এটি সমস্ত ক্যাশড ডেটা মুছে ফেলবে।", "clearCacheBtn": "ক্যাশ মুছুন", "saveChanges": "পরিবর্তন সংরক্ষণ" }
   }
 }

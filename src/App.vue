@@ -1,13 +1,17 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { computed } from 'vue'
+import { RouterView, useRoute } from 'vue-router'
 import AppNavbar from '@/components/layout/AppNavbar.vue'
 import AppFooter from '@/components/layout/AppFooter.vue'
+
+const route = useRoute()
+const isAdminRoute = computed(() => route.path.startsWith('/admin'))
 </script>
 
 <template>
   <div class="min-h-screen">
-    <AppNavbar />
+    <AppNavbar v-if="!isAdminRoute" />
     <RouterView />
-    <AppFooter />
+    <AppFooter v-if="!isAdminRoute" />
   </div>
 </template>

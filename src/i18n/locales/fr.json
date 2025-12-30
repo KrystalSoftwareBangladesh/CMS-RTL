@@ -219,5 +219,146 @@
   "testimonials": {
     "label": "TÉMOIGNAGES",
     "title": "Ce Que Disent Nos Clients"
+  },
+  "notFound": {
+    "title": "Page Non Trouvée",
+    "description": "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
+    "backHome": "Retour à l'accueil",
+    "contactUs": "Nous Contacter",
+    "helpLinks": "Ces liens pourraient vous aider:"
+  },
+  "admin": {
+    "login": {
+      "title": "Connexion Admin",
+      "subtitle": "Connectez-vous pour gérer votre site",
+      "email": "Adresse e-mail",
+      "emailPlaceholder": "Entrez votre e-mail",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "signIn": "Se connecter",
+      "signingIn": "Connexion...",
+      "errorRequired": "Veuillez entrer l'e-mail et le mot de passe",
+      "errorInvalid": "E-mail ou mot de passe invalide",
+      "hint": "Identifiants de démonstration:"
+    },
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "services": "Services",
+      "news": "Actualités",
+      "projects": "Projets",
+      "testimonials": "Témoignages",
+      "faq": "FAQ",
+      "settings": "Paramètres"
+    },
+    "backToSite": "Retour au site",
+    "profile": {
+      "admin": "Admin",
+      "viewProfile": "Voir le profil",
+      "logout": "Déconnexion"
+    },
+    "table": {
+      "actions": "Actions",
+      "loading": "Chargement...",
+      "noData": "Aucune donnée disponible"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "subtitle": "Bienvenue! Voici un aperçu de votre site.",
+      "totalServices": "Total Services",
+      "totalProjects": "Total Projets",
+      "newsArticles": "Articles",
+      "pageViews": "Vues de page",
+      "recentActivity": "Activité récente",
+      "viewAll": "Voir tout",
+      "quickActions": "Actions rapides",
+      "addService": "Ajouter un service",
+      "addNews": "Ajouter un article",
+      "addProject": "Ajouter un projet",
+      "settings": "Paramètres du site"
+    },
+    "services": {
+      "title": "Gérer les services",
+      "subtitle": "Ajouter, modifier ou supprimer vos services",
+      "searchPlaceholder": "Rechercher...",
+      "addNew": "Ajouter",
+      "columns": {
+        "name": "Nom du service",
+        "description": "Description",
+        "status": "Statut",
+        "updatedAt": "Dernière mise à jour"
+      }
+    },
+    "news": {
+      "title": "Gérer les actualités",
+      "subtitle": "Créer et gérer les articles",
+      "searchPlaceholder": "Rechercher...",
+      "addNew": "Ajouter",
+      "allCategories": "Toutes les catégories",
+      "columns": {
+        "title": "Titre",
+        "category": "Catégorie",
+        "author": "Auteur",
+        "status": "Statut",
+        "publishedAt": "Publié"
+      }
+    },
+    "projects": {
+      "title": "Gérer les projets",
+      "subtitle": "Présentez vos projets réussis",
+      "searchPlaceholder": "Rechercher...",
+      "addNew": "Ajouter",
+      "allCategories": "Toutes les catégories",
+      "columns": {
+        "title": "Titre du projet",
+        "category": "Catégorie",
+        "deliveries": "Livraisons",
+        "countries": "Pays",
+        "status": "Statut"
+      }
+    },
+    "testimonials": {
+      "title": "Gérer les témoignages",
+      "subtitle": "Gérer les avis clients",
+      "searchPlaceholder": "Rechercher...",
+      "addNew": "Ajouter",
+      "columns": {
+        "name": "Nom du client",
+        "company": "Entreprise",
+        "rating": "Note",
+        "status": "Statut",
+        "createdAt": "Date d'ajout"
+      }
+    },
+    "faq": {
+      "title": "Gérer la FAQ",
+      "subtitle": "Modifier les questions fréquentes",
+      "searchPlaceholder": "Rechercher...",
+      "addNew": "Ajouter",
+      "allCategories": "Toutes les catégories",
+      "columns": {
+        "question": "Question",
+        "category": "Catégorie",
+        "order": "Ordre",
+        "status": "Statut"
+      }
+    },
+    "settings": {
+      "title": "Paramètres",
+      "subtitle": "Configurer les paramètres du site",
+      "companyInfo": "Informations de l'entreprise",
+      "companyName": "Nom de l'entreprise",
+      "email": "Adresse e-mail",
+      "phone": "Numéro de téléphone",
+      "address": "Adresse",
+      "socialLinks": "Réseaux sociaux",
+      "seoSettings": "Paramètres SEO",
+      "metaTitle": "Titre Meta",
+      "metaDescription": "Description Meta",
+      "dangerZone": "Zone de danger",
+      "clearCache": "Vider le cache",
+      "clearCacheDesc": "Cela videra toutes les données en cache.",
+      "clearCacheBtn": "Vider le cache",
+      "saveChanges": "Enregistrer"
+    }
   }
 }

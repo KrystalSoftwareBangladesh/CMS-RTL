@@ -219,5 +219,26 @@
   "testimonials": {
     "label": "客户评价",
     "title": "客户怎么说"
+  },
+  "notFound": {
+    "title": "页面未找到",
+    "description": "抱歉，您正在寻找的页面不存在或已被移动。",
+    "backHome": "返回首页",
+    "contactUs": "联系我们",
+    "helpLinks": "这些链接可能对您有帮助："
+  },
+  "admin": {
+    "login": { "title": "管理员登录", "subtitle": "登录以管理您的网站", "email": "电子邮箱", "emailPlaceholder": "请输入邮箱", "password": "密码", "passwordPlaceholder": "请输入密码", "signIn": "登录", "signingIn": "登录中...", "errorRequired": "请输入邮箱和密码", "errorInvalid": "邮箱或密码错误", "hint": "演示凭据:" },
+    "nav": { "dashboard": "仪表板", "services": "服务", "news": "新闻", "projects": "项目", "testimonials": "评价", "faq": "常见问题", "settings": "设置" },
+    "backToSite": "返回网站",
+    "profile": { "admin": "管理员", "viewProfile": "查看资料", "logout": "退出登录" },
+    "table": { "actions": "操作", "loading": "加载中...", "noData": "暂无数据" },
+    "dashboard": { "title": "仪表板", "subtitle": "欢迎回来！这是您网站的概览。", "totalServices": "服务总数", "totalProjects": "项目总数", "newsArticles": "新闻文章", "pageViews": "页面浏览量", "recentActivity": "最近活动", "viewAll": "查看全部", "quickActions": "快捷操作", "addService": "添加服务", "addNews": "添加文章", "addProject": "添加项目", "settings": "网站设置" },
+    "services": { "title": "管理服务", "subtitle": "添加、编辑或删除服务", "searchPlaceholder": "搜索...", "addNew": "添加", "columns": { "name": "服务名称", "description": "描述", "status": "状态", "updatedAt": "更新时间" } },
+    "news": { "title": "管理新闻", "subtitle": "创建和管理文章", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "title": "标题", "category": "分类", "author": "作者", "status": "状态", "publishedAt": "发布时间" } },
+    "projects": { "title": "管理项目", "subtitle": "展示您的成功项目", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "title": "项目名称", "category": "分类", "deliveries": "配送量", "countries": "国家", "status": "状态" } },
+    "testimonials": { "title": "管理评价", "subtitle": "管理客户评论", "searchPlaceholder": "搜索...", "addNew": "添加", "columns": { "name": "客户姓名", "company": "公司", "rating": "评分", "status": "状态", "createdAt": "添加日期" } },
+    "faq": { "title": "管理常见问题", "subtitle": "编辑常见问题", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "question": "问题", "category": "分类", "order": "排序", "status": "状态" } },
+    "settings": { "title": "设置", "subtitle": "配置网站设置", "companyInfo": "公司信息", "companyName": "公司名称", "email": "邮箱", "phone": "电话", "address": "地址", "socialLinks": "社交媒体", "seoSettings": "SEO设置", "metaTitle": "Meta标题", "metaDescription": "Meta描述", "dangerZone": "危险区域", "clearCache": "清除缓存", "clearCacheDesc": "这将清除所有缓存数据。", "clearCacheBtn": "清除缓存", "saveChanges": "保存更改" }
   }
 }

@@ -219,5 +219,146 @@
   "testimonials": {
     "label": "TESTIMONIALS",
     "title": "What Our Clients Say"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home",
+    "contactUs": "Contact Us",
+    "helpLinks": "You might find these helpful:"
+  },
+  "admin": {
+    "login": {
+      "title": "Admin Login",
+      "subtitle": "Sign in to manage your website",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "signIn": "Sign In",
+      "signingIn": "Signing In...",
+      "errorRequired": "Please enter both email and password",
+      "errorInvalid": "Invalid email or password",
+      "hint": "Demo credentials for testing:"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "services": "Services",
+      "news": "News",
+      "projects": "Projects",
+      "testimonials": "Testimonials",
+      "faq": "FAQ",
+      "settings": "Settings"
+    },
+    "backToSite": "Back to Website",
+    "profile": {
+      "admin": "Admin",
+      "viewProfile": "View Profile",
+      "logout": "Logout"
+    },
+    "table": {
+      "actions": "Actions",
+      "loading": "Loading...",
+      "noData": "No data available"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "subtitle": "Welcome back! Here's an overview of your website.",
+      "totalServices": "Total Services",
+      "totalProjects": "Total Projects",
+      "newsArticles": "News Articles",
+      "pageViews": "Page Views",
+      "recentActivity": "Recent Activity",
+      "viewAll": "View All",
+      "quickActions": "Quick Actions",
+      "addService": "Add New Service",
+      "addNews": "Add News Article",
+      "addProject": "Add New Project",
+      "settings": "Site Settings"
+    },
+    "services": {
+      "title": "Manage Services",
+      "subtitle": "Add, edit, or remove your logistics services",
+      "searchPlaceholder": "Search services...",
+      "addNew": "Add Service",
+      "columns": {
+        "name": "Service Name",
+        "description": "Description",
+        "status": "Status",
+        "updatedAt": "Last Updated"
+      }
+    },
+    "news": {
+      "title": "Manage News",
+      "subtitle": "Create and manage news articles and blog posts",
+      "searchPlaceholder": "Search articles...",
+      "addNew": "Add Article",
+      "allCategories": "All Categories",
+      "columns": {
+        "title": "Title",
+        "category": "Category",
+        "author": "Author",
+        "status": "Status",
+        "publishedAt": "Published"
+      }
+    },
+    "projects": {
+      "title": "Manage Projects",
+      "subtitle": "Showcase your successful logistics projects",
+      "searchPlaceholder": "Search projects...",
+      "addNew": "Add Project",
+      "allCategories": "All Categories",
+      "columns": {
+        "title": "Project Title",
+        "category": "Category",
+        "deliveries": "Deliveries",
+        "countries": "Countries",
+        "status": "Status"
+      }
+    },
+    "testimonials": {
+      "title": "Manage Testimonials",
+      "subtitle": "Manage customer reviews and testimonials",
+      "searchPlaceholder": "Search testimonials...",
+      "addNew": "Add Testimonial",
+      "columns": {
+        "name": "Customer Name",
+        "company": "Company",
+        "rating": "Rating",
+        "status": "Status",
+        "createdAt": "Date Added"
+      }
+    },
+    "faq": {
+      "title": "Manage FAQ",
+      "subtitle": "Edit frequently asked questions and answers",
+      "searchPlaceholder": "Search questions...",
+      "addNew": "Add Question",
+      "allCategories": "All Categories",
+      "columns": {
+        "question": "Question",
+        "category": "Category",
+        "order": "Order",
+        "status": "Status"
+      }
+    },
+    "settings": {
+      "title": "Settings",
+      "subtitle": "Configure your website settings",
+      "companyInfo": "Company Information",
+      "companyName": "Company Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "address": "Address",
+      "socialLinks": "Social Media Links",
+      "seoSettings": "SEO Settings",
+      "metaTitle": "Meta Title",
+      "metaDescription": "Meta Description",
+      "dangerZone": "Danger Zone",
+      "clearCache": "Clear Cache",
+      "clearCacheDesc": "This will clear all cached data and may temporarily slow down the website.",
+      "clearCacheBtn": "Clear Cache",
+      "saveChanges": "Save Changes"
+    }
   }
 }

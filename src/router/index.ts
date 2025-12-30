@@ -5,6 +5,20 @@ import ServicesView from '../views/ServicesView.vue'
 import PortfolioView from '../views/PortfolioView.vue'
 import NewsView from '../views/NewsView.vue'
 import ContactView from '../views/ContactView.vue'
+import NotFoundView from '../views/NotFoundView.vue'
+
+import AdminLogin from '../views/admin/AdminLogin.vue'
+import AdminDashboard from '../views/admin/AdminDashboard.vue'
+import AdminServices from '../views/admin/AdminServices.vue'
+import AdminNews from '../views/admin/AdminNews.vue'
+import AdminProjects from '../views/admin/AdminProjects.vue'
+import AdminTestimonials from '../views/admin/AdminTestimonials.vue'
+import AdminFAQ from '../views/admin/AdminFAQ.vue'
+import AdminSettings from '../views/admin/AdminSettings.vue'
+
+const isAuthenticated = () => {
+  return localStorage.getItem('admin-auth') === 'true'
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,12 +53,74 @@ const router = createRouter({
       name: 'contact',
       component: ContactView,
     },
+    {
+      path: '/admin/login',
+      name: 'admin-login',
+      component: AdminLogin,
+    },
+    {
+      path: '/admin',
+      name: 'admin-dashboard',
+      component: AdminDashboard,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/services',
+      name: 'admin-services',
+      component: AdminServices,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/news',
+      name: 'admin-news',
+      component: AdminNews,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/projects',
+      name: 'admin-projects',
+      component: AdminProjects,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/testimonials',
+      name: 'admin-testimonials',
+      component: AdminTestimonials,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/faq',
+      name: 'admin-faq',
+      component: AdminFAQ,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/settings',
+      name: 'admin-settings',
+      component: AdminSettings,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: NotFoundView,
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     }
     return { top: 0 }
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    next('/admin/login')
+  } else if (to.path === '/admin/login' && isAuthenticated()) {
+    next('/admin')
+  } else {
+    next()
   }
 })
 

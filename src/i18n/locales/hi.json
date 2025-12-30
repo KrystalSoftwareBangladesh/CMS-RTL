@@ -219,5 +219,26 @@
   "testimonials": {
     "label": "प्रशंसापत्र",
     "title": "हमारे ग्राहक क्या कहते हैं"
+  },
+  "notFound": {
+    "title": "पेज नहीं मिला",
+    "description": "क्षमा करें, जिस पेज की आप तलाश कर रहे हैं वह मौजूद नहीं है या स्थानांतरित हो गया है।",
+    "backHome": "होम पर वापस",
+    "contactUs": "संपर्क करें",
+    "helpLinks": "ये मददगार हो सकते हैं:"
+  },
+  "admin": {
+    "login": { "title": "एडमिन लॉगिन", "subtitle": "अपनी वेबसाइट प्रबंधित करने के लिए साइन इन करें", "email": "ईमेल पता", "emailPlaceholder": "अपना ईमेल दर्ज करें", "password": "पासवर्ड", "passwordPlaceholder": "अपना पासवर्ड दर्ज करें", "signIn": "साइन इन", "signingIn": "साइन इन हो रहा है...", "errorRequired": "कृपया ईमेल और पासवर्ड दोनों दर्ज करें", "errorInvalid": "अमान्य ईमेल या पासवर्ड", "hint": "डेमो क्रेडेंशियल:" },
+    "nav": { "dashboard": "डैशबोर्ड", "services": "सेवाएं", "news": "समाचार", "projects": "प्रोजेक्ट्स", "testimonials": "प्रशंसापत्र", "faq": "FAQ", "settings": "सेटिंग्स" },
+    "backToSite": "वेबसाइट पर वापस",
+    "profile": { "admin": "एडमिन", "viewProfile": "प्रोफ़ाइल देखें", "logout": "लॉग आउट" },
+    "table": { "actions": "क्रियाएं", "loading": "लोड हो रहा है...", "noData": "कोई डेटा उपलब्ध नहीं" },
+    "dashboard": { "title": "डैशबोर्ड", "subtitle": "स्वागत है! यहाँ आपकी वेबसाइट का अवलोकन है।", "totalServices": "कुल सेवाएं", "totalProjects": "कुल प्रोजेक्ट्स", "newsArticles": "समाचार लेख", "pageViews": "पेज व्यूज", "recentActivity": "हालिया गतिविधि", "viewAll": "सभी देखें", "quickActions": "त्वरित क्रियाएं", "addService": "सेवा जोड़ें", "addNews": "लेख जोड़ें", "addProject": "प्रोजेक्ट जोड़ें", "settings": "सेटिंग्स" },
+    "services": { "title": "सेवाएं प्रबंधित करें", "subtitle": "सेवाएं जोड़ें, संपादित करें या हटाएं", "searchPlaceholder": "खोजें...", "addNew": "जोड़ें", "columns": { "name": "सेवा का नाम", "description": "विवरण", "status": "स्थिति", "updatedAt": "अंतिम अपडेट" } },
+    "news": { "title": "समाचार प्रबंधित करें", "subtitle": "लेख बनाएं और प्रबंधित करें", "searchPlaceholder": "खोजें...", "addNew": "जोड़ें", "allCategories": "सभी श्रेणियां", "columns": { "title": "शीर्षक", "category": "श्रेणी", "author": "लेखक", "status": "स्थिति", "publishedAt": "प्रकाशित" } },
+    "projects": { "title": "प्रोजेक्ट्स प्रबंधित करें", "subtitle": "अपने सफल प्रोजेक्ट्स दिखाएं", "searchPlaceholder": "खोजें...", "addNew": "जोड़ें", "allCategories": "सभी श्रेणियां", "columns": { "title": "प्रोजेक्ट शीर्षक", "category": "श्रेणी", "deliveries": "डिलीवरी", "countries": "देश", "status": "स्थिति" } },
+    "testimonials": { "title": "प्रशंसापत्र प्रबंधित करें", "subtitle": "ग्राहक समीक्षाएं प्रबंधित करें", "searchPlaceholder": "खोजें...", "addNew": "जोड़ें", "columns": { "name": "ग्राहक का नाम", "company": "कंपनी", "rating": "रेटिंग", "status": "स्थिति", "createdAt": "जोड़ी गई तारीख" } },
+    "faq": { "title": "FAQ प्रबंधित करें", "subtitle": "अक्सर पूछे जाने वाले प्रश्न संपादित करें", "searchPlaceholder": "खोजें...", "addNew": "जोड़ें", "allCategories": "सभी श्रेणियां", "columns": { "question": "प्रश्न", "category": "श्रेणी", "order": "क्रम", "status": "स्थिति" } },
+    "settings": { "title": "सेटिंग्स", "subtitle": "वेबसाइट सेटिंग्स कॉन्फ़िगर करें", "companyInfo": "कंपनी जानकारी", "companyName": "कंपनी का नाम", "email": "ईमेल", "phone": "फोन", "address": "पता", "socialLinks": "सोशल मीडिया", "seoSettings": "SEO सेटिंग्स", "metaTitle": "मेटा शीर्षक", "metaDescription": "मेटा विवरण", "dangerZone": "खतरा क्षेत्र", "clearCache": "कैश साफ़ करें", "clearCacheDesc": "यह सभी कैश्ड डेटा साफ़ कर देगा।", "clearCacheBtn": "कैश साफ़ करें", "saveChanges": "बदलाव सहेजें" }
   }
 }
