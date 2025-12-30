@@ -220,6 +220,13 @@
     "label": "ATTESTER",
     "title": "Hva Kundene Våre Sier"
   },
+  "notFound": {
+    "title": "Siden Ikke Funnet",
+    "description": "Beklager, siden du leter etter eksisterer ikke eller har blitt flyttet.",
+    "backHome": "Tilbake til forsiden",
+    "contactUs": "Kontakt Oss",
+    "helpLinks": "Disse kan være nyttige:"
+  },
   "admin": {
     "login": { "title": "Admin Innlogging", "subtitle": "Logg inn for å administrere nettstedet", "email": "E-postadresse", "emailPlaceholder": "Skriv inn din e-post", "password": "Passord", "passwordPlaceholder": "Skriv inn passord", "signIn": "Logg inn", "signingIn": "Logger inn...", "errorRequired": "Vennligst skriv inn e-post og passord", "errorInvalid": "Ugyldig e-post eller passord", "hint": "Demo-legitimasjon:" },
     "nav": { "dashboard": "Dashbord", "services": "Tjenester", "news": "Nyheter", "projects": "Prosjekter", "testimonials": "Attester", "faq": "FAQ", "settings": "Innstillinger" },

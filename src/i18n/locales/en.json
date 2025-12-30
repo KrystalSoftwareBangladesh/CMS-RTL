@@ -220,6 +220,13 @@
     "label": "TESTIMONIALS",
     "title": "What Our Clients Say"
   },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "Sorry, the page you are looking for doesn't exist or has been moved.",
+    "backHome": "Back to Home",
+    "contactUs": "Contact Us",
+    "helpLinks": "You might find these helpful:"
+  },
   "admin": {
     "login": {
       "title": "Admin Login",

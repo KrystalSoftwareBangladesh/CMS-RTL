@@ -220,6 +220,13 @@
     "label": "TÉMOIGNAGES",
     "title": "Ce Que Disent Nos Clients"
   },
+  "notFound": {
+    "title": "Page Non Trouvée",
+    "description": "Désolé, la page que vous recherchez n'existe pas ou a été déplacée.",
+    "backHome": "Retour à l'accueil",
+    "contactUs": "Nous Contacter",
+    "helpLinks": "Ces liens pourraient vous aider:"
+  },
   "admin": {
     "login": {
       "title": "Connexion Admin",

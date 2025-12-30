@@ -220,6 +220,13 @@
     "label": "客户评价",
     "title": "客户怎么说"
   },
+  "notFound": {
+    "title": "页面未找到",
+    "description": "抱歉，您正在寻找的页面不存在或已被移动。",
+    "backHome": "返回首页",
+    "contactUs": "联系我们",
+    "helpLinks": "这些链接可能对您有帮助："
+  },
   "admin": {
     "login": { "title": "管理员登录", "subtitle": "登录以管理您的网站", "email": "电子邮箱", "emailPlaceholder": "请输入邮箱", "password": "密码", "passwordPlaceholder": "请输入密码", "signIn": "登录", "signingIn": "登录中...", "errorRequired": "请输入邮箱和密码", "errorInvalid": "邮箱或密码错误", "hint": "演示凭据:" },
     "nav": { "dashboard": "仪表板", "services": "服务", "news": "新闻", "projects": "项目", "testimonials": "评价", "faq": "常见问题", "settings": "设置" },
