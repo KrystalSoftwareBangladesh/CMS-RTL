@@ -6,6 +6,14 @@ import PortfolioView from '../views/PortfolioView.vue'
 import NewsView from '../views/NewsView.vue'
 import ContactView from '../views/ContactView.vue'
 
+import AdminDashboard from '../views/admin/AdminDashboard.vue'
+import AdminServices from '../views/admin/AdminServices.vue'
+import AdminNews from '../views/admin/AdminNews.vue'
+import AdminProjects from '../views/admin/AdminProjects.vue'
+import AdminTestimonials from '../views/admin/AdminTestimonials.vue'
+import AdminFAQ from '../views/admin/AdminFAQ.vue'
+import AdminSettings from '../views/admin/AdminSettings.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -38,6 +46,41 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: ContactView,
+    },
+    {
+      path: '/admin',
+      name: 'admin-dashboard',
+      component: AdminDashboard,
+    },
+    {
+      path: '/admin/services',
+      name: 'admin-services',
+      component: AdminServices,
+    },
+    {
+      path: '/admin/news',
+      name: 'admin-news',
+      component: AdminNews,
+    },
+    {
+      path: '/admin/projects',
+      name: 'admin-projects',
+      component: AdminProjects,
+    },
+    {
+      path: '/admin/testimonials',
+      name: 'admin-testimonials',
+      component: AdminTestimonials,
+    },
+    {
+      path: '/admin/faq',
+      name: 'admin-faq',
+      component: AdminFAQ,
+    },
+    {
+      path: '/admin/settings',
+      name: 'admin-settings',
+      component: AdminSettings,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
