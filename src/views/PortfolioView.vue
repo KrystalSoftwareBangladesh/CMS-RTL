@@ -85,12 +85,12 @@ const stats = [
 
 <template>
   <main>
-    <section class="relative py-32 bg-slate-800">
+    <section class="relative py-32 bg-primary">
       <div
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         :style="{ backgroundImage: `url(${warehouseImage})` }"
       >
-        <div class="absolute inset-0 bg-slate-900/80"></div>
+        <div class="absolute inset-0 bg-primary-dark/80"></div>
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Our Portfolio</h1>
@@ -108,7 +108,7 @@ const stats = [
             :key="stat.label"
             class="text-center"
           >
-            <div class="text-4xl md:text-5xl font-bold text-teal-500 mb-2">{{ stat.value }}</div>
+            <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">{{ stat.value }}</div>
             <div class="text-gray-600">{{ stat.label }}</div>
           </div>
         </div>
@@ -130,7 +130,7 @@ const stats = [
             :class="[
               'px-6 py-2 rounded-full text-sm font-medium transition-all',
               activeCategory === category
-                ? 'bg-teal-500 text-white'
+                ? 'bg-secondary text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             ]"
             @click="filterProjects(category)"
@@ -153,7 +153,7 @@ const stats = [
                 class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div class="absolute top-4 left-4">
-                <span class="bg-teal-500 text-white text-xs px-3 py-1 rounded-full">
+                <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
                   {{ project.category }}
                 </span>
               </div>
@@ -163,15 +163,15 @@ const stats = [
               <p class="text-gray-600 text-sm mb-4">{{ project.description }}</p>
               <div class="flex justify-between text-center border-t pt-4">
                 <div>
-                  <div class="text-teal-500 font-bold">{{ project.stats.deliveries }}</div>
+                  <div class="text-secondary font-bold">{{ project.stats.deliveries }}</div>
                   <div class="text-xs text-gray-500">Deliveries</div>
                 </div>
                 <div>
-                  <div class="text-teal-500 font-bold">{{ project.stats.countries }}</div>
+                  <div class="text-secondary font-bold">{{ project.stats.countries }}</div>
                   <div class="text-xs text-gray-500">Countries</div>
                 </div>
                 <div>
-                  <div class="text-teal-500 font-bold">{{ project.stats.onTime }}</div>
+                  <div class="text-secondary font-bold">{{ project.stats.onTime }}</div>
                   <div class="text-xs text-gray-500">On-Time</div>
                 </div>
               </div>
@@ -181,7 +181,7 @@ const stats = [
       </div>
     </section>
 
-    <section class="py-20 bg-slate-800">
+    <section class="py-20 bg-primary">
       <div class="container mx-auto px-6 text-center">
         <SectionHeader
           label="Partner With Us"

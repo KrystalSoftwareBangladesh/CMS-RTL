@@ -32,7 +32,7 @@ const newsWithImages = newsItems.map((item, index) => ({
               class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
             />
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-teal-500 transition-colors">
+          <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-secondary transition-colors">
             {{ item.title }}
           </h3>
           <div class="flex items-center gap-4 text-sm text-gray-500">
