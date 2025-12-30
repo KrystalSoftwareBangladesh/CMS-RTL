@@ -19,7 +19,7 @@ import avatarImage from '@/assets/images/professional_busines_c8bc027d.jpg'
           :key="index"
           class="relative bg-white rounded-3xl p-8 md:p-12 shadow-lg"
         >
-          <div class="absolute top-8 left-8 text-8xl text-teal-500/20 font-serif leading-none">
+          <div class="absolute top-8 left-8 text-8xl text-secondary/20 font-serif leading-none">
             "
           </div>
 

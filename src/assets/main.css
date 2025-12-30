@@ -1,14 +1,22 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0d3d4c;
-  --color-primary-light: #1a5568;
-  --color-primary-dark: #082c38;
-  --color-secondary: #14b8a6;
-  --color-secondary-light: #2dd4bf;
-  --color-accent: #f59e0b;
-  --color-dark: #1a1a2e;
+  /* Rising Trading Ltd. Brand Colors - based on logo */
+  --color-primary: #2D3A5C;
+  --color-primary-light: #3D4D73;
+  --color-primary-dark: #1E2840;
+  --color-secondary: #E63946;
+  --color-secondary-light: #EF5A66;
+  --color-secondary-dark: #C12A35;
+  --color-accent: #E63946;
+  --color-dark: #1E2840;
   --color-light: #f8fafc;
+  --color-navy: #2D3A5C;
+  --color-navy-light: #3D4D73;
+  --color-navy-dark: #1E2840;
+  --color-red: #E63946;
+  --color-red-light: #EF5A66;
+  --color-red-dark: #C12A35;
 
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'Poppins', system-ui, sans-serif;

@@ -86,12 +86,12 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
 
 <template>
   <main>
-    <section class="relative py-32 bg-slate-800">
+    <section class="relative py-32 bg-primary">
       <div
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         :style="{ backgroundImage: `url(${truckImage})` }"
       >
-        <div class="absolute inset-0 bg-slate-900/80"></div>
+        <div class="absolute inset-0 bg-primary-dark/80"></div>
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">News & Insights</h1>
@@ -112,13 +112,13 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
                 class="w-full h-full object-cover rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none"
               />
               <div class="absolute top-4 left-4">
-                <span class="bg-teal-500 text-white text-xs px-3 py-1 rounded-full">
+                <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
                   Featured
                 </span>
               </div>
             </div>
             <div class="p-8 lg:p-12 flex flex-col justify-center">
-              <span class="text-teal-500 text-sm font-medium mb-2">{{ featuredArticle.category }}</span>
+              <span class="text-secondary text-sm font-medium mb-2">{{ featuredArticle.category }}</span>
               <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">{{ featuredArticle.title }}</h2>
               <p class="text-gray-600 mb-6">{{ featuredArticle.excerpt }}</p>
               <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
@@ -151,7 +151,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
           <button
             v-for="category in categories"
             :key="category"
-            class="px-6 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-600 hover:bg-teal-500 hover:text-white shadow-sm"
+            class="px-6 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-600 hover:bg-secondary hover:text-white shadow-sm"
           >
             {{ category }}
           </button>
@@ -171,7 +171,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
                 class="w-full h-full object-cover"
               />
               <div class="absolute top-4 left-4">
-                <span class="bg-slate-800/80 text-white text-xs px-3 py-1 rounded-full">
+                <span class="bg-primary/80 text-white text-xs px-3 py-1 rounded-full">
                   {{ article.category }}
                 </span>
               </div>
@@ -195,7 +195,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
       </div>
     </section>
 
-    <section class="py-20 bg-slate-800">
+    <section class="py-20 bg-primary">
       <div class="container mx-auto px-6">
         <div class="max-w-2xl mx-auto text-center">
           <SectionHeader
@@ -208,7 +208,7 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
             <input
               type="email"
               placeholder="Enter your email"
-              class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-teal-500"
+              class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-secondary"
             />
             <BaseButton variant="secondary">
               Subscribe

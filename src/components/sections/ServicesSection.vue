@@ -17,7 +17,7 @@ import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
               class="w-full h-80 object-cover"
             />
           </div>
-          <div class="absolute -bottom-8 -right-8 bg-teal-500 text-white p-6 rounded-2xl shadow-xl">
+          <div class="absolute -bottom-8 -right-8 bg-secondary text-white p-6 rounded-2xl shadow-xl">
             <div class="flex items-center gap-3">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />

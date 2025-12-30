@@ -57,12 +57,12 @@ const processSteps = [
 
 <template>
   <main>
-    <section class="relative py-32 bg-slate-800">
+    <section class="relative py-32 bg-primary">
       <div
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         :style="{ backgroundImage: `url(${truckImage})` }"
       >
-        <div class="absolute inset-0 bg-slate-900/80"></div>
+        <div class="absolute inset-0 bg-primary-dark/80"></div>
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">Our Services</h1>
@@ -106,7 +106,7 @@ const processSteps = [
             />
           </div>
           <div>
-            <span class="text-sm font-medium tracking-wider uppercase text-teal-500 mb-2 block">Why Choose Us</span>
+            <span class="text-sm font-medium tracking-wider uppercase text-secondary mb-2 block">Why Choose Us</span>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Benefits of Working With Us
             </h2>
@@ -116,17 +116,17 @@ const processSteps = [
                 :key="benefit.title"
                 class="flex gap-4"
               >
-                <div class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center flex-shrink-0">
-                  <svg v-if="benefit.icon === 'clock'" class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0">
+                  <svg v-if="benefit.icon === 'clock'" class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <svg v-else-if="benefit.icon === 'shield'" class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg v-else-if="benefit.icon === 'shield'" class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                   </svg>
-                  <svg v-else-if="benefit.icon === 'globe'" class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg v-else-if="benefit.icon === 'globe'" class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <svg v-else class="w-6 h-6 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg v-else class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                 </div>
@@ -141,7 +141,7 @@ const processSteps = [
       </div>
     </section>
 
-    <section class="py-20 bg-slate-800">
+    <section class="py-20 bg-primary">
       <div class="container mx-auto px-6">
         <SectionHeader
           label="Our Process"
@@ -155,14 +155,14 @@ const processSteps = [
             :key="item.step"
             class="relative text-center"
           >
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-teal-500 flex items-center justify-center text-white text-2xl font-bold">
+            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-white text-2xl font-bold">
               {{ item.step }}
             </div>
             <h3 class="text-white font-semibold text-lg mb-2">{{ item.title }}</h3>
             <p class="text-gray-400 text-sm">{{ item.description }}</p>
             <div
               v-if="index < processSteps.length - 1"
-              class="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-teal-500/30"
+              class="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-secondary/30"
             ></div>
           </div>
         </div>

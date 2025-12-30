@@ -47,12 +47,12 @@ const team = [
 
 <template>
   <main>
-    <section class="relative py-32 bg-slate-800">
+    <section class="relative py-32 bg-primary">
       <div
         class="absolute inset-0 bg-cover bg-center bg-no-repeat"
         :style="{ backgroundImage: `url(${cargoImage})` }"
       >
-        <div class="absolute inset-0 bg-slate-900/80"></div>
+        <div class="absolute inset-0 bg-primary-dark/80"></div>
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">About Us</h1>
@@ -66,12 +66,12 @@ const team = [
       <div class="container mx-auto px-6">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span class="text-sm font-medium tracking-wider uppercase text-teal-500 mb-2 block">Our Story</span>
+            <span class="text-sm font-medium tracking-wider uppercase text-secondary mb-2 block">Our Story</span>
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               Building Trust Through Reliable Logistics
             </h2>
             <p class="text-gray-600 mb-4">
-              Founded in 1998, The Transport began as a small regional carrier with a simple mission: deliver goods safely and on time. Over the years, we've grown into a global logistics provider, serving businesses of all sizes across more than 50 countries.
+              Founded in 1998, Rising Trading Ltd. began as a small regional carrier with a simple mission: deliver goods safely and on time. Over the years, we've grown into a global logistics provider, serving businesses of all sizes across more than 50 countries.
             </p>
             <p class="text-gray-600 mb-6">
               Our success is built on a foundation of trust, innovation, and an unwavering commitment to customer satisfaction. We invest in cutting-edge technology and sustainable practices to ensure we remain at the forefront of the logistics industry.
@@ -86,7 +86,7 @@ const team = [
               alt="Warehouse operations"
               class="rounded-2xl shadow-xl w-full h-[400px] object-cover"
             />
-            <div class="absolute -bottom-6 -left-6 bg-teal-500 text-white p-6 rounded-2xl shadow-lg">
+            <div class="absolute -bottom-6 -left-6 bg-secondary text-white p-6 rounded-2xl shadow-lg">
               <div class="text-4xl font-bold">25+</div>
               <div class="text-sm">Years of Excellence</div>
             </div>
@@ -103,7 +103,7 @@ const team = [
             :key="stat.label"
             class="text-center"
           >
-            <div class="text-4xl md:text-5xl font-bold text-teal-500 mb-2">{{ stat.value }}</div>
+            <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">{{ stat.value }}</div>
             <div class="text-gray-600">{{ stat.label }}</div>
           </div>
         </div>
@@ -123,17 +123,17 @@ const team = [
             :key="value.title"
             :hover="true"
           >
-            <div class="w-14 h-14 rounded-xl bg-teal-500/10 flex items-center justify-center mb-4">
-              <svg v-if="value.icon === 'shield'" class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
+              <svg v-if="value.icon === 'shield'" class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
-              <svg v-else-if="value.icon === 'users'" class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg v-else-if="value.icon === 'users'" class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
-              <svg v-else-if="value.icon === 'globe'" class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg v-else-if="value.icon === 'globe'" class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <svg v-else class="w-7 h-7 text-teal-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg v-else class="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
               </svg>
             </div>
@@ -144,7 +144,7 @@ const team = [
       </div>
     </section>
 
-    <section class="py-20 bg-slate-800">
+    <section class="py-20 bg-primary">
       <div class="container mx-auto px-6">
         <SectionHeader
           label="Our Team"
@@ -158,7 +158,7 @@ const team = [
             :key="member.name"
             class="text-center group"
           >
-            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
               {{ member.initials }}
             </div>
             <h3 class="text-white font-semibold text-lg">{{ member.name }}</h3>

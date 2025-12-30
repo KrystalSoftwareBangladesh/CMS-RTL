@@ -8,23 +8,23 @@ const currentSlide = 1
 </script>
 
 <template>
-  <section class="relative min-h-screen bg-slate-800 overflow-hidden">
+  <section class="relative min-h-screen bg-primary overflow-hidden">
     <div
       class="absolute inset-0 bg-cover bg-center bg-no-repeat"
       :style="{ backgroundImage: `url(${heroImage})` }"
     >
-      <div class="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-800/80 to-slate-700/40"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary/80 to-primary-light/40"></div>
     </div>
 
     <div class="relative z-10 container mx-auto px-6 pt-32 pb-20">
       <div class="grid lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
         <div>
           <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
-            <span class="italic">Speed Supply</span><br />
-            For Transportation
+            <span class="italic">Elevate Trade</span><br />
+            Worldwide
           </h1>
           <p class="text-white/70 text-lg mb-8 max-w-md">
-            Timely deliveries, accurate order fulfillment, and proper handling of goods contribute to customer satisfaction.
+            Your trusted partner for global trading solutions. We deliver excellence in import, export, and distribution services.
           </p>
           <BaseButton variant="primary" size="md">
             Learn More
