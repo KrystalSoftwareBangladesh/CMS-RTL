@@ -43,7 +43,7 @@ const iconPaths = computed(() => ({
 </script>
 
 <template>
-  <aside 
+  <aside
     :class="[
       'bg-primary min-h-screen fixed left-0 top-0 z-40 transition-all duration-300',
       collapsed ? 'w-20' : 'w-64'
@@ -51,24 +51,24 @@ const iconPaths = computed(() => ({
   >
     <div class="p-4 border-b border-white/10 flex items-center justify-between">
       <RouterLink to="/" class="flex items-center gap-3 overflow-hidden">
-        <img src="/logo.png" alt="Rising Trading Ltd." :class="['h-10 flex-shrink-0', collapsed ? 'mx-auto' : '']" />
+        <img src="/logo-white.png" alt="Rising Trading Ltd." :class="['h-10 flex-shrink-0', collapsed ? 'mx-auto' : '']" />
       </RouterLink>
-      <button 
+      <button
         @click="emit('toggle')"
         class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
         :class="collapsed ? 'absolute right-2 top-4' : ''"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path 
-            stroke-linecap="round" 
-            stroke-linejoin="round" 
-            stroke-width="2" 
-            :d="collapsed ? 'M13 5l7 7-7 7M5 5l7 7-7 7' : 'M11 19l-7-7 7-7m8 14l-7-7 7-7'" 
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            :d="collapsed ? 'M13 5l7 7-7 7M5 5l7 7-7 7' : 'M11 19l-7-7 7-7m8 14l-7-7 7-7'"
           />
         </svg>
       </button>
     </div>
-    
+
     <nav class="p-2">
       <ul class="space-y-1">
         <li v-for="item in menuItems" :key="item.path">
@@ -76,8 +76,8 @@ const iconPaths = computed(() => ({
             :to="item.path"
             :class="[
               'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
-              isActive(item) 
-                ? 'bg-secondary text-white' 
+              isActive(item)
+                ? 'bg-secondary text-white'
                 : 'text-white/70 hover:bg-white/10 hover:text-white',
               collapsed ? 'justify-center' : ''
             ]"
@@ -91,10 +91,10 @@ const iconPaths = computed(() => ({
         </li>
       </ul>
     </nav>
-    
+
     <div class="absolute bottom-0 left-0 right-0 p-2 border-t border-white/10">
-      <RouterLink 
-        to="/" 
+      <RouterLink
+        to="/"
         :class="[
           'flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white transition-colors rounded-lg',
           collapsed ? 'justify-center' : ''

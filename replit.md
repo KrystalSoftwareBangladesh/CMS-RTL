@@ -94,7 +94,8 @@ src/
 ├── App.vue
 └── main.ts
 public/
-├── logo.png            # Company logo (transparent)
+├── logo-black.png            # Company logo (transparent)
+├── logo-white.png            # Company logo (transparent)
 ```
 
 ## Theme Color Usage

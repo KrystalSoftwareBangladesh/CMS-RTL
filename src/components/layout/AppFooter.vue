@@ -15,7 +15,7 @@ const contactInfo = {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         <div>
           <div class="flex items-center mb-6">
-            <img src="/logo.png" alt="Rising Trading Ltd." class="h-12" />
+            <img src="/logo-black.png" alt="Rising Trading Ltd." class="h-12" />
           </div>
           <p class="text-gray-600 text-sm mb-6">
             {{ t('footer.tagline') }}
