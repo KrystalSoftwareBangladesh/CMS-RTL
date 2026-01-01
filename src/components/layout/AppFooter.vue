@@ -69,13 +69,13 @@ const contactInfo = {
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="text-center md:text-left">
             <p class="text-gray-500 text-sm">
-              {{ t('footer.copyright') }} 
+              © 2026 
               <a 
                 href="https://github.com/KrystalSoftwareBangladesh/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="text-secondary hover:underline"
-              >Krystal Software Bangladesh</a>
+              >Krystal Software Bangladesh</a>. {{ t('footer.allRightsReserved') }}
             </p>
           </div>
           <div class="flex items-center gap-4">
