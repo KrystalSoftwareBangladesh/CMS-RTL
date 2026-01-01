@@ -45,7 +45,7 @@ onUnmounted(() => {
     <div class="container mx-auto px-6">
       <div class="flex items-center justify-between">
         <RouterLink to="/" class="flex items-center">
-          <img src="/logo.png" alt="Rising Trading Ltd." class="h-10 md:h-12" />
+          <img src="/logo-white.png" alt="Rising Trading Ltd." class="h-10 md:h-12" />
         </RouterLink>
 
         <div class="hidden md:flex items-center gap-8">
@@ -64,7 +64,7 @@ onUnmounted(() => {
 
         <div class="hidden md:flex items-center gap-4">
           <div class="relative">
-            <button 
+            <button
               @click="isLangOpen = !isLangOpen"
               class="flex items-center gap-2 text-white/80 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/10"
             >
@@ -74,7 +74,7 @@ onUnmounted(() => {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div 
+            <div
               v-if="isLangOpen"
               class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50"
             >

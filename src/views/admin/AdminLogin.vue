@@ -14,16 +14,16 @@ const isLoading = ref(false)
 
 const handleLogin = async () => {
   error.value = ''
-  
+
   if (!email.value || !password.value) {
     error.value = t('admin.login.errorRequired')
     return
   }
-  
+
   isLoading.value = true
-  
+
   await new Promise(resolve => setTimeout(resolve, 800))
-  
+
   if (email.value === 'admin@risingtrading.com' && password.value === 'admin123') {
     localStorage.setItem('admin-auth', 'true')
     localStorage.setItem('admin-user', JSON.stringify({ email: email.value, name: 'Admin' }))
@@ -31,7 +31,7 @@ const handleLogin = async () => {
   } else {
     error.value = t('admin.login.errorInvalid')
   }
-  
+
   isLoading.value = false
 }
 </script>
@@ -40,11 +40,11 @@ const handleLogin = async () => {
   <div class="min-h-screen bg-primary flex items-center justify-center p-4">
     <div class="w-full max-w-md">
       <div class="text-center mb-8">
-        <img src="/logo.png" alt="Rising Trading Ltd." class="h-16 mx-auto mb-4" />
+        <img src="/logo-black.png" alt="Rising Trading Ltd." class="h-16 mx-auto mb-4" />
         <h1 class="text-2xl font-bold text-white">{{ t('admin.login.title') }}</h1>
         <p class="text-white/70 mt-2">{{ t('admin.login.subtitle') }}</p>
       </div>
-      
+
       <div class="bg-white rounded-xl shadow-2xl p-8">
         <form @submit.prevent="handleLogin" class="space-y-6">
           <div>
@@ -58,7 +58,7 @@ const handleLogin = async () => {
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors"
             />
           </div>
-          
+
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">
               {{ t('admin.login.password') }}
@@ -70,14 +70,14 @@ const handleLogin = async () => {
               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary transition-colors"
             />
           </div>
-          
+
           <div v-if="error" class="p-3 bg-red-50 border border-red-200 rounded-lg">
             <p class="text-sm text-red-600">{{ error }}</p>
           </div>
-          
-          <BaseButton 
-            type="submit" 
-            variant="primary" 
+
+          <BaseButton
+            type="submit"
+            variant="primary"
             class="w-full justify-center"
             :disabled="isLoading"
           >
@@ -88,7 +88,7 @@ const handleLogin = async () => {
             {{ isLoading ? t('admin.login.signingIn') : t('admin.login.signIn') }}
           </BaseButton>
         </form>
-        
+
         <div class="mt-6 pt-6 border-t border-gray-200">
           <p class="text-sm text-gray-500 text-center">
             {{ t('admin.login.hint') }}
@@ -98,7 +98,7 @@ const handleLogin = async () => {
           </p>
         </div>
       </div>
-      
+
       <div class="mt-8 text-center">
         <RouterLink to="/" class="text-white/70 hover:text-white text-sm transition-colors">
           {{ t('admin.backToSite') }}
