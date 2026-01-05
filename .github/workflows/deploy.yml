@@ -31,9 +31,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # 5️⃣ Create .env.stage
+      - name: Create environment file
+        run: |
+          cat <<EOF > .env.stage
+          VITE_ENV=stage
+          VITE_API_BASE_URL=${{ secrets.STAGE_VITE_API_BASE_URL }}
+          EOF
+
       # 4️⃣ Build
       - name: Build project
-        run: pnpm build
+        run: pnpm build:stage
 
       # 5️⃣ Deploy
       - name: Deploy dist to server
