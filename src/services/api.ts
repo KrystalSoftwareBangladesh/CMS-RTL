@@ -43,10 +43,21 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
+const AUTH_ENDPOINTS = ['/auth/login/', '/auth/refresh/']
+
+const isAuthEndpoint = (url: string | undefined): boolean => {
+  if (!url) return false
+  return AUTH_ENDPOINTS.some(endpoint => url.includes(endpoint))
+}
+
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean }
+    
+    if (isAuthEndpoint(originalRequest.url)) {
+      return Promise.reject(error)
+    }
     
     if (error.response?.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
