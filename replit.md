@@ -30,12 +30,39 @@ Language selection is persisted to localStorage.
 - **Light variants**: primary-light, secondary-light
 - **Dark variants**: primary-dark, secondary-dark
 
+## API Integration
+The application integrates with a backend API for authentication.
+
+### API Base URL
+- **Development**: `http://apirtl.rkshaon.info` (set via environment variable `VITE_API_BASE_URL`)
+
+### Authentication Flow
+- **Login**: POST `/auth/login/` - Returns access and refresh tokens
+- **Refresh**: POST `/auth/refresh/` - Refreshes the access token
+- **Profile**: GET `/user/profile/` - Gets the authenticated user's profile
+
+### Token Management
+- Tokens are stored in localStorage (`access_token`, `refresh_token`)
+- Axios interceptor automatically adds Bearer token to requests
+- 401 responses trigger automatic token refresh with request queuing
+- Failed refresh redirects to login page
+- Auth endpoints are excluded from token refresh logic
+
+### State Management
+- Pinia store (`src/stores/auth.ts`) manages authentication state
+- Store is initialized on app startup to restore session
+
 ## Directory Structure
 ```
 src/
 ├── assets/
 │   ├── images/          # Stock images and assets
 │   └── main.css         # Tailwind configuration with theme colors
+├── services/            # API services
+│   ├── api.ts           # Axios wrapper with interceptors
+│   └── auth.ts          # Authentication service
+├── stores/              # Pinia stores
+│   └── auth.ts          # Authentication state management
 ├── components/
 │   ├── base/            # Reusable UI components
 │   │   ├── BaseButton.vue
