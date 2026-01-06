@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { languages } from '@/i18n'
+import { useAuthStore } from '@/stores/auth'
 
 interface Props {
   title: string
@@ -13,12 +14,18 @@ defineProps<Props>()
 
 const router = useRouter()
 const { locale, t } = useI18n()
+const authStore = useAuthStore()
 const isLangOpen = ref(false)
 const isProfileOpen = ref(false)
 
 const currentLang = computed(() => {
   const found = languages.find(l => l.code === locale.value)
   return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
+})
+
+const userInitial = computed(() => {
+  const name = authStore.userName
+  return name.charAt(0).toUpperCase()
 })
 
 const changeLanguage = (code: string) => {
@@ -28,8 +35,7 @@ const changeLanguage = (code: string) => {
 }
 
 const handleLogout = () => {
-  localStorage.removeItem('admin-auth')
-  localStorage.removeItem('admin-user')
+  authStore.logout()
   router.push('/admin/login')
 }
 </script>
@@ -84,9 +90,9 @@ const handleLogout = () => {
             class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span class="text-white text-sm font-medium">A</span>
+              <span class="text-white text-sm font-medium">{{ userInitial }}</span>
             </div>
-            <span class="text-sm font-medium text-gray-700">{{ t('admin.profile.admin') }}</span>
+            <span class="text-sm font-medium text-gray-700">{{ authStore.userName }}</span>
           </button>
           
           <div 
