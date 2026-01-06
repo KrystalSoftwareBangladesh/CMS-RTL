@@ -37,3 +37,9 @@ externalPort = 80
 deploymentTarget = "static"
 build = ["npm", "run", "build"]
 publicDir = "dist"
+
+[userenv]
+
+[userenv.development]
+VITE_ENV = "development"
+VITE_API_BASE_URL = "http://apirtl.rkshaon.info"
