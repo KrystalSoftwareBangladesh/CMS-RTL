@@ -19,13 +19,17 @@ export const useAuthStore = defineStore('auth', () => {
     return user.value.email
   })
 
-  async function login(credentials: LoginCredentials): Promise<boolean> {
+  async function login(credential: string, password: string): Promise<boolean> {
     loading.value = true
     error.value = null
 
     try {
-      await authService.login(credentials)
-      await fetchProfile()
+      const response = await authService.login({ credential, password })
+      user.value = {
+        id: response.user_id,
+        email: response.email,
+        name: response.username,
+      }
       return true
     } catch (err: unknown) {
       if (err && typeof err === 'object' && 'response' in err) {

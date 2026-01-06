@@ -1,13 +1,17 @@
 import api, { setTokens, clearTokens } from './api'
 
 export interface LoginCredentials {
-  email: string
+  credential: string
   password: string
 }
 
 export interface LoginResponse {
   access: string
   refresh: string
+  user_id: number
+  username: string
+  email: string
+  message: string
 }
 
 export interface UserProfile {

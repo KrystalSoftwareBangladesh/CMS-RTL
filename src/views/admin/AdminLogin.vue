@@ -25,7 +25,7 @@ const handleLogin = async () => {
     return
   }
 
-  const success = await authStore.login({ email: email.value, password: password.value })
+  const success = await authStore.login(email.value, password.value)
 
   if (success) {
     router.push('/admin')
