@@ -42,4 +42,4 @@ publicDir = "dist"
 
 [userenv.development]
 VITE_ENV = "development"
-VITE_API_BASE_URL = "http://apirtl.rkshaon.info"
+VITE_API_BASE_URL = "https://apirtl.rkshaon.info"
