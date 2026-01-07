@@ -228,10 +228,10 @@
     "helpLinks": "এগুলি সহায়ক হতে পারে:"
   },
   "admin": {
-    "login": { "title": "অ্যাডমিন লগইন", "subtitle": "আপনার ওয়েবসাইট পরিচালনা করতে সাইন ইন করুন", "email": "ইমেইল ঠিকানা", "emailPlaceholder": "আপনার ইমেইল লিখুন", "password": "পাসওয়ার্ড", "passwordPlaceholder": "আপনার পাসওয়ার্ড লিখুন", "signIn": "সাইন ইন", "signingIn": "সাইন ইন হচ্ছে...", "errorRequired": "অনুগ্রহ করে ইমেইল এবং পাসওয়ার্ড উভয়ই লিখুন", "errorInvalid": "ভুল ইমেইল বা পাসওয়ার্ড", "hint": "ডেমো ক্রেডেনশিয়াল:" },
+    "login": { "title": "অ্যাডমিন লগইন", "subtitle": "আপনার ওয়েবসাইট পরিচালনা করতে সাইন ইন করুন", "email": "ইউজারনেম বা ইমেইল", "emailPlaceholder": "আপনার ইউজারনেম বা ইমেইল লিখুন", "password": "পাসওয়ার্ড", "passwordPlaceholder": "আপনার পাসওয়ার্ড লিখুন", "signIn": "সাইন ইন", "signingIn": "সাইন ইন হচ্ছে...", "errorRequired": "অনুগ্রহ করে ইমেইল এবং পাসওয়ার্ড উভয়ই লিখুন", "errorInvalid": "ভুল ইমেইল বা পাসওয়ার্ড", "hint": "ডেমো ক্রেডেনশিয়াল:" },
     "nav": { "dashboard": "ড্যাশবোর্ড", "services": "সেবা", "news": "সংবাদ", "projects": "প্রকল্প", "testimonials": "প্রশংসাপত্র", "faq": "FAQ", "settings": "সেটিংস" },
     "backToSite": "ওয়েবসাইটে ফিরুন",
-    "profile": { "admin": "অ্যাডমিন", "viewProfile": "প্রোফাইল দেখুন", "logout": "লগ আউট" },
+    "profile": { "title": "আমার প্রোফাইল", "subtitle": "আপনার অ্যাকাউন্ট তথ্য দেখুন ও পরিচালনা করুন", "admin": "অ্যাডমিন", "viewProfile": "প্রোফাইল দেখুন", "logout": "লগ আউট", "accountInfo": "অ্যাকাউন্ট তথ্য", "userId": "ইউজার আইডি", "username": "ইউজারনেম", "fullName": "পূর্ণ নাম", "email": "ইমেইল ঠিকানা", "groups": "গ্রুপ", "noGroups": "কোনো গ্রুপ নির্ধারিত নেই", "notProvided": "প্রদান করা হয়নি", "loadError": "প্রোফাইল ডেটা লোড করা যায়নি" },
     "table": { "actions": "অ্যাকশন", "loading": "লোড হচ্ছে...", "noData": "কোনো ডেটা নেই" },
     "dashboard": { "title": "ড্যাশবোর্ড", "subtitle": "স্বাগতম! আপনার ওয়েবসাইটের ওভারভিউ।", "totalServices": "মোট সেবা", "totalProjects": "মোট প্রকল্প", "newsArticles": "সংবাদ নিবন্ধ", "pageViews": "পেজ ভিউ", "recentActivity": "সাম্প্রতিক কার্যক্রম", "viewAll": "সব দেখুন", "quickActions": "দ্রুত অ্যাকশন", "addService": "সেবা যোগ করুন", "addNews": "নিবন্ধ যোগ করুন", "addProject": "প্রকল্প যোগ করুন", "settings": "সাইট সেটিংস" },
     "services": { "title": "সেবা পরিচালনা", "subtitle": "সেবা যোগ, সম্পাদনা বা মুছুন", "searchPlaceholder": "অনুসন্ধান...", "addNew": "যোগ করুন", "columns": { "name": "সেবার নাম", "description": "বিবরণ", "status": "অবস্থা", "updatedAt": "সর্বশেষ আপডেট" } },

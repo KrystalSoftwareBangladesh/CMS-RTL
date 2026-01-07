@@ -12,10 +12,9 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!getAccessToken())
   const userName = computed(() => {
     if (!user.value) return 'Admin'
+    if (user.value.full_name) return user.value.full_name
     if (user.value.name) return user.value.name
-    if (user.value.first_name || user.value.last_name) {
-      return `${user.value.first_name || ''} ${user.value.last_name || ''}`.trim()
-    }
+    if (user.value.username) return user.value.username
     return user.value.email
   })
 

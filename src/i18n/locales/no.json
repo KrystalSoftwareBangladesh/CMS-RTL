@@ -228,10 +228,10 @@
     "helpLinks": "Disse kan være nyttige:"
   },
   "admin": {
-    "login": { "title": "Admin Innlogging", "subtitle": "Logg inn for å administrere nettstedet", "email": "E-postadresse", "emailPlaceholder": "Skriv inn din e-post", "password": "Passord", "passwordPlaceholder": "Skriv inn passord", "signIn": "Logg inn", "signingIn": "Logger inn...", "errorRequired": "Vennligst skriv inn e-post og passord", "errorInvalid": "Ugyldig e-post eller passord", "hint": "Demo-legitimasjon:" },
+    "login": { "title": "Admin Innlogging", "subtitle": "Logg inn for å administrere nettstedet", "email": "Brukernavn eller e-post", "emailPlaceholder": "Skriv inn brukernavn eller e-post", "password": "Passord", "passwordPlaceholder": "Skriv inn passord", "signIn": "Logg inn", "signingIn": "Logger inn...", "errorRequired": "Vennligst skriv inn e-post og passord", "errorInvalid": "Ugyldig e-post eller passord", "hint": "Demo-legitimasjon:" },
     "nav": { "dashboard": "Dashbord", "services": "Tjenester", "news": "Nyheter", "projects": "Prosjekter", "testimonials": "Attester", "faq": "FAQ", "settings": "Innstillinger" },
     "backToSite": "Tilbake til nettstedet",
-    "profile": { "admin": "Admin", "viewProfile": "Se profil", "logout": "Logg ut" },
+    "profile": { "title": "Min Profil", "subtitle": "Se og administrer kontoinformasjonen din", "admin": "Admin", "viewProfile": "Se profil", "logout": "Logg ut", "accountInfo": "Kontoinformasjon", "userId": "Bruker-ID", "username": "Brukernavn", "fullName": "Fullt navn", "email": "E-postadresse", "groups": "Grupper", "noGroups": "Ingen grupper tildelt", "notProvided": "Ikke oppgitt", "loadError": "Kunne ikke laste profildata" },
     "table": { "actions": "Handlinger", "loading": "Laster...", "noData": "Ingen data tilgjengelig" },
     "dashboard": { "title": "Dashbord", "subtitle": "Velkommen tilbake! Her er en oversikt over nettstedet ditt.", "totalServices": "Totale tjenester", "totalProjects": "Totale prosjekter", "newsArticles": "Nyhetsartikler", "pageViews": "Sidevisninger", "recentActivity": "Nylig aktivitet", "viewAll": "Se alle", "quickActions": "Hurtighandlinger", "addService": "Legg til tjeneste", "addNews": "Legg til artikkel", "addProject": "Legg til prosjekt", "settings": "Innstillinger" },
     "services": { "title": "Administrer tjenester", "subtitle": "Legg til, rediger eller fjern tjenester", "searchPlaceholder": "Søk...", "addNew": "Legg til", "columns": { "name": "Tjenestenavn", "description": "Beskrivelse", "status": "Status", "updatedAt": "Sist oppdatert" } },

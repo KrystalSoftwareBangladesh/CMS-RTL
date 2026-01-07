@@ -17,10 +17,13 @@ export interface LoginResponse {
 export interface UserProfile {
   id: number
   email: string
+  username: string
+  full_name?: string
   name?: string
   first_name?: string
   last_name?: string
   role?: string
+  groups?: string[]
 }
 
 export const authService = {

@@ -15,6 +15,7 @@ import AdminProjects from '../views/admin/AdminProjects.vue'
 import AdminTestimonials from '../views/admin/AdminTestimonials.vue'
 import AdminFAQ from '../views/admin/AdminFAQ.vue'
 import AdminSettings from '../views/admin/AdminSettings.vue'
+import AdminProfile from '../views/admin/AdminProfile.vue'
 import { getAccessToken } from '@/services/api'
 
 const router = createRouter({
@@ -95,6 +96,12 @@ const router = createRouter({
       path: '/admin/settings',
       name: 'admin-settings',
       component: AdminSettings,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/profile',
+      name: 'admin-profile',
+      component: AdminProfile,
       meta: { requiresAuth: true },
     },
     {

@@ -231,8 +231,8 @@
     "login": {
       "title": "Admin Login",
       "subtitle": "Sign in to manage your website",
-      "email": "Email Address",
-      "emailPlaceholder": "Enter your email",
+      "email": "Username or Email",
+      "emailPlaceholder": "Enter your username or email",
       "password": "Password",
       "passwordPlaceholder": "Enter your password",
       "signIn": "Sign In",
@@ -252,9 +252,20 @@
     },
     "backToSite": "Back to Website",
     "profile": {
+      "title": "My Profile",
+      "subtitle": "View and manage your account information",
       "admin": "Admin",
       "viewProfile": "View Profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "accountInfo": "Account Information",
+      "userId": "User ID",
+      "username": "Username",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "groups": "Groups",
+      "noGroups": "No groups assigned",
+      "notProvided": "Not provided",
+      "loadError": "Unable to load profile data"
     },
     "table": {
       "actions": "Actions",
