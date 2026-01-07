@@ -228,10 +228,10 @@
     "helpLinks": "ये मददगार हो सकते हैं:"
   },
   "admin": {
-    "login": { "title": "एडमिन लॉगिन", "subtitle": "अपनी वेबसाइट प्रबंधित करने के लिए साइन इन करें", "email": "ईमेल पता", "emailPlaceholder": "अपना ईमेल दर्ज करें", "password": "पासवर्ड", "passwordPlaceholder": "अपना पासवर्ड दर्ज करें", "signIn": "साइन इन", "signingIn": "साइन इन हो रहा है...", "errorRequired": "कृपया ईमेल और पासवर्ड दोनों दर्ज करें", "errorInvalid": "अमान्य ईमेल या पासवर्ड", "hint": "डेमो क्रेडेंशियल:" },
+    "login": { "title": "एडमिन लॉगिन", "subtitle": "अपनी वेबसाइट प्रबंधित करने के लिए साइन इन करें", "email": "यूजरनेम या ईमेल", "emailPlaceholder": "अपना यूजरनेम या ईमेल दर्ज करें", "password": "पासवर्ड", "passwordPlaceholder": "अपना पासवर्ड दर्ज करें", "signIn": "साइन इन", "signingIn": "साइन इन हो रहा है...", "errorRequired": "कृपया ईमेल और पासवर्ड दोनों दर्ज करें", "errorInvalid": "अमान्य ईमेल या पासवर्ड", "hint": "डेमो क्रेडेंशियल:" },
     "nav": { "dashboard": "डैशबोर्ड", "services": "सेवाएं", "news": "समाचार", "projects": "प्रोजेक्ट्स", "testimonials": "प्रशंसापत्र", "faq": "FAQ", "settings": "सेटिंग्स" },
     "backToSite": "वेबसाइट पर वापस",
-    "profile": { "admin": "एडमिन", "viewProfile": "प्रोफ़ाइल देखें", "logout": "लॉग आउट" },
+    "profile": { "title": "मेरी प्रोफ़ाइल", "subtitle": "अपने खाते की जानकारी देखें और प्रबंधित करें", "admin": "एडमिन", "viewProfile": "प्रोफ़ाइल देखें", "logout": "लॉग आउट", "accountInfo": "खाता जानकारी", "userId": "यूजर आईडी", "username": "यूजरनेम", "fullName": "पूरा नाम", "email": "ईमेल पता", "groups": "समूह", "noGroups": "कोई समूह निर्धारित नहीं", "notProvided": "प्रदान नहीं किया गया", "loadError": "प्रोफ़ाइल डेटा लोड करने में असमर्थ" },
     "table": { "actions": "क्रियाएं", "loading": "लोड हो रहा है...", "noData": "कोई डेटा उपलब्ध नहीं" },
     "dashboard": { "title": "डैशबोर्ड", "subtitle": "स्वागत है! यहाँ आपकी वेबसाइट का अवलोकन है।", "totalServices": "कुल सेवाएं", "totalProjects": "कुल प्रोजेक्ट्स", "newsArticles": "समाचार लेख", "pageViews": "पेज व्यूज", "recentActivity": "हालिया गतिविधि", "viewAll": "सभी देखें", "quickActions": "त्वरित क्रियाएं", "addService": "सेवा जोड़ें", "addNews": "लेख जोड़ें", "addProject": "प्रोजेक्ट जोड़ें", "settings": "सेटिंग्स" },
     "services": { "title": "सेवाएं प्रबंधित करें", "subtitle": "सेवाएं जोड़ें, संपादित करें या हटाएं", "searchPlaceholder": "खोजें...", "addNew": "जोड़ें", "columns": { "name": "सेवा का नाम", "description": "विवरण", "status": "स्थिति", "updatedAt": "अंतिम अपडेट" } },

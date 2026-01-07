@@ -231,8 +231,8 @@
     "login": {
       "title": "Connexion Admin",
       "subtitle": "Connectez-vous pour gérer votre site",
-      "email": "Adresse e-mail",
-      "emailPlaceholder": "Entrez votre e-mail",
+      "email": "Nom d'utilisateur ou e-mail",
+      "emailPlaceholder": "Entrez votre nom d'utilisateur ou e-mail",
       "password": "Mot de passe",
       "passwordPlaceholder": "Entrez votre mot de passe",
       "signIn": "Se connecter",
@@ -252,9 +252,20 @@
     },
     "backToSite": "Retour au site",
     "profile": {
+      "title": "Mon Profil",
+      "subtitle": "Voir et gérer les informations de votre compte",
       "admin": "Admin",
       "viewProfile": "Voir le profil",
-      "logout": "Déconnexion"
+      "logout": "Déconnexion",
+      "accountInfo": "Informations du compte",
+      "userId": "ID utilisateur",
+      "username": "Nom d'utilisateur",
+      "fullName": "Nom complet",
+      "email": "Adresse e-mail",
+      "groups": "Groupes",
+      "noGroups": "Aucun groupe assigné",
+      "notProvided": "Non fourni",
+      "loadError": "Impossible de charger les données du profil"
     },
     "table": {
       "actions": "Actions",

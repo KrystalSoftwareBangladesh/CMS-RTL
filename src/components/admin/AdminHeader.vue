@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { languages } from '@/i18n'
+import { useAuthStore } from '@/stores/auth'
 
 interface Props {
   title: string
@@ -13,12 +14,18 @@ defineProps<Props>()
 
 const router = useRouter()
 const { locale, t } = useI18n()
+const authStore = useAuthStore()
 const isLangOpen = ref(false)
 const isProfileOpen = ref(false)
 
 const currentLang = computed(() => {
   const found = languages.find(l => l.code === locale.value)
   return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
+})
+
+const userInitial = computed(() => {
+  const name = authStore.userName
+  return name.charAt(0).toUpperCase()
 })
 
 const changeLanguage = (code: string) => {
@@ -28,8 +35,7 @@ const changeLanguage = (code: string) => {
 }
 
 const handleLogout = () => {
-  localStorage.removeItem('admin-auth')
-  localStorage.removeItem('admin-user')
+  authStore.logout()
   router.push('/admin/login')
 }
 </script>
@@ -84,21 +90,25 @@ const handleLogout = () => {
             class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-              <span class="text-white text-sm font-medium">A</span>
+              <span class="text-white text-sm font-medium">{{ userInitial }}</span>
             </div>
-            <span class="text-sm font-medium text-gray-700">{{ t('admin.profile.admin') }}</span>
+            <span class="text-sm font-medium text-gray-700">{{ authStore.userName }}</span>
           </button>
           
           <div 
             v-if="isProfileOpen"
             class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100"
           >
-            <button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3">
+            <router-link 
+              to="/admin/profile"
+              @click="isProfileOpen = false"
+              class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3"
+            >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
               {{ t('admin.profile.viewProfile') }}
-            </button>
+            </router-link>
             <button 
               @click="handleLogout"
               class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-3"

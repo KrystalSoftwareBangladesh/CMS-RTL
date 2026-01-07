@@ -15,10 +15,8 @@ import AdminProjects from '../views/admin/AdminProjects.vue'
 import AdminTestimonials from '../views/admin/AdminTestimonials.vue'
 import AdminFAQ from '../views/admin/AdminFAQ.vue'
 import AdminSettings from '../views/admin/AdminSettings.vue'
-
-const isAuthenticated = () => {
-  return localStorage.getItem('admin-auth') === 'true'
-}
+import AdminProfile from '../views/admin/AdminProfile.vue'
+import { getAccessToken } from '@/services/api'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -101,6 +99,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/admin/profile',
+      name: 'admin-profile',
+      component: AdminProfile,
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: NotFoundView,
@@ -115,9 +119,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !isAuthenticated()) {
+  const isAuthenticated = !!getAccessToken()
+  
+  if (to.meta.requiresAuth && !isAuthenticated) {
     next('/admin/login')
-  } else if (to.path === '/admin/login' && isAuthenticated()) {
+  } else if (to.path === '/admin/login' && isAuthenticated) {
     next('/admin')
   } else {
     next()
