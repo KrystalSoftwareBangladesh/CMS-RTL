@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import authService, { type LoginCredentials, type UserProfile } from '@/services/auth'
+import authService, { type UserProfile } from '@/services/auth'
 import { getAccessToken } from '@/services/api'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -27,7 +27,7 @@ export const useAuthStore = defineStore('auth', () => {
       user.value = {
         id: response.user_id,
         email: response.email,
-        name: response.username,
+        username: response.username,
       }
       return true
     } catch (err: unknown) {
