@@ -19,7 +19,6 @@ export interface CategoryListResponse {
 
 export interface CategoryInput {
   name: string
-  slug?: string
   description?: string
   parent?: number | null
 }

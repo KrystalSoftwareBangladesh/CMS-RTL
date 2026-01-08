@@ -288,7 +288,8 @@
       },
       "form": {
         "name": "Category Name",
-        "slug": "Slug",
+        "parent": "Parent Category",
+        "noParent": "No Parent (Top Level)",
         "description": "Description",
         "cancel": "Cancel",
         "save": "Save",

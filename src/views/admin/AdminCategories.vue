@@ -16,7 +16,6 @@ const saving = ref(false)
 
 const form = ref<CategoryInput>({
   name: '',
-  slug: '',
   description: '',
   parent: null
 })
@@ -56,7 +55,7 @@ async function fetchCategories() {
 
 function openAddModal() {
   editingCategory.value = null
-  form.value = { name: '', slug: '', description: '', parent: null }
+  form.value = { name: '', description: '', parent: null }
   showModal.value = true
 }
 
@@ -66,7 +65,6 @@ function handleEdit(item: Record<string, unknown>) {
     editingCategory.value = category
     form.value = {
       name: category.name,
-      slug: category.slug,
       description: category.description || '',
       parent: category.parent
     }
@@ -150,13 +148,21 @@ onMounted(fetchCategories)
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">
-                {{ t('admin.categories.form.slug') }}
+                {{ t('admin.categories.form.parent') }}
               </label>
-              <input
-                v-model="form.slug"
-                type="text"
+              <select
+                v-model="form.parent"
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-              />
+              >
+                <option :value="null">{{ t('admin.categories.form.noParent') }}</option>
+                <option
+                  v-for="cat in categories.filter(c => c.id !== editingCategory?.id)"
+                  :key="cat.id"
+                  :value="cat.id"
+                >
+                  {{ cat.name }}
+                </option>
+              </select>
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">
