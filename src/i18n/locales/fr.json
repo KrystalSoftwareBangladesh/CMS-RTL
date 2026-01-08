@@ -274,8 +274,8 @@
       "noData": "Aucune donnée disponible"
     },
     "pagination": {
-      "showing": "Affichage de {from} à {to} sur {total} résultats",
-      "page": "Page {current} sur {total}",
+      "total": "{count} résultats",
+      "pageNum": "Page {page}",
       "previous": "Précédent",
       "next": "Suivant"
     },

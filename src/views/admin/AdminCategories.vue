@@ -18,7 +18,6 @@ const currentPage = ref(1)
 const totalCount = ref(0)
 const hasNextPage = ref(false)
 const hasPrevPage = ref(false)
-const pageSize = 10
 
 const form = ref<CategoryInput>({
   name: '',
@@ -75,7 +74,7 @@ function goToPage(page: number) {
   fetchCategories(page)
 }
 
-const totalPages = computed(() => Math.ceil(totalCount.value / pageSize))
+const showPagination = computed(() => hasNextPage.value || hasPrevPage.value)
 
 function openAddModal() {
   editingCategory.value = null
@@ -155,9 +154,9 @@ onMounted(() => {
       @delete="handleDelete"
     />
 
-    <div v-if="!loading && totalPages > 1" class="flex items-center justify-between mt-6 px-2">
+    <div v-if="!loading && showPagination" class="flex items-center justify-between mt-6 px-2">
       <p class="text-sm text-gray-600">
-        {{ t('admin.pagination.showing', { from: (currentPage - 1) * pageSize + 1, to: Math.min(currentPage * pageSize, totalCount), total: totalCount }) }}
+        {{ t('admin.pagination.total', { count: totalCount }) }}
       </p>
       <div class="flex items-center gap-2">
         <button
@@ -173,7 +172,7 @@ onMounted(() => {
           {{ t('admin.pagination.previous') }}
         </button>
         <span class="text-sm text-gray-600 px-2">
-          {{ t('admin.pagination.page', { current: currentPage, total: totalPages }) }}
+          {{ t('admin.pagination.pageNum', { page: currentPage }) }}
         </span>
         <button
           @click="goToPage(currentPage + 1)"
