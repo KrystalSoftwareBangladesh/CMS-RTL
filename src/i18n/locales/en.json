@@ -273,6 +273,12 @@
       "loading": "Loading...",
       "noData": "No data available"
     },
+    "pagination": {
+      "showing": "Showing {from} to {to} of {total} results",
+      "page": "Page {current} of {total}",
+      "previous": "Previous",
+      "next": "Next"
+    },
     "categories": {
       "title": "Categories",
       "subtitle": "Manage categories for blogs, projects, and FAQs",

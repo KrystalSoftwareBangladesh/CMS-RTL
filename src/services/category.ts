@@ -24,9 +24,22 @@ export interface CategoryInput {
 }
 
 const categoryService = {
-  async list(): Promise<CategoryListResponse> {
-    const response = await api.get<CategoryListResponse>('/categories/')
+  async list(page = 1): Promise<CategoryListResponse> {
+    const response = await api.get<CategoryListResponse>(`/categories/?page=${page}`)
     return response.data
+  },
+
+  async listAll(): Promise<Category[]> {
+    const categories: Category[] = []
+    let page = 1
+    let hasNext = true
+    while (hasNext) {
+      const response = await api.get<CategoryListResponse>(`/categories/?page=${page}`)
+      categories.push(...response.data.results)
+      hasNext = !!response.data.next
+      page++
+    }
+    return categories
   },
 
   async get(id: number): Promise<Category> {

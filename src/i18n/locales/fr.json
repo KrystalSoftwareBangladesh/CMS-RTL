@@ -273,6 +273,12 @@
       "loading": "Chargement...",
       "noData": "Aucune donnée disponible"
     },
+    "pagination": {
+      "showing": "Affichage de {from} à {to} sur {total} résultats",
+      "page": "Page {current} sur {total}",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
     "categories": {
       "title": "Catégories",
       "subtitle": "Gérer les catégories pour les blogs, projets et FAQs",

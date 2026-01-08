@@ -9,10 +9,16 @@ import categoryService, { type Category, type CategoryInput } from '@/services/c
 const { t } = useI18n()
 
 const categories = ref<Category[]>([])
+const allCategories = ref<Category[]>([])
 const loading = ref(false)
 const showModal = ref(false)
 const editingCategory = ref<Category | null>(null)
 const saving = ref(false)
+const currentPage = ref(1)
+const totalCount = ref(0)
+const hasNextPage = ref(false)
+const hasPrevPage = ref(false)
+const pageSize = 10
 
 const form = ref<CategoryInput>({
   name: '',
@@ -41,17 +47,35 @@ const modalTitle = computed(() =>
   editingCategory.value ? t('admin.categories.editCategory') : t('admin.categories.addCategory')
 )
 
-async function fetchCategories() {
+async function fetchCategories(page = 1) {
   loading.value = true
   try {
-    const response = await categoryService.list()
+    const response = await categoryService.list(page)
     categories.value = response.results
+    totalCount.value = response.count
+    hasNextPage.value = !!response.next
+    hasPrevPage.value = !!response.previous
+    currentPage.value = page
   } catch (err) {
     console.error('Failed to fetch categories:', err)
   } finally {
     loading.value = false
   }
 }
+
+async function fetchAllCategories() {
+  try {
+    allCategories.value = await categoryService.listAll()
+  } catch (err) {
+    console.error('Failed to fetch all categories:', err)
+  }
+}
+
+function goToPage(page: number) {
+  fetchCategories(page)
+}
+
+const totalPages = computed(() => Math.ceil(totalCount.value / pageSize))
 
 function openAddModal() {
   editingCategory.value = null
@@ -76,7 +100,8 @@ async function handleDelete(item: Record<string, unknown>) {
   if (!confirm(t('admin.categories.confirmDelete'))) return
   try {
     await categoryService.delete(item.id as number)
-    await fetchCategories()
+    await fetchCategories(currentPage.value)
+    await fetchAllCategories()
   } catch (err) {
     console.error('Failed to delete category:', err)
   }
@@ -92,7 +117,8 @@ async function handleSubmit() {
       await categoryService.create(form.value)
     }
     showModal.value = false
-    await fetchCategories()
+    await fetchCategories(currentPage.value)
+    await fetchAllCategories()
   } catch (err) {
     console.error('Failed to save category:', err)
   } finally {
@@ -100,7 +126,10 @@ async function handleSubmit() {
   }
 }
 
-onMounted(fetchCategories)
+onMounted(() => {
+  fetchCategories()
+  fetchAllCategories()
+})
 </script>
 
 <template>
@@ -125,6 +154,41 @@ onMounted(fetchCategories)
       @edit="handleEdit"
       @delete="handleDelete"
     />
+
+    <div v-if="!loading && totalPages > 1" class="flex items-center justify-between mt-6 px-2">
+      <p class="text-sm text-gray-600">
+        {{ t('admin.pagination.showing', { from: (currentPage - 1) * pageSize + 1, to: Math.min(currentPage * pageSize, totalCount), total: totalCount }) }}
+      </p>
+      <div class="flex items-center gap-2">
+        <button
+          @click="goToPage(currentPage - 1)"
+          :disabled="!hasPrevPage"
+          :class="[
+            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
+            hasPrevPage 
+              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
+              : 'border-gray-200 text-gray-400 cursor-not-allowed'
+          ]"
+        >
+          {{ t('admin.pagination.previous') }}
+        </button>
+        <span class="text-sm text-gray-600 px-2">
+          {{ t('admin.pagination.page', { current: currentPage, total: totalPages }) }}
+        </span>
+        <button
+          @click="goToPage(currentPage + 1)"
+          :disabled="!hasNextPage"
+          :class="[
+            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
+            hasNextPage 
+              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
+              : 'border-gray-200 text-gray-400 cursor-not-allowed'
+          ]"
+        >
+          {{ t('admin.pagination.next') }}
+        </button>
+      </div>
+    </div>
 
     <Teleport to="body">
       <div
@@ -156,7 +220,7 @@ onMounted(fetchCategories)
               >
                 <option :value="null">{{ t('admin.categories.form.noParent') }}</option>
                 <option
-                  v-for="cat in categories.filter(c => c.id !== editingCategory?.id)"
+                  v-for="cat in allCategories.filter(c => c.id !== editingCategory?.id)"
                   :key="cat.id"
                   :value="cat.id"
                 >
