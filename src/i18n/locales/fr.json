@@ -243,6 +243,7 @@
     },
     "nav": {
       "dashboard": "Tableau de bord",
+      "categories": "Catégories",
       "services": "Services",
       "news": "Actualités",
       "projects": "Projets",
@@ -271,6 +272,22 @@
       "actions": "Actions",
       "loading": "Chargement...",
       "noData": "Aucune donnée disponible"
+    },
+    "pagination": {
+      "total": "{count} résultats",
+      "pageNum": "Page {page}",
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "categories": {
+      "title": "Catégories",
+      "subtitle": "Gérer les catégories pour les blogs, projets et FAQs",
+      "addNew": "Ajouter",
+      "addCategory": "Nouvelle catégorie",
+      "editCategory": "Modifier la catégorie",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette catégorie?",
+      "columns": { "name": "Nom", "slug": "Slug", "description": "Description", "updatedAt": "Dernière mise à jour" },
+      "form": { "name": "Nom de la catégorie", "parent": "Catégorie parente", "noParent": "Aucun parent (niveau supérieur)", "description": "Description", "cancel": "Annuler", "save": "Enregistrer", "saving": "Enregistrement..." }
     },
     "dashboard": {
       "title": "Tableau de bord",

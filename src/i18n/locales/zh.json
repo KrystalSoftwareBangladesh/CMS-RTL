@@ -229,10 +229,12 @@
   },
   "admin": {
     "login": { "title": "管理员登录", "subtitle": "登录以管理您的网站", "email": "用户名或邮箱", "emailPlaceholder": "请输入用户名或邮箱", "password": "密码", "passwordPlaceholder": "请输入密码", "signIn": "登录", "signingIn": "登录中...", "errorRequired": "请输入邮箱和密码", "errorInvalid": "邮箱或密码错误", "hint": "演示凭据:" },
-    "nav": { "dashboard": "仪表板", "services": "服务", "news": "新闻", "projects": "项目", "testimonials": "评价", "faq": "常见问题", "settings": "设置" },
+    "nav": { "dashboard": "仪表板", "categories": "分类", "services": "服务", "news": "新闻", "projects": "项目", "testimonials": "评价", "faq": "常见问题", "settings": "设置" },
     "backToSite": "返回网站",
     "profile": { "title": "我的资料", "subtitle": "查看和管理您的账户信息", "admin": "管理员", "viewProfile": "查看资料", "logout": "退出登录", "accountInfo": "账户信息", "userId": "用户ID", "username": "用户名", "fullName": "全名", "email": "电子邮箱", "groups": "群组", "noGroups": "未分配群组", "notProvided": "未提供", "loadError": "无法加载个人资料数据" },
     "table": { "actions": "操作", "loading": "加载中...", "noData": "暂无数据" },
+    "pagination": { "total": "共 {count} 条", "pageNum": "第 {page} 页", "previous": "上一页", "next": "下一页" },
+    "categories": { "title": "分类", "subtitle": "管理博客、项目和常见问题的分类", "addNew": "添加", "addCategory": "新建分类", "editCategory": "编辑分类", "confirmDelete": "确定要删除此分类吗？", "columns": { "name": "名称", "slug": "别名", "description": "描述", "updatedAt": "更新时间" }, "form": { "name": "分类名称", "parent": "父分类", "noParent": "无父分类（顶级）", "description": "描述", "cancel": "取消", "save": "保存", "saving": "保存中..." } },
     "dashboard": { "title": "仪表板", "subtitle": "欢迎回来！这是您网站的概览。", "totalServices": "服务总数", "totalProjects": "项目总数", "newsArticles": "新闻文章", "pageViews": "页面浏览量", "recentActivity": "最近活动", "viewAll": "查看全部", "quickActions": "快捷操作", "addService": "添加服务", "addNews": "添加文章", "addProject": "添加项目", "settings": "网站设置" },
     "services": { "title": "管理服务", "subtitle": "添加、编辑或删除服务", "searchPlaceholder": "搜索...", "addNew": "添加", "columns": { "name": "服务名称", "description": "描述", "status": "状态", "updatedAt": "更新时间" } },
     "news": { "title": "管理新闻", "subtitle": "创建和管理文章", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "title": "标题", "category": "分类", "author": "作者", "status": "状态", "publishedAt": "发布时间" } },
