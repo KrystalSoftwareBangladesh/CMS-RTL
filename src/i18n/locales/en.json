@@ -243,6 +243,7 @@
     },
     "nav": {
       "dashboard": "Dashboard",
+      "categories": "Categories",
       "services": "Services",
       "news": "News",
       "projects": "Projects",
@@ -271,6 +272,28 @@
       "actions": "Actions",
       "loading": "Loading...",
       "noData": "No data available"
+    },
+    "categories": {
+      "title": "Categories",
+      "subtitle": "Manage categories for blogs, projects, and FAQs",
+      "addNew": "Add Category",
+      "addCategory": "Add New Category",
+      "editCategory": "Edit Category",
+      "confirmDelete": "Are you sure you want to delete this category?",
+      "columns": {
+        "name": "Name",
+        "slug": "Slug",
+        "description": "Description",
+        "updatedAt": "Last Updated"
+      },
+      "form": {
+        "name": "Category Name",
+        "slug": "Slug",
+        "description": "Description",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+      }
     },
     "dashboard": {
       "title": "Dashboard",

@@ -34,7 +34,7 @@ Language selection is persisted to localStorage.
 The application integrates with a backend API for authentication.
 
 ### API Base URL
-- **Development**: `http://apirtl.rkshaon.info` (set via environment variable `VITE_API_BASE_URL`)
+- **Development**: `https://apirtl.rkshaon.info` (set via environment variable `VITE_API_BASE_URL`)
 
 ### Authentication Flow
 - **Login**: POST `/auth/login/` - Returns access and refresh tokens
@@ -52,6 +52,15 @@ The application integrates with a backend API for authentication.
 - Pinia store (`src/stores/auth.ts`) manages authentication state
 - Store is initialized on app startup to restore session
 
+### Categories API
+- **List**: GET `/categories/` - Returns paginated list of categories
+- **Get**: GET `/categories/{id}/` - Returns single category
+- **Create**: POST `/categories/` - Creates new category
+- **Update**: PATCH `/categories/{id}/` - Updates category
+- **Delete**: DELETE `/categories/{id}/` - Deletes category
+
+Category fields: `id`, `name`, `slug`, `description`, `parent`, `created_at`, `updated_at`
+
 ## Directory Structure
 ```
 src/
@@ -60,7 +69,8 @@ src/
 │   └── main.css         # Tailwind configuration with theme colors
 ├── services/            # API services
 │   ├── api.ts           # Axios wrapper with interceptors
-│   └── auth.ts          # Authentication service
+│   ├── auth.ts          # Authentication service
+│   └── category.ts      # Category CRUD service
 ├── stores/              # Pinia stores
 │   └── auth.ts          # Authentication state management
 ├── components/
@@ -112,12 +122,14 @@ src/
 │   ├── ContactView.vue
 │   └── admin/           # Admin panel views
 │       ├── AdminDashboard.vue
+│       ├── AdminCategories.vue  # Categories CRUD with real API
 │       ├── AdminServices.vue
 │       ├── AdminNews.vue
 │       ├── AdminProjects.vue
 │       ├── AdminTestimonials.vue
 │       ├── AdminFAQ.vue
-│       └── AdminSettings.vue
+│       ├── AdminSettings.vue
+│       └── AdminProfile.vue
 ├── App.vue
 └── main.ts
 public/
