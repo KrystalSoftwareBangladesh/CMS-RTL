@@ -240,7 +240,7 @@
     "news": { "title": "管理新闻", "subtitle": "创建和管理文章", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "title": "标题", "category": "分类", "author": "作者", "status": "状态", "publishedAt": "发布时间" } },
     "projects": { "title": "管理项目", "subtitle": "展示您的成功项目", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "title": "项目名称", "category": "分类", "deliveries": "配送量", "countries": "国家", "status": "状态" } },
     "testimonials": { "title": "管理评价", "subtitle": "管理客户评论", "searchPlaceholder": "搜索...", "addNew": "添加", "columns": { "name": "客户姓名", "company": "公司", "rating": "评分", "status": "状态", "createdAt": "添加日期" } },
-    "faq": { "title": "管理常见问题", "subtitle": "编辑常见问题", "searchPlaceholder": "搜索...", "addNew": "添加", "allCategories": "所有分类", "columns": { "question": "问题", "category": "分类", "order": "排序", "status": "状态" } },
+    "faq": { "title": "管理常见问题", "subtitle": "编辑常见问题", "searchPlaceholder": "搜索...", "addNew": "添加", "addQuestion": "添加问题", "editQuestion": "编辑问题", "allCategories": "所有分类", "confirmDelete": "确定要删除此常见问题吗？", "published": "已发布", "draft": "草稿", "columns": { "question": "问题", "category": "分类", "order": "排序", "status": "状态" }, "form": { "question": "问题", "answer": "答案", "category": "分类", "noCategory": "无分类", "order": "显示顺序", "published": "已发布", "cancel": "取消", "save": "保存", "saving": "保存中..." } },
     "settings": { "title": "设置", "subtitle": "配置网站设置", "companyInfo": "公司信息", "companyName": "公司名称", "email": "邮箱", "phone": "电话", "address": "地址", "socialLinks": "社交媒体", "seoSettings": "SEO设置", "metaTitle": "Meta标题", "metaDescription": "Meta描述", "dangerZone": "危险区域", "clearCache": "清除缓存", "clearCacheDesc": "这将清除所有缓存数据。", "clearCacheBtn": "清除缓存", "saveChanges": "保存更改" }
   }
 }

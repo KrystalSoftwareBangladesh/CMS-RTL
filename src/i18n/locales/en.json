@@ -375,12 +375,28 @@
       "subtitle": "Edit frequently asked questions and answers",
       "searchPlaceholder": "Search questions...",
       "addNew": "Add Question",
+      "addQuestion": "Add New Question",
+      "editQuestion": "Edit Question",
       "allCategories": "All Categories",
+      "confirmDelete": "Are you sure you want to delete this FAQ?",
+      "published": "Published",
+      "draft": "Draft",
       "columns": {
         "question": "Question",
         "category": "Category",
         "order": "Order",
         "status": "Status"
+      },
+      "form": {
+        "question": "Question",
+        "answer": "Answer",
+        "category": "Category",
+        "noCategory": "No category",
+        "order": "Display Order",
+        "published": "Published",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
       }
     },
     "settings": {
