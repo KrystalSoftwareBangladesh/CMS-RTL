@@ -23,7 +23,7 @@ const hasPrevPage = ref(false)
 const form = ref<FAQInput>({
   question: '',
   answer: '',
-  category: 0,
+  category: undefined,
   order: 1,
   status: true
 })
@@ -84,7 +84,7 @@ function goToPage(page: number) {
 
 function openAddModal() {
   editingFaq.value = null
-  form.value = { question: '', answer: '', category: 0, order: 1, status: true }
+  form.value = { question: '', answer: '', category: undefined, order: 1, status: true }
   showModal.value = true
 }
 
@@ -117,10 +117,19 @@ async function handleSubmit() {
   if (!form.value.question.trim() || !form.value.answer.trim()) return
   saving.value = true
   try {
+    const payload: FAQInput = {
+      question: form.value.question,
+      answer: form.value.answer,
+      order: form.value.order,
+      status: form.value.status
+    }
+    if (form.value.category) {
+      payload.category = form.value.category
+    }
     if (editingFaq.value) {
-      await faqService.update(editingFaq.value.id, form.value)
+      await faqService.update(editingFaq.value.id, payload)
     } else {
-      await faqService.create(form.value)
+      await faqService.create(payload)
     }
     showModal.value = false
     await fetchFaqs(currentPage.value)
@@ -253,7 +262,7 @@ onMounted(() => {
                   v-model="form.category"
                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                 >
-                  <option :value="null">{{ t('admin.faq.form.noCategory') }}</option>
+                  <option :value="undefined">{{ t('admin.faq.form.noCategory') }}</option>
                   <option v-for="cat in categories" :key="cat.id" :value="cat.id">
                     {{ cat.name }}
                   </option>
