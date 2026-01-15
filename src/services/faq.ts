@@ -4,9 +4,9 @@ export interface FAQ {
   id: number
   question: string
   answer: string
-  category: number | null
+  category: number
   order: number
-  is_published: boolean
+  status: boolean
   created_at: string
   updated_at: string
 }
@@ -21,9 +21,9 @@ export interface FAQListResponse {
 export interface FAQInput {
   question: string
   answer: string
-  category?: number | null
+  category?: number
   order?: number
-  is_published?: boolean
+  status?: boolean
 }
 
 const faqService = {

@@ -23,9 +23,9 @@ const hasPrevPage = ref(false)
 const form = ref<FAQInput>({
   question: '',
   answer: '',
-  category: null,
+  category: 0,
   order: 1,
-  is_published: true
+  status: true
 })
 
 const columns = computed(() => [
@@ -43,7 +43,7 @@ const tableData = computed(() =>
       question: faq.question,
       category_name: category?.name || '-',
       order: faq.order,
-      status: faq.is_published ? t('admin.faq.published') : t('admin.faq.draft')
+      status: faq.status ? t('admin.faq.published') : t('admin.faq.draft')
     }
   })
 )
@@ -84,7 +84,7 @@ function goToPage(page: number) {
 
 function openAddModal() {
   editingFaq.value = null
-  form.value = { question: '', answer: '', category: null, order: 1, is_published: true }
+  form.value = { question: '', answer: '', category: 0, order: 1, status: true }
   showModal.value = true
 }
 
@@ -97,7 +97,7 @@ function handleEdit(item: Record<string, unknown>) {
       answer: faq.answer,
       category: faq.category,
       order: faq.order,
-      is_published: faq.is_published
+      status: faq.status
     }
     showModal.value = true
   }
@@ -274,11 +274,11 @@ onMounted(() => {
             <div class="flex items-center gap-2">
               <input
                 type="checkbox"
-                id="is_published"
-                v-model="form.is_published"
+                id="status"
+                v-model="form.status"
                 class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
               />
-              <label for="is_published" class="text-sm font-medium text-gray-700">
+              <label for="status" class="text-sm font-medium text-gray-700">
                 {{ t('admin.faq.form.published') }}
               </label>
             </div>
