@@ -1,4 +1,9 @@
 {
+  "common": {
+    "loading": "Loading...",
+    "loadingMore": "Loading more...",
+    "error": "An error occurred"
+  },
   "nav": {
     "home": "Home",
     "about": "About Us",
@@ -205,6 +210,11 @@
   "faq": {
     "label": "FAQ",
     "title": "Frequently Asked Questions",
+    "pageTitle": "Frequently Asked Questions",
+    "pageSubtitle": "Find answers to common questions about our services",
+    "seeAll": "See All FAQs",
+    "noMore": "No more FAQs to load",
+    "empty": "No FAQs available",
     "question1": "What services does Rising Trading Ltd. offer?",
     "answer1": "We offer comprehensive logistics services including road freight, air freight, sea freight, rail freight, warehousing, and complete supply chain management solutions.",
     "question2": "How can I track my shipment?",
