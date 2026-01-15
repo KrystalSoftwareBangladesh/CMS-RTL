@@ -5,6 +5,7 @@ import ServicesView from '../views/ServicesView.vue'
 import PortfolioView from '../views/PortfolioView.vue'
 import NewsView from '../views/NewsView.vue'
 import ContactView from '../views/ContactView.vue'
+import FAQsView from '../views/FAQsView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 
 import AdminLogin from '../views/admin/AdminLogin.vue'
@@ -51,6 +52,11 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: ContactView,
+    },
+    {
+      path: '/faqs',
+      name: 'faqs',
+      component: FAQsView,
     },
     {
       path: '/admin/login',

@@ -57,7 +57,7 @@ const showPagination = computed(() => hasNextPage.value || hasPrevPage.value)
 async function fetchFaqs(page = 1) {
   loading.value = true
   try {
-    const response = await faqService.list(page)
+    const response = await faqService.list({ page })
     faqs.value = response.results
     totalCount.value = response.count
     hasNextPage.value = !!response.next

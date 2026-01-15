@@ -1,38 +1,35 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { RouterLink } from 'vue-router'
 import SectionHeader from '@/components/base/SectionHeader.vue'
+import FAQAccordion from '@/components/base/FAQAccordion.vue'
+import faqService, { type FAQ } from '@/services/faq'
 
 const { t } = useI18n()
 
-const openIndex = ref<number | null>(0)
+const faqs = ref<FAQ[]>([])
+const totalCount = ref(0)
+const loading = ref(true)
+const showSeeAll = ref(false)
 
-const faqs = computed(() => [
-  {
-    question: t('faq.question1'),
-    answer: t('faq.answer1')
-  },
-  {
-    question: t('faq.question2'),
-    answer: t('faq.answer2')
-  },
-  {
-    question: t('faq.question3'),
-    answer: t('faq.answer3')
-  },
-  {
-    question: t('faq.question4'),
-    answer: t('faq.answer4')
-  },
-  {
-    question: t('faq.question5'),
-    answer: t('faq.answer5')
+async function fetchFaqs() {
+  loading.value = true
+  try {
+    const response = await faqService.list({ page: 1, page_size: 5 })
+    faqs.value = response.results
+    totalCount.value = response.count
+    showSeeAll.value = response.count > 5
+  } catch (err) {
+    console.error('Failed to fetch FAQs:', err)
+  } finally {
+    loading.value = false
   }
-])
-
-const toggleFAQ = (index: number) => {
-  openIndex.value = openIndex.value === index ? null : index
 }
+
+onMounted(() => {
+  fetchFaqs()
+})
 </script>
 
 <template>
@@ -43,37 +40,27 @@ const toggleFAQ = (index: number) => {
         :centered="true"
       />
 
-      <div class="max-w-3xl mx-auto space-y-4">
-        <div
-          v-for="(faq, index) in faqs"
-          :key="index"
-          class="border border-gray-200 rounded-xl overflow-hidden"
-        >
-          <button
-            class="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors"
-            @click="toggleFAQ(index)"
-          >
-            <span class="font-medium text-gray-900">{{ faq.question }}</span>
-            <svg
-              :class="[
-                'w-5 h-5 text-gray-500 transition-transform',
-                openIndex === index ? 'rotate-180' : ''
-              ]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+      <div v-if="loading" class="text-center py-8 text-gray-500">
+        {{ t('common.loading') || 'Loading...' }}
+      </div>
+
+      <template v-else>
+        <div class="max-w-3xl mx-auto">
+          <FAQAccordion :faqs="faqs" :initial-open-index="0" />
+          
+          <div v-if="showSeeAll" class="text-center mt-8">
+            <RouterLink
+              to="/faqs"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary-dark transition-colors"
             >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-          <div
-            v-if="openIndex === index"
-            class="px-6 pb-6 text-gray-600"
-          >
-            {{ faq.answer }}
+              {{ t('faq.seeAll') || 'See All FAQs' }}
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </RouterLink>
           </div>
         </div>
-      </div>
+      </template>
     </div>
   </section>
 </template>

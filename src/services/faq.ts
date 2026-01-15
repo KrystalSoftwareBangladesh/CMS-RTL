@@ -26,9 +26,20 @@ export interface FAQInput {
   status?: boolean
 }
 
+export interface FAQListParams {
+  page?: number
+  page_size?: number
+}
+
 const faqService = {
-  async list(page = 1): Promise<FAQListResponse> {
-    const response = await api.get<FAQListResponse>(`/faqs/?page=${page}`)
+  async list(params: FAQListParams = {}): Promise<FAQListResponse> {
+    const { page = 1, page_size } = params
+    const queryParams = new URLSearchParams()
+    queryParams.append('page', String(page))
+    if (page_size) {
+      queryParams.append('page_size', String(page_size))
+    }
+    const response = await api.get<FAQListResponse>(`/faqs/?${queryParams.toString()}`)
     return response.data
   },
 
