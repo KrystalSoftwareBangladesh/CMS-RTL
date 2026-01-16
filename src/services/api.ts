@@ -24,6 +24,23 @@ const processQueue = (error: Error | null, token: string | null = null) => {
   failedQueue = []
 }
 
+const AUTH_ENDPOINTS = ['/auth/login/', '/auth/refresh/']
+const PUBLIC_ENDPOINTS = ['/project/', '/news/']
+
+const isAuthEndpoint = (url: string | undefined): boolean => {
+  if (!url) return false
+  return AUTH_ENDPOINTS.some(endpoint => url.includes(endpoint))
+}
+
+const isPublicEndpoint = (url: string | undefined): boolean => {
+  if (!url) return false
+  return PUBLIC_ENDPOINTS.some(endpoint => url.includes(endpoint))
+}
+
+const isAdminPage = (): boolean => {
+  return window.location.pathname.startsWith('/admin')
+}
+
 const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   headers: {
@@ -34,6 +51,9 @@ const api: AxiosInstance = axios.create({
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    if (isPublicEndpoint(config.url)) {
+      return config
+    }
     const accessToken = localStorage.getItem('access_token')
     if (accessToken && config.headers) {
       config.headers.Authorization = `Bearer ${accessToken}`
@@ -42,13 +62,6 @@ api.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 )
-
-const AUTH_ENDPOINTS = ['/auth/login/', '/auth/refresh/']
-
-const isAuthEndpoint = (url: string | undefined): boolean => {
-  if (!url) return false
-  return AUTH_ENDPOINTS.some(endpoint => url.includes(endpoint))
-}
 
 api.interceptors.response.use(
   (response) => response,
@@ -60,6 +73,10 @@ api.interceptors.response.use(
     }
     
     if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isPublicEndpoint(originalRequest.url)) {
+        return Promise.reject(error)
+      }
+
       if (isRefreshing) {
         return new Promise<string>((resolve, reject) => {
           failedQueue.push({ resolve, reject })
@@ -82,7 +99,9 @@ api.interceptors.response.use(
         isRefreshing = false
         processQueue(new Error('No refresh token'), null)
         clearTokens()
-        window.location.href = '/admin/login'
+        if (isAdminPage()) {
+          window.location.href = '/admin/login'
+        }
         return Promise.reject(error)
       }
 
@@ -109,7 +128,9 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(new Error('Refresh failed'), null)
         clearTokens()
-        window.location.href = '/admin/login'
+        if (isAdminPage()) {
+          window.location.href = '/admin/login'
+        }
         return Promise.reject(refreshError)
       } finally {
         isRefreshing = false

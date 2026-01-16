@@ -1,19 +1,18 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
-import projectService, { type Project } from '@/services/project'
-import serviceService, { type Service } from '@/services/service'
+import projectService, { type Project, type ProjectService } from '@/services/project'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 
 const { t } = useI18n()
 
+const allProjects = ref<Project[]>([])
 const projects = ref<Project[]>([])
-const services = ref<Service[]>([])
 const loading = ref(false)
 const loadingMore = ref(false)
 const activeServiceId = ref<number | null>(null)
@@ -24,68 +23,65 @@ const totalCount = ref(0)
 const PAGE_SIZE = 6
 
 const serviceFilters = computed(() => {
-  const allOption = { id: null, title: t('portfolio.all') }
-  return [allOption, ...services.value.map(s => ({ id: s.id, title: s.title }))]
+  const allOption = { id: null as number | null, title: t('portfolio.all') }
+  const serviceMap = new Map<number, ProjectService>()
+  allProjects.value.forEach(p => {
+    if (p.service && !serviceMap.has(p.service.id)) {
+      serviceMap.set(p.service.id, p.service)
+    }
+  })
+  const services = Array.from(serviceMap.values()).map(s => ({ id: s.id as number | null, title: s.title }))
+  return [allOption, ...services]
 })
 
-async function fetchServices() {
+async function fetchAllProjects() {
+  loading.value = true
   try {
-    services.value = await serviceService.listAll()
-  } catch (err) {
-    console.error('Failed to fetch services:', err)
-  }
-}
-
-async function fetchProjects(page = 1, append = false) {
-  if (page === 1) {
-    loading.value = true
-  } else {
-    loadingMore.value = true
-  }
-  try {
-    const params: { page: number; page_size: number; service_id?: number } = {
-      page,
-      page_size: PAGE_SIZE
+    const results: Project[] = []
+    let page = 1
+    let hasMorePages = true
+    while (hasMorePages) {
+      const response = await projectService.list({ page, page_size: 100 })
+      results.push(...response.results)
+      hasMorePages = !!response.next
+      page++
     }
-    if (activeServiceId.value !== null) {
-      params.service_id = activeServiceId.value
-    }
-    const response = await projectService.list(params)
-    if (append) {
-      projects.value = [...projects.value, ...response.results]
-    } else {
-      projects.value = response.results
-    }
-    totalCount.value = response.count
-    currentPage.value = page
-    hasMore.value = projects.value.length < totalCount.value
+    allProjects.value = results
+    applyFilter()
   } catch (err) {
     console.error('Failed to fetch projects:', err)
   } finally {
     loading.value = false
-    loadingMore.value = false
   }
+}
+
+function applyFilter() {
+  let filtered = allProjects.value
+  if (activeServiceId.value !== null) {
+    filtered = allProjects.value.filter(p => p.service?.id === activeServiceId.value)
+  }
+  totalCount.value = filtered.length
+  projects.value = filtered.slice(0, currentPage.value * PAGE_SIZE)
+  hasMore.value = projects.value.length < totalCount.value
 }
 
 function filterByService(serviceId: number | null) {
   activeServiceId.value = serviceId
   currentPage.value = 1
-  fetchProjects(1)
+  applyFilter()
 }
 
 function loadMore() {
   if (!loadingMore.value && hasMore.value) {
-    fetchProjects(currentPage.value + 1, true)
+    loadingMore.value = true
+    currentPage.value++
+    applyFilter()
+    loadingMore.value = false
   }
 }
 
-watch(activeServiceId, () => {
-  currentPage.value = 1
-})
-
 onMounted(() => {
-  fetchServices()
-  fetchProjects()
+  fetchAllProjects()
 })
 </script>
 
