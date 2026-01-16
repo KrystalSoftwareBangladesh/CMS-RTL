@@ -19,6 +19,7 @@ const loadingMore = ref(false)
 const activeServiceId = ref<number | null>(null)
 const currentPage = ref(1)
 const hasMore = ref(false)
+const totalCount = ref(0)
 
 const PAGE_SIZE = 6
 
@@ -55,8 +56,9 @@ async function fetchProjects(page = 1, append = false) {
     } else {
       projects.value = response.results
     }
-    hasMore.value = !!response.next
+    totalCount.value = response.count
     currentPage.value = page
+    hasMore.value = projects.value.length < totalCount.value
   } catch (err) {
     console.error('Failed to fetch projects:', err)
   } finally {
@@ -72,7 +74,9 @@ function filterByService(serviceId: number | null) {
 }
 
 function loadMore() {
-  fetchProjects(currentPage.value + 1, true)
+  if (!loadingMore.value && hasMore.value) {
+    fetchProjects(currentPage.value + 1, true)
+  }
 }
 
 watch(activeServiceId, () => {
