@@ -1,10 +1,35 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import ServiceCard from '@/components/base/ServiceCard.vue'
+import serviceService, { type Service } from '@/services/service'
 import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 
 const { t } = useI18n()
+
+const services = ref<Service[]>([])
+const loading = ref(false)
+
+async function fetchFeaturedServices() {
+  loading.value = true
+  try {
+    const response = await serviceService.list({ is_featured: true, page_size: 10 })
+    services.value = response.results.filter(s => s.is_active)
+  } catch (err) {
+    console.error('Failed to fetch services:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
+function formatNumber(index: number): string {
+  return String(index + 1).padStart(2, '0')
+}
+
+onMounted(() => {
+  fetchFeaturedServices()
+})
 </script>
 
 <template>
@@ -40,26 +65,21 @@ const { t } = useI18n()
             :centered="false"
           />
 
-          <div class="space-y-8">
+          <div v-if="loading" class="text-center py-8 text-gray-500">
+            {{ t('common.loading') }}
+          </div>
+
+          <div v-else-if="services.length === 0" class="text-center py-8 text-gray-500">
+            {{ t('services.noServices') }}
+          </div>
+
+          <div v-else class="space-y-8">
             <ServiceCard
-              number="01"
-              :title="t('services.roadFreight')"
-              :description="t('services.roadFreightDesc')"
-            />
-            <ServiceCard
-              number="02"
-              :title="t('services.airFreight')"
-              :description="t('services.airFreightDesc')"
-            />
-            <ServiceCard
-              number="03"
-              :title="t('services.seaFreight')"
-              :description="t('services.seaFreightDesc')"
-            />
-            <ServiceCard
-              number="04"
-              :title="t('services.railFreight')"
-              :description="t('services.railFreightDesc')"
+              v-for="(service, index) in services"
+              :key="service.id"
+              :number="formatNumber(index)"
+              :title="service.title"
+              :description="service.description"
             />
           </div>
         </div>

@@ -1,14 +1,39 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import FAQSection from '@/components/sections/FAQSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
+import serviceService, { type Service } from '@/services/service'
 import truckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 import cargoImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
 
 const { t } = useI18n()
+
+const services = ref<Service[]>([])
+const loading = ref(false)
+
+async function fetchServices() {
+  loading.value = true
+  try {
+    const response = await serviceService.list({ page_size: 20 })
+    services.value = response.results.filter(s => s.is_active)
+  } catch (err) {
+    console.error('Failed to fetch services:', err)
+  } finally {
+    loading.value = false
+  }
+}
+
+function formatNumber(index: number): string {
+  return String(index + 1).padStart(2, '0')
+}
+
+onMounted(() => {
+  fetchServices()
+})
 </script>
 
 <template>
@@ -35,36 +60,24 @@ const { t } = useI18n()
           :title="t('services.title')"
           :subtitle="t('services.subtitle')"
         />
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <BaseCard :hover="true">
-            <div class="text-secondary text-4xl font-bold mb-4">01</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('services.roadFreight') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('services.roadFreightDesc') }}</p>
-          </BaseCard>
-          <BaseCard :hover="true">
-            <div class="text-secondary text-4xl font-bold mb-4">02</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('services.airFreight') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('services.airFreightDesc') }}</p>
-          </BaseCard>
-          <BaseCard :hover="true">
-            <div class="text-secondary text-4xl font-bold mb-4">03</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('services.seaFreight') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('services.seaFreightDesc') }}</p>
-          </BaseCard>
-          <BaseCard :hover="true">
-            <div class="text-secondary text-4xl font-bold mb-4">04</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('services.railFreight') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('services.railFreightDesc') }}</p>
-          </BaseCard>
-          <BaseCard :hover="true">
-            <div class="text-secondary text-4xl font-bold mb-4">05</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('services.warehousing') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('services.warehousingDesc') }}</p>
-          </BaseCard>
-          <BaseCard :hover="true">
-            <div class="text-secondary text-4xl font-bold mb-4">06</div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('services.supplyChain') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('services.supplyChainDesc') }}</p>
+        
+        <div v-if="loading" class="text-center py-12 text-gray-500">
+          {{ t('common.loading') }}
+        </div>
+        
+        <div v-else-if="services.length === 0" class="text-center py-12 text-gray-500">
+          {{ t('services.noServices') }}
+        </div>
+        
+        <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <BaseCard v-for="(service, index) in services" :key="service.id" :hover="true">
+            <div class="flex items-start gap-4">
+              <div class="text-secondary text-3xl font-bold">{{ formatNumber(index) }}</div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ service.title }}</h3>
+                <p class="text-gray-600 text-sm">{{ service.description }}</p>
+              </div>
+            </div>
           </BaseCard>
         </div>
       </div>
