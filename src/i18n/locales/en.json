@@ -408,6 +408,11 @@
       "subtitle": "Showcase your successful logistics projects",
       "searchPlaceholder": "Search projects...",
       "addNew": "Add Project",
+      "addProject": "Add New Project",
+      "editProject": "Edit Project",
+      "confirmDelete": "Are you sure you want to delete this project?",
+      "active": "Active",
+      "inactive": "Inactive",
       "allCategories": "All Categories",
       "columns": {
         "title": "Project Title",
@@ -415,6 +420,25 @@
         "deliveries": "Deliveries",
         "countries": "Countries",
         "status": "Status"
+      },
+      "form": {
+        "title": "Title",
+        "shortDescription": "Short Description",
+        "description": "Description",
+        "category": "Category",
+        "searchCategory": "Search category...",
+        "noCategory": "No Category",
+        "coverImage": "Cover Image",
+        "currentImage": "Current",
+        "deliveriesCount": "Deliveries Count",
+        "countriesCount": "Countries Count",
+        "onTimeRate": "On-Time Rate",
+        "order": "Display Order",
+        "active": "Active",
+        "featured": "Featured",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
       }
     },
     "testimonials": {
