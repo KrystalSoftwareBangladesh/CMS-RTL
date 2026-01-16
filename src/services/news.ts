@@ -57,12 +57,11 @@ export interface NewsListParams {
   page_size?: number
   is_featured?: boolean
   is_highlighted?: boolean
-  excluding_featured?: boolean
 }
 
 const newsService = {
   async list(params: NewsListParams = {}): Promise<NewsListResponse> {
-    const { page = 1, page_size, is_featured, is_highlighted, excluding_featured } = params
+    const { page = 1, page_size, is_featured, is_highlighted } = params
     const queryParams = new URLSearchParams()
     queryParams.append('page', String(page))
     if (page_size) {
@@ -73,9 +72,6 @@ const newsService = {
     }
     if (is_highlighted !== undefined) {
       queryParams.append('is_highlighted', String(is_highlighted))
-    }
-    if (excluding_featured !== undefined) {
-      queryParams.append('excluding_featured', String(excluding_featured))
     }
     const response = await api.get<NewsListResponse>(`/news/?${queryParams.toString()}`)
     return response.data

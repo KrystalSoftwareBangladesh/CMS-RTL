@@ -35,7 +35,7 @@ async function fetchNews(page = 1, append = false) {
     loadingMore.value = true
   }
   try {
-    const response = await newsService.list({ page, page_size: 6, excluding_featured: true })
+    const response = await newsService.list({ page, page_size: 6, is_featured: false })
     if (append) {
       articles.value = [...articles.value, ...response.results]
     } else {
