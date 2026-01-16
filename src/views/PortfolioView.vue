@@ -11,77 +11,81 @@ import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 
 const { t } = useI18n()
 
-const allProjects = ref<Project[]>([])
 const projects = ref<Project[]>([])
+const services = ref<{ id: number; title: string }[]>([])
 const loading = ref(false)
 const loadingMore = ref(false)
 const activeServiceId = ref<number | null>(null)
 const currentPage = ref(1)
 const hasMore = ref(false)
-const totalCount = ref(0)
 
 const PAGE_SIZE = 6
 
 const serviceFilters = computed(() => {
   const allOption = { id: null as number | null, title: t('portfolio.all') }
-  const serviceMap = new Map<number, ProjectService>()
-  allProjects.value.forEach(p => {
-    if (p.service && !serviceMap.has(p.service.id)) {
-      serviceMap.set(p.service.id, p.service)
-    }
-  })
-  const services = Array.from(serviceMap.values()).map(s => ({ id: s.id as number | null, title: s.title }))
-  return [allOption, ...services]
+  return [allOption, ...services.value.map(s => ({ id: s.id as number | null, title: s.title }))]
 })
 
-async function fetchAllProjects() {
-  loading.value = true
+async function fetchServices() {
   try {
-    const results: Project[] = []
-    let page = 1
-    let hasMorePages = true
-    while (hasMorePages) {
-      const response = await projectService.list({ page, page_size: PAGE_SIZE })
-      results.push(...response.results)
-      hasMorePages = !!response.next
-      page++
+    const response = await projectService.list({ page: 1, page_size: 100 })
+    const serviceMap = new Map<number, { id: number; title: string }>()
+    response.results.forEach((p: Project) => {
+      if (p.service && !serviceMap.has(p.service.id)) {
+        serviceMap.set(p.service.id, { id: p.service.id, title: p.service.title })
+      }
+    })
+    services.value = Array.from(serviceMap.values())
+  } catch (err) {
+    console.error('Failed to fetch services:', err)
+  }
+}
+
+async function fetchProjects(page = 1, append = false) {
+  if (page === 1) {
+    loading.value = true
+  } else {
+    loadingMore.value = true
+  }
+  try {
+    const params: { page: number; page_size: number; service_id?: number } = {
+      page,
+      page_size: PAGE_SIZE
     }
-    allProjects.value = results
-    applyFilter()
+    if (activeServiceId.value !== null) {
+      params.service_id = activeServiceId.value
+    }
+    const response = await projectService.list(params)
+    if (append) {
+      projects.value = [...projects.value, ...response.results]
+    } else {
+      projects.value = response.results
+    }
+    hasMore.value = !!response.next
+    currentPage.value = page
   } catch (err) {
     console.error('Failed to fetch projects:', err)
   } finally {
     loading.value = false
+    loadingMore.value = false
   }
-}
-
-function applyFilter() {
-  let filtered = allProjects.value
-  if (activeServiceId.value !== null) {
-    filtered = allProjects.value.filter(p => p.service?.id === activeServiceId.value)
-  }
-  totalCount.value = filtered.length
-  projects.value = filtered.slice(0, currentPage.value * PAGE_SIZE)
-  hasMore.value = projects.value.length < totalCount.value
 }
 
 function filterByService(serviceId: number | null) {
   activeServiceId.value = serviceId
   currentPage.value = 1
-  applyFilter()
+  fetchProjects(1)
 }
 
 function loadMore() {
   if (!loadingMore.value && hasMore.value) {
-    loadingMore.value = true
-    currentPage.value++
-    applyFilter()
-    loadingMore.value = false
+    fetchProjects(currentPage.value + 1, true)
   }
 }
 
 onMounted(() => {
-  fetchAllProjects()
+  fetchServices()
+  fetchProjects()
 })
 </script>
 
