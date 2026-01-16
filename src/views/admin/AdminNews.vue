@@ -29,7 +29,7 @@ const form = ref<NewsInput>({
   cover_image: '',
   author_name: '',
   read_time: 5,
-  category: undefined,
+  category_id: undefined,
   is_active: true,
   is_featured: false,
   status: true,
@@ -111,7 +111,7 @@ function openAddModal() {
     cover_image: '',
     author_name: '',
     read_time: 5,
-    category: undefined,
+    category_id: undefined,
     is_active: true,
     is_featured: false,
     status: true,
@@ -131,7 +131,7 @@ function handleEdit(item: Record<string, unknown>) {
       cover_image: article.cover_image,
       author_name: article.author_name,
       read_time: article.read_time,
-      category: article.category?.id,
+      category_id: article.category?.id,
       is_active: article.is_active,
       is_featured: article.is_featured,
       status: article.status,
@@ -175,8 +175,8 @@ async function handleSubmit() {
       status: form.value.status,
       order: form.value.order
     }
-    if (form.value.category) {
-      payload.category = form.value.category
+    if (form.value.category_id) {
+      payload.category_id = form.value.category_id
     }
     if (editingNews.value) {
       await newsService.update(editingNews.value.id, payload, selectedFile.value || undefined)
@@ -322,7 +322,7 @@ onMounted(() => {
                   {{ t('admin.news.form.category') }}
                 </label>
                 <SearchableSelect
-                  v-model="form.category"
+                  v-model="form.category_id"
                   :options="categories"
                   :placeholder="t('admin.news.form.searchCategory')"
                   :no-option-label="t('admin.news.form.noCategory')"

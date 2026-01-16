@@ -45,7 +45,7 @@ export interface NewsInput {
   cover_image?: string
   author_name?: string
   read_time?: number
-  category?: number
+  category_id?: number
   is_active?: boolean
   is_featured?: boolean
   status?: boolean
