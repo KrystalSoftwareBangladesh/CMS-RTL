@@ -2,7 +2,9 @@
   "common": {
     "loading": "Loading...",
     "loadingMore": "Loading more...",
-    "error": "An error occurred"
+    "error": "An error occurred",
+    "saved": "Saved successfully",
+    "deleted": "Deleted successfully"
   },
   "nav": {
     "home": "Home",

@@ -7,8 +7,10 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import SearchableSelect from '@/components/base/SearchableSelect.vue'
 import newsService, { type News, type NewsInput } from '@/services/news'
 import categoryService, { type Category } from '@/services/category'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const articles = ref<News[]>([])
 const categories = ref<Category[]>([])
@@ -70,6 +72,7 @@ async function fetchNews(page = 1) {
     currentPage.value = page
   } catch (err) {
     console.error('Failed to fetch news:', err)
+    toast.error(t('common.error'))
   } finally {
     loading.value = false
   }
@@ -154,9 +157,11 @@ async function handleDelete(item: Record<string, unknown>) {
   if (!confirm(t('admin.news.confirmDelete'))) return
   try {
     await newsService.delete(item.id as number)
+    toast.success(t('common.deleted'))
     await fetchNews(currentPage.value)
   } catch (err) {
     console.error('Failed to delete news:', err)
+    toast.error(t('common.error'))
   }
 }
 
@@ -185,9 +190,11 @@ async function handleSubmit() {
     }
     showModal.value = false
     selectedFile.value = null
+    toast.success(t('common.saved'))
     await fetchNews(currentPage.value)
   } catch (err) {
     console.error('Failed to save news:', err)
+    toast.error(t('common.error'))
   } finally {
     saving.value = false
   }
