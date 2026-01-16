@@ -416,7 +416,7 @@
       "allCategories": "All Categories",
       "columns": {
         "title": "Project Title",
-        "category": "Category",
+        "service": "Service",
         "deliveries": "Deliveries",
         "countries": "Countries",
         "status": "Status"
@@ -425,9 +425,9 @@
         "title": "Title",
         "shortDescription": "Short Description",
         "description": "Description",
-        "category": "Category",
-        "searchCategory": "Search category...",
-        "noCategory": "No Category",
+        "service": "Service",
+        "searchService": "Search service...",
+        "noService": "No Service",
         "coverImage": "Cover Image",
         "currentImage": "Current",
         "deliveriesCount": "Deliveries Count",

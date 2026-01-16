@@ -1,13 +1,18 @@
 import api from './api'
 
-export interface ProjectCategory {
+export interface ProjectService {
   id: number
-  name: string
+  title: string
   slug: string
   description: string
-  parent: number | null
+  is_active: boolean
+  is_featured: boolean
+  order: number
+  created_by: number
+  updated_by: number
   created_at: string
   updated_at: string
+  deleted_at: string | null
 }
 
 export interface Project {
@@ -20,7 +25,7 @@ export interface Project {
   deliveries_count: string
   countries_count: number
   on_time_rate: number
-  category: ProjectCategory | null
+  service: ProjectService | null
   is_active: boolean
   is_featured: boolean
   status: boolean
@@ -47,7 +52,7 @@ export interface ProjectInput {
   deliveries_count?: string
   countries_count?: number
   on_time_rate?: number
-  category_id?: number
+  service_id?: number
   is_active?: boolean
   is_featured?: boolean
   status?: boolean

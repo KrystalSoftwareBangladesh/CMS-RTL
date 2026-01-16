@@ -6,15 +6,15 @@ import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import SearchableSelect from '@/components/base/SearchableSelect.vue'
 import projectService, { type Project, type ProjectInput } from '@/services/project'
-import categoryService, { type Category } from '@/services/category'
+import serviceService, { type Service } from '@/services/service'
 import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
 const toast = useToast()
 
 const projects = ref<Project[]>([])
-const categories = ref<Category[]>([])
-const categoryLoading = ref(false)
+const services = ref<Service[]>([])
+const serviceLoading = ref(false)
 const loading = ref(false)
 const showModal = ref(false)
 const editingProject = ref<Project | null>(null)
@@ -32,16 +32,20 @@ const form = ref<ProjectInput>({
   deliveries_count: '',
   countries_count: 0,
   on_time_rate: 0,
-  category_id: undefined,
+  service_id: undefined,
   is_active: true,
   is_featured: false,
   status: true,
   order: 1
 })
 
+const serviceOptions = computed(() =>
+  services.value.map((s) => ({ id: s.id, name: s.title }))
+)
+
 const columns = computed(() => [
   { key: 'title', label: t('admin.projects.columns.title') },
-  { key: 'category_name', label: t('admin.projects.columns.category') },
+  { key: 'service_name', label: t('admin.projects.columns.service') },
   { key: 'deliveries_count', label: t('admin.projects.columns.deliveries') },
   { key: 'countries_count', label: t('admin.projects.columns.countries') },
   { key: 'status', label: t('admin.projects.columns.status') }
@@ -51,7 +55,7 @@ const tableData = computed(() =>
   projects.value.map((project) => ({
     id: project.id,
     title: project.title.length > 50 ? project.title.substring(0, 50) + '...' : project.title,
-    category_name: project.category?.name || '-',
+    service_name: project.service?.title || '-',
     deliveries_count: project.deliveries_count || '-',
     countries_count: project.countries_count || 0,
     status: project.status
@@ -81,26 +85,26 @@ async function fetchProjects(page = 1) {
   }
 }
 
-async function fetchCategories() {
+async function fetchServices() {
   try {
-    categories.value = await categoryService.listAll()
+    services.value = await serviceService.listAll()
   } catch (err) {
-    console.error('Failed to fetch categories:', err)
+    console.error('Failed to fetch services:', err)
   }
 }
 
-async function searchCategories(query: string) {
-  categoryLoading.value = true
+async function searchServices(query: string) {
+  serviceLoading.value = true
   try {
     if (query.trim()) {
-      categories.value = await categoryService.search(query)
+      services.value = await serviceService.search(query)
     } else {
-      categories.value = await categoryService.listAll()
+      services.value = await serviceService.listAll()
     }
   } catch (err) {
-    console.error('Failed to search categories:', err)
+    console.error('Failed to search services:', err)
   } finally {
-    categoryLoading.value = false
+    serviceLoading.value = false
   }
 }
 
@@ -118,7 +122,7 @@ function openAddModal() {
     deliveries_count: '',
     countries_count: 0,
     on_time_rate: 0,
-    category_id: undefined,
+    service_id: undefined,
     is_active: true,
     is_featured: false,
     status: true,
@@ -139,7 +143,7 @@ function handleEdit(item: Record<string, unknown>) {
       deliveries_count: project.deliveries_count,
       countries_count: project.countries_count,
       on_time_rate: project.on_time_rate,
-      category_id: project.category?.id,
+      service_id: project.service?.id,
       is_active: project.is_active,
       is_featured: project.is_featured,
       status: project.status,
@@ -186,8 +190,8 @@ async function handleSubmit() {
       status: form.value.status,
       order: form.value.order
     }
-    if (form.value.category_id) {
-      payload.category_id = form.value.category_id
+    if (form.value.service_id) {
+      payload.service_id = form.value.service_id
     }
     if (editingProject.value) {
       await projectService.update(editingProject.value.id, payload, selectedFile.value || undefined)
@@ -208,7 +212,7 @@ async function handleSubmit() {
 
 onMounted(() => {
   fetchProjects()
-  fetchCategories()
+  fetchServices()
 })
 </script>
 
@@ -237,7 +241,7 @@ onMounted(() => {
       <template #cell-title="{ value }">
         <span class="font-medium">{{ value }}</span>
       </template>
-      <template #cell-category_name="{ value }">
+      <template #cell-service_name="{ value }">
         <span v-if="value !== '-'" class="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
           {{ value }}
         </span>
@@ -331,15 +335,15 @@ onMounted(() => {
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
-                  {{ t('admin.projects.form.category') }}
+                  {{ t('admin.projects.form.service') }}
                 </label>
                 <SearchableSelect
-                  v-model="form.category_id"
-                  :options="categories"
-                  :placeholder="t('admin.projects.form.searchCategory')"
-                  :no-option-label="t('admin.projects.form.noCategory')"
-                  :loading="categoryLoading"
-                  @search="searchCategories"
+                  v-model="form.service_id"
+                  :options="serviceOptions"
+                  :placeholder="t('admin.projects.form.searchService')"
+                  :no-option-label="t('admin.projects.form.noService')"
+                  :loading="serviceLoading"
+                  @search="searchServices"
                 />
               </div>
               <div>
