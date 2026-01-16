@@ -19,7 +19,7 @@ export interface Project {
   cover_image: string
   deliveries_count: string
   countries_count: number
-  on_time_rate: string
+  on_time_rate: number
   category: ProjectCategory | null
   is_active: boolean
   is_featured: boolean
@@ -46,7 +46,7 @@ export interface ProjectInput {
   cover_image?: string
   deliveries_count?: string
   countries_count?: number
-  on_time_rate?: string
+  on_time_rate?: number
   category_id?: number
   is_active?: boolean
   is_featured?: boolean

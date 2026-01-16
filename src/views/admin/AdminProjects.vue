@@ -31,7 +31,7 @@ const form = ref<ProjectInput>({
   cover_image: '',
   deliveries_count: '',
   countries_count: 0,
-  on_time_rate: '',
+  on_time_rate: 0,
   category_id: undefined,
   is_active: true,
   is_featured: false,
@@ -117,7 +117,7 @@ function openAddModal() {
     cover_image: '',
     deliveries_count: '',
     countries_count: 0,
-    on_time_rate: '',
+    on_time_rate: 0,
     category_id: undefined,
     is_active: true,
     is_featured: false,
@@ -384,9 +384,12 @@ onMounted(() => {
                   {{ t('admin.projects.form.onTimeRate') }}
                 </label>
                 <input
-                  v-model="form.on_time_rate"
-                  type="text"
-                  placeholder="98.5%"
+                  v-model.number="form.on_time_rate"
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="100"
+                  placeholder="98.5"
                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                 />
               </div>
