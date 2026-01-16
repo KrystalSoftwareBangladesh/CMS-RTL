@@ -131,7 +131,9 @@
     "project5Title": "Retail Chain Distribution",
     "project5Desc": "Daily deliveries to 500+ retail locations with just-in-time inventory management.",
     "project6Title": "Industrial Equipment Export",
-    "project6Desc": "Oversized cargo handling and international shipping for heavy machinery."
+    "project6Desc": "Oversized cargo handling and international shipping for heavy machinery.",
+    "noProjects": "No projects found",
+    "loadMore": "Load More Projects"
   },
   "news": {
     "pageTitle": "News",

@@ -63,11 +63,12 @@ export interface ProjectListParams {
   page?: number
   page_size?: number
   is_featured?: boolean
+  service_id?: number
 }
 
 const projectService = {
   async list(params: ProjectListParams = {}): Promise<ProjectListResponse> {
-    const { page = 1, page_size, is_featured } = params
+    const { page = 1, page_size, is_featured, service_id } = params
     const queryParams = new URLSearchParams()
     queryParams.append('page', String(page))
     if (page_size) {
@@ -75,6 +76,9 @@ const projectService = {
     }
     if (is_featured !== undefined) {
       queryParams.append('is_featured', String(is_featured))
+    }
+    if (service_id !== undefined) {
+      queryParams.append('service_id', String(service_id))
     }
     const response = await api.get<ProjectListResponse>(`/project/?${queryParams.toString()}`)
     return response.data

@@ -1,88 +1,88 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
-import truckImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
-import cargoImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
+import projectService, { type Project } from '@/services/project'
+import serviceService, { type Service } from '@/services/service'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
-import yellowTruckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 
 const { t } = useI18n()
 
-const categories = computed(() => [
-  t('portfolio.all'), 
-  t('services.roadFreight'), 
-  t('services.seaFreight'), 
-  t('services.airFreight'), 
-  t('services.warehousing')
-])
-const activeCategory = ref(0)
+const projects = ref<Project[]>([])
+const services = ref<Service[]>([])
+const loading = ref(false)
+const loadingMore = ref(false)
+const activeServiceId = ref<number | null>(null)
+const currentPage = ref(1)
+const hasMore = ref(false)
 
-const projects = [
-  {
-    id: 1,
-    titleKey: 'portfolio.project1Title',
-    categoryIndex: 2,
-    descriptionKey: 'portfolio.project1Desc',
-    image: cargoImage,
-    stats: { deliveries: '50K+', countries: '12', onTime: '99.5%' }
-  },
-  {
-    id: 2,
-    titleKey: 'portfolio.project2Title',
-    categoryIndex: 1,
-    descriptionKey: 'portfolio.project2Desc',
-    image: truckImage,
-    stats: { deliveries: '25K+', countries: '8', onTime: '99.8%' }
-  },
-  {
-    id: 3,
-    titleKey: 'portfolio.project3Title',
-    categoryIndex: 4,
-    descriptionKey: 'portfolio.project3Desc',
-    image: warehouseImage,
-    stats: { deliveries: '3.6M', countries: '1', onTime: '99.9%' }
-  },
-  {
-    id: 4,
-    titleKey: 'portfolio.project4Title',
-    categoryIndex: 3,
-    descriptionKey: 'portfolio.project4Desc',
-    image: yellowTruckImage,
-    stats: { deliveries: '15K+', countries: '20', onTime: '100%' }
-  },
-  {
-    id: 5,
-    titleKey: 'portfolio.project5Title',
-    categoryIndex: 1,
-    descriptionKey: 'portfolio.project5Desc',
-    image: truckImage,
-    stats: { deliveries: '180K+', countries: '3', onTime: '99.7%' }
-  },
-  {
-    id: 6,
-    titleKey: 'portfolio.project6Title',
-    categoryIndex: 2,
-    descriptionKey: 'portfolio.project6Desc',
-    image: cargoImage,
-    stats: { deliveries: '2K+', countries: '15', onTime: '99.2%' }
-  }
-]
+const PAGE_SIZE = 6
 
-const filteredProjects = computed(() => {
-  if (activeCategory.value === 0) {
-    return projects
-  }
-  return projects.filter(p => p.categoryIndex === activeCategory.value)
+const serviceFilters = computed(() => {
+  const allOption = { id: null, title: t('portfolio.all') }
+  return [allOption, ...services.value.map(s => ({ id: s.id, title: s.title }))]
 })
 
-const filterProjects = (index: number) => {
-  activeCategory.value = index
+async function fetchServices() {
+  try {
+    services.value = await serviceService.listAll()
+  } catch (err) {
+    console.error('Failed to fetch services:', err)
+  }
 }
+
+async function fetchProjects(page = 1, append = false) {
+  if (page === 1) {
+    loading.value = true
+  } else {
+    loadingMore.value = true
+  }
+  try {
+    const params: { page: number; page_size: number; service_id?: number } = {
+      page,
+      page_size: PAGE_SIZE
+    }
+    if (activeServiceId.value !== null) {
+      params.service_id = activeServiceId.value
+    }
+    const response = await projectService.list(params)
+    if (append) {
+      projects.value = [...projects.value, ...response.results]
+    } else {
+      projects.value = response.results
+    }
+    hasMore.value = !!response.next
+    currentPage.value = page
+  } catch (err) {
+    console.error('Failed to fetch projects:', err)
+  } finally {
+    loading.value = false
+    loadingMore.value = false
+  }
+}
+
+function filterByService(serviceId: number | null) {
+  activeServiceId.value = serviceId
+  currentPage.value = 1
+  fetchProjects(1)
+}
+
+function loadMore() {
+  fetchProjects(currentPage.value + 1, true)
+}
+
+watch(activeServiceId, () => {
+  currentPage.value = 1
+})
+
+onMounted(() => {
+  fetchServices()
+  fetchProjects()
+})
 </script>
 
 <template>
@@ -135,59 +135,91 @@ const filterProjects = (index: number) => {
 
         <div class="flex flex-wrap justify-center gap-3 mb-12">
           <button
-            v-for="(category, index) in categories"
-            :key="index"
+            v-for="filter in serviceFilters"
+            :key="filter.id ?? 'all'"
             :class="[
               'px-6 py-2 rounded-full text-sm font-medium transition-all',
-              activeCategory === index
+              activeServiceId === filter.id
                 ? 'bg-secondary text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             ]"
-            @click="filterProjects(index)"
+            @click="filterByService(filter.id)"
           >
-            {{ category }}
+            {{ filter.title }}
           </button>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <BaseCard
-            v-for="project in filteredProjects"
-            :key="project.id"
-            :padding="'none'"
-            :hover="true"
-          >
-            <div class="relative h-48 overflow-hidden rounded-t-2xl">
-              <img
-                :src="project.image"
-                :alt="t(project.titleKey)"
-                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-              />
-              <div class="absolute top-4 left-4">
-                <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
-                  {{ categories[project.categoryIndex] }}
-                </span>
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t(project.titleKey) }}</h3>
-              <p class="text-gray-600 text-sm mb-4">{{ t(project.descriptionKey) }}</p>
-              <div class="flex justify-between text-center border-t pt-4">
-                <div>
-                  <div class="text-secondary font-bold">{{ project.stats.deliveries }}</div>
-                  <div class="text-xs text-gray-500">{{ t('portfolio.deliveries') }}</div>
-                </div>
-                <div>
-                  <div class="text-secondary font-bold">{{ project.stats.countries }}</div>
-                  <div class="text-xs text-gray-500">{{ t('portfolio.countries') }}</div>
-                </div>
-                <div>
-                  <div class="text-secondary font-bold">{{ project.stats.onTime }}</div>
-                  <div class="text-xs text-gray-500">{{ t('portfolio.onTime') }}</div>
-                </div>
-              </div>
-            </div>
-          </BaseCard>
+        <div v-if="loading" class="text-center py-12">
+          <div class="inline-block w-8 h-8 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
+          <p class="mt-4 text-gray-500">{{ t('common.loading') }}</p>
         </div>
+
+        <template v-else>
+          <div v-if="projects.length === 0" class="text-center py-12">
+            <p class="text-gray-500">{{ t('portfolio.noProjects') }}</p>
+          </div>
+
+          <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <BaseCard
+              v-for="project in projects"
+              :key="project.id"
+              :padding="'none'"
+              :hover="true"
+            >
+              <div class="relative h-48 overflow-hidden rounded-t-2xl">
+                <img
+                  v-if="project.cover_image"
+                  :src="project.cover_image"
+                  :alt="project.title"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div v-if="project.service" class="absolute top-4 left-4">
+                  <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
+                    {{ project.service.title }}
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ project.title }}</h3>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ project.short_description }}</p>
+                <div class="flex justify-between text-center border-t pt-4">
+                  <div>
+                    <div class="text-secondary font-bold">{{ project.deliveries_count || '-' }}</div>
+                    <div class="text-xs text-gray-500">{{ t('portfolio.deliveries') }}</div>
+                  </div>
+                  <div>
+                    <div class="text-secondary font-bold">{{ project.countries_count || 0 }}</div>
+                    <div class="text-xs text-gray-500">{{ t('portfolio.countries') }}</div>
+                  </div>
+                  <div>
+                    <div class="text-secondary font-bold">{{ project.on_time_rate ? project.on_time_rate + '%' : '-' }}</div>
+                    <div class="text-xs text-gray-500">{{ t('portfolio.onTime') }}</div>
+                  </div>
+                </div>
+              </div>
+            </BaseCard>
+          </div>
+
+          <div v-if="hasMore" class="text-center mt-12">
+            <BaseButton 
+              variant="outline" 
+              size="lg" 
+              @click="loadMore"
+              :disabled="loadingMore"
+            >
+              <span v-if="loadingMore" class="flex items-center gap-2">
+                <span class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
+                {{ t('common.loading') }}
+              </span>
+              <span v-else>{{ t('portfolio.loadMore') }}</span>
+            </BaseButton>
+          </div>
+        </template>
       </div>
     </section>
 
