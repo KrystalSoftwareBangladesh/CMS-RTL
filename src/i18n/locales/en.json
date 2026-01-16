@@ -363,6 +363,11 @@
       "subtitle": "Create and manage news articles and blog posts",
       "searchPlaceholder": "Search articles...",
       "addNew": "Add Article",
+      "addArticle": "Add New Article",
+      "editArticle": "Edit Article",
+      "confirmDelete": "Are you sure you want to delete this article?",
+      "published": "Published",
+      "draft": "Draft",
       "allCategories": "All Categories",
       "columns": {
         "title": "Title",
@@ -370,6 +375,23 @@
         "author": "Author",
         "status": "Status",
         "publishedAt": "Published"
+      },
+      "form": {
+        "title": "Title",
+        "excerpt": "Excerpt",
+        "content": "Content",
+        "category": "Category",
+        "noCategory": "No Category",
+        "authorName": "Author Name",
+        "coverImage": "Cover Image",
+        "imageUrl": "Image URL",
+        "readTime": "Read Time (min)",
+        "order": "Display Order",
+        "published": "Published",
+        "featured": "Featured",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
       }
     },
     "projects": {
