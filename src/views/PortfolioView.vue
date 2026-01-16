@@ -26,19 +26,14 @@ const serviceFilters = computed(() => {
   return [allOption, ...services.value.map(s => ({ id: s.id as number | null, title: s.title }))]
 })
 
-async function fetchServices() {
-  try {
-    const response = await projectService.list({ page: 1, page_size: 100 })
-    const serviceMap = new Map<number, { id: number; title: string }>()
-    response.results.forEach((p: Project) => {
-      if (p.service && !serviceMap.has(p.service.id)) {
-        serviceMap.set(p.service.id, { id: p.service.id, title: p.service.title })
-      }
-    })
-    services.value = Array.from(serviceMap.values())
-  } catch (err) {
-    console.error('Failed to fetch services:', err)
-  }
+function extractServices(projectList: Project[]) {
+  const serviceMap = new Map<number, { id: number; title: string }>()
+  projectList.forEach((p: Project) => {
+    if (p.service && !serviceMap.has(p.service.id)) {
+      serviceMap.set(p.service.id, { id: p.service.id, title: p.service.title })
+    }
+  })
+  services.value = Array.from(serviceMap.values())
 }
 
 async function fetchProjects(page = 1, append = false) {
@@ -60,6 +55,9 @@ async function fetchProjects(page = 1, append = false) {
       projects.value = [...projects.value, ...response.results]
     } else {
       projects.value = response.results
+    }
+    if (page === 1 && activeServiceId.value === null) {
+      extractServices(response.results)
     }
     hasMore.value = !!response.next
     currentPage.value = page
@@ -84,7 +82,6 @@ function loadMore() {
 }
 
 onMounted(() => {
-  fetchServices()
   fetchProjects()
 })
 </script>
