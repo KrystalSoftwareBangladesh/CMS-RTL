@@ -131,7 +131,9 @@
     "project5Title": "Retail Chain Distribution",
     "project5Desc": "Daily deliveries to 500+ retail locations with just-in-time inventory management.",
     "project6Title": "Industrial Equipment Export",
-    "project6Desc": "Oversized cargo handling and international shipping for heavy machinery."
+    "project6Desc": "Oversized cargo handling and international shipping for heavy machinery.",
+    "noProjects": "No projects found",
+    "loadMore": "Load More Projects"
   },
   "news": {
     "pageTitle": "News",
@@ -408,13 +410,37 @@
       "subtitle": "Showcase your successful logistics projects",
       "searchPlaceholder": "Search projects...",
       "addNew": "Add Project",
+      "addProject": "Add New Project",
+      "editProject": "Edit Project",
+      "confirmDelete": "Are you sure you want to delete this project?",
+      "active": "Active",
+      "inactive": "Inactive",
       "allCategories": "All Categories",
       "columns": {
         "title": "Project Title",
-        "category": "Category",
+        "service": "Service",
         "deliveries": "Deliveries",
         "countries": "Countries",
         "status": "Status"
+      },
+      "form": {
+        "title": "Title",
+        "shortDescription": "Short Description",
+        "description": "Description",
+        "service": "Service",
+        "searchService": "Search service...",
+        "noService": "No Service",
+        "coverImage": "Cover Image",
+        "currentImage": "Current",
+        "deliveriesCount": "Deliveries Count",
+        "countriesCount": "Countries Count",
+        "onTimeRate": "On-Time Rate",
+        "order": "Display Order",
+        "active": "Active",
+        "featured": "Featured",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
       }
     },
     "testimonials": {

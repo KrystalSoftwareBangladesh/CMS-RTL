@@ -69,6 +69,24 @@ const serviceService = {
   async delete(id: number): Promise<void> {
     await api.delete(`/service/${id}/`)
   },
+
+  async listAll(): Promise<Service[]> {
+    const results: Service[] = []
+    let page = 1
+    let hasMore = true
+    while (hasMore) {
+      const response = await this.list({ page, page_size: 100 })
+      results.push(...response.results)
+      hasMore = !!response.next
+      page++
+    }
+    return results
+  },
+
+  async search(query: string): Promise<Service[]> {
+    const response = await api.get<ServiceListResponse>(`/service/?search=${encodeURIComponent(query)}`)
+    return response.data.results
+  }
 }
 
 export default serviceService
