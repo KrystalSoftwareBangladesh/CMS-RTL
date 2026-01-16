@@ -6,7 +6,7 @@ import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
-import projectService, { type Project, type ProjectService } from '@/services/project'
+import projectService, { type Project } from '@/services/project'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 
 const { t } = useI18n()
