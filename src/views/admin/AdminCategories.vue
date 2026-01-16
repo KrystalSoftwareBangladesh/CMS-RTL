@@ -5,8 +5,10 @@ import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import categoryService, { type Category, type CategoryInput } from '@/services/category'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const categories = ref<Category[]>([])
 const allCategories = ref<Category[]>([])
@@ -57,6 +59,7 @@ async function fetchCategories(page = 1) {
     currentPage.value = page
   } catch (err) {
     console.error('Failed to fetch categories:', err)
+    toast.error(t('common.error'))
   } finally {
     loading.value = false
   }
@@ -99,10 +102,12 @@ async function handleDelete(item: Record<string, unknown>) {
   if (!confirm(t('admin.categories.confirmDelete'))) return
   try {
     await categoryService.delete(item.id as number)
+    toast.success(t('common.deleted'))
     await fetchCategories(currentPage.value)
     await fetchAllCategories()
   } catch (err) {
     console.error('Failed to delete category:', err)
+    toast.error(t('common.error'))
   }
 }
 
@@ -116,10 +121,12 @@ async function handleSubmit() {
       await categoryService.create(form.value)
     }
     showModal.value = false
+    toast.success(t('common.saved'))
     await fetchCategories(currentPage.value)
     await fetchAllCategories()
   } catch (err) {
     console.error('Failed to save category:', err)
+    toast.error(t('common.error'))
   } finally {
     saving.value = false
   }
