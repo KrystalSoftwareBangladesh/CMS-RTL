@@ -71,12 +71,12 @@ const projectService = {
     if (is_featured !== undefined) {
       queryParams.append('is_featured', String(is_featured))
     }
-    const response = await api.get<ProjectListResponse>(`/projects/?${queryParams.toString()}`)
+    const response = await api.get<ProjectListResponse>(`/project/?${queryParams.toString()}`)
     return response.data
   },
 
   async get(id: number): Promise<Project> {
-    const response = await api.get<Project>(`/projects/${id}/`)
+    const response = await api.get<Project>(`/project/${id}/`)
     return response.data
   },
 
@@ -89,12 +89,12 @@ const projectService = {
         }
       })
       formData.append('cover_image', coverImage)
-      const response = await api.post<Project>('/projects/', formData, {
+      const response = await api.post<Project>('/project/', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       return response.data
     }
-    const response = await api.post<Project>('/projects/', data)
+    const response = await api.post<Project>('/project/', data)
     return response.data
   },
 
@@ -107,17 +107,17 @@ const projectService = {
         }
       })
       formData.append('cover_image', coverImage)
-      const response = await api.patch<Project>(`/projects/${id}/`, formData, {
+      const response = await api.patch<Project>(`/project/${id}/`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
       return response.data
     }
-    const response = await api.patch<Project>(`/projects/${id}/`, data)
+    const response = await api.patch<Project>(`/project/${id}/`, data)
     return response.data
   },
 
   async delete(id: number): Promise<void> {
-    await api.delete(`/projects/${id}/`)
+    await api.delete(`/project/${id}/`)
   }
 }
 
