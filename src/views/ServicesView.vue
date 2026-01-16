@@ -76,12 +76,6 @@ onMounted(() => {
               <div>
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ service.title }}</h3>
                 <p class="text-gray-600 text-sm">{{ service.description }}</p>
-                <span 
-                  v-if="service.is_featured" 
-                  class="inline-block mt-3 px-3 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary"
-                >
-                  {{ t('services.featured') }}
-                </span>
               </div>
             </div>
           </BaseCard>
