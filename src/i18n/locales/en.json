@@ -332,11 +332,28 @@
       "subtitle": "Add, edit, or remove your logistics services",
       "searchPlaceholder": "Search services...",
       "addNew": "Add Service",
+      "addService": "Add New Service",
+      "editService": "Edit Service",
+      "confirmDelete": "Are you sure you want to delete this service?",
+      "active": "Active",
+      "inactive": "Inactive",
+      "featured": "Featured",
       "columns": {
         "name": "Service Name",
         "description": "Description",
+        "featured": "Featured",
         "status": "Status",
         "updatedAt": "Last Updated"
+      },
+      "form": {
+        "title": "Title",
+        "description": "Description",
+        "order": "Display Order",
+        "active": "Active",
+        "featured": "Featured",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
       }
     },
     "news": {
