@@ -58,6 +58,8 @@
     "label": "What We Offer",
     "title": "Logistics Services for Every Need",
     "subtitle": "From road to sea, air to rail, we provide end-to-end transportation solutions.",
+    "noServices": "No services available at the moment.",
+    "featured": "Featured",
     "sectionLabel": "OUR SERVICES",
     "sectionTitle": "Comprehensive Trading Solutions",
     "sectionSubtitle": "We offer end-to-end trading and logistics services tailored to meet your specific business needs.",
