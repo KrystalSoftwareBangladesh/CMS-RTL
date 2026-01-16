@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import SectionHeader from '@/components/base/SectionHeader.vue'
 import FAQAccordion from '@/components/base/FAQAccordion.vue'
 import faqService, { type FAQ } from '@/services/faq'
 
