@@ -41,7 +41,7 @@ async function fetchAllProjects() {
     let page = 1
     let hasMorePages = true
     while (hasMorePages) {
-      const response = await projectService.list({ page, page_size: 100 })
+      const response = await projectService.list({ page, page_size: PAGE_SIZE })
       results.push(...response.results)
       hasMorePages = !!response.next
       page++
