@@ -33,15 +33,19 @@ export interface ServiceInput {
 export interface ServiceListParams {
   page?: number
   page_size?: number
+  is_featured?: boolean
 }
 
 const serviceService = {
   async list(params: ServiceListParams = {}): Promise<ServiceListResponse> {
-    const { page = 1, page_size } = params
+    const { page = 1, page_size, is_featured } = params
     const queryParams = new URLSearchParams()
     queryParams.append('page', String(page))
     if (page_size) {
       queryParams.append('page_size', String(page_size))
+    }
+    if (is_featured !== undefined) {
+      queryParams.append('is_featured', String(is_featured))
     }
     const response = await api.get<ServiceListResponse>(`/service/?${queryParams.toString()}`)
     return response.data
