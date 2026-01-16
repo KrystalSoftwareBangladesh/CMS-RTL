@@ -4,7 +4,8 @@
     "loadingMore": "Loading more...",
     "error": "An error occurred",
     "saved": "Saved successfully",
-    "deleted": "Deleted successfully"
+    "deleted": "Deleted successfully",
+    "noData": "No data available"
   },
   "nav": {
     "home": "Home",
@@ -159,7 +160,8 @@
     "article5Title": "Global Shipping Trends for 2025",
     "article5Excerpt": "Key predictions and market insights for the upcoming year in international logistics.",
     "article6Title": "Last-Mile Delivery Innovations",
-    "article6Excerpt": "New technologies and strategies improving the final leg of the delivery journey."
+    "article6Excerpt": "New technologies and strategies improving the final leg of the delivery journey.",
+    "noArticles": "No articles available"
   },
   "contact": {
     "pageTitle": "Contact Us",

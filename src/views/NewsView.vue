@@ -1,90 +1,70 @@
 <script setup lang="ts">
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import CTASection from '@/components/sections/CTASection.vue'
-import cargoImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
+import newsService, { type News } from '@/services/news'
+import { useToast } from '@/composables/useToast'
 import truckImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
-import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
-import yellowTruckImage from '@/assets/images/yellow_truck_transpo_661ef152.jpg'
 
 const { t } = useI18n()
+const toast = useToast()
 
-const featuredArticle = {
-  titleKey: 'news.featuredTitle',
-  excerptKey: 'news.featuredExcerpt',
-  author: 'Sarah Mitchell',
-  date: 'December 28, 2024',
-  category: 'Sustainability',
-  image: cargoImage,
-  readTime: '8 min read'
+const articles = ref<News[]>([])
+const loading = ref(false)
+const loadingMore = ref(false)
+const currentPage = ref(1)
+const hasMore = ref(false)
+
+const featuredArticle = computed(() => articles.value.find((a) => a.is_featured) || articles.value[0])
+const regularArticles = computed(() => {
+  if (!featuredArticle.value) return articles.value
+  return articles.value.filter((a) => a.id !== featuredArticle.value?.id)
+})
+
+async function fetchNews(page = 1, append = false) {
+  if (page === 1) {
+    loading.value = true
+  } else {
+    loadingMore.value = true
+  }
+  try {
+    const response = await newsService.list({ page, page_size: 9 })
+    if (append) {
+      articles.value = [...articles.value, ...response.results]
+    } else {
+      articles.value = response.results
+    }
+    hasMore.value = !!response.next
+    currentPage.value = page
+  } catch (err) {
+    console.error('Failed to fetch news:', err)
+    toast.error(t('common.error'))
+  } finally {
+    loading.value = false
+    loadingMore.value = false
+  }
 }
 
-const articles = [
-  {
-    id: 1,
-    titleKey: 'news.article1Title',
-    excerptKey: 'news.article1Excerpt',
-    author: 'Hamish Slavit',
-    date: 'December 24, 2024',
-    category: 'Warehousing',
-    image: warehouseImage,
-    readTime: '5 min read'
-  },
-  {
-    id: 2,
-    titleKey: 'news.article2Title',
-    excerptKey: 'news.article2Excerpt',
-    author: 'Kylie Brown',
-    date: 'December 22, 2024',
-    category: 'Air Freight',
-    image: yellowTruckImage,
-    readTime: '4 min read'
-  },
-  {
-    id: 3,
-    titleKey: 'news.article3Title',
-    excerptKey: 'news.article3Excerpt',
-    author: 'Zayn Ghani',
-    date: 'December 20, 2024',
-    category: 'Operations',
-    image: truckImage,
-    readTime: '6 min read'
-  },
-  {
-    id: 4,
-    titleKey: 'news.article4Title',
-    excerptKey: 'news.article4Excerpt',
-    author: 'Emma Watson',
-    date: 'December 18, 2024',
-    category: 'Technology',
-    image: cargoImage,
-    readTime: '7 min read'
-  },
-  {
-    id: 5,
-    titleKey: 'news.article5Title',
-    excerptKey: 'news.article5Excerpt',
-    author: 'Michael Chen',
-    date: 'December 15, 2024',
-    category: 'Industry',
-    image: warehouseImage,
-    readTime: '5 min read'
-  },
-  {
-    id: 6,
-    titleKey: 'news.article6Title',
-    excerptKey: 'news.article6Excerpt',
-    author: 'Lisa Park',
-    date: 'December 12, 2024',
-    category: 'Technology',
-    image: yellowTruckImage,
-    readTime: '4 min read'
+function loadMore() {
+  if (!loadingMore.value && hasMore.value) {
+    fetchNews(currentPage.value + 1, true)
   }
-]
+}
 
-const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Industry', 'Warehousing']
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+
+onMounted(() => {
+  fetchNews()
+})
 </script>
 
 <template>
@@ -104,99 +84,115 @@ const categories = ['All', 'Technology', 'Sustainability', 'Operations', 'Indust
       </div>
     </section>
 
-    <section class="py-20 bg-white">
-      <div class="container mx-auto px-6">
-        <BaseCard :padding="'none'" :hover="true">
-          <div class="grid lg:grid-cols-2">
-            <div class="relative h-64 lg:h-auto">
-              <img
-                :src="featuredArticle.image"
-                :alt="t(featuredArticle.titleKey)"
-                class="w-full h-full object-cover rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none"
-              />
-              <div class="absolute top-4 left-4">
-                <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
-                  {{ t('news.featured') }}
+    <div v-if="loading" class="py-20 text-center">
+      <div class="inline-block w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+      <p class="mt-4 text-gray-600">{{ t('common.loading') }}</p>
+    </div>
+
+    <template v-else-if="articles.length > 0">
+      <section v-if="featuredArticle" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <BaseCard :padding="'none'" :hover="true">
+            <div class="grid lg:grid-cols-2">
+              <div class="relative h-64 lg:h-auto">
+                <img
+                  v-if="featuredArticle.cover_image"
+                  :src="featuredArticle.cover_image"
+                  :alt="featuredArticle.title"
+                  class="w-full h-full object-cover rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none"
+                />
+                <div v-else class="w-full h-full bg-gray-200 rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none flex items-center justify-center">
+                  <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                </div>
+                <div v-if="featuredArticle.is_featured" class="absolute top-4 left-4">
+                  <span class="bg-secondary text-white text-xs px-3 py-1 rounded-full">
+                    {{ t('news.featured') }}
+                  </span>
+                </div>
+              </div>
+              <div class="p-8 lg:p-12 flex flex-col justify-center">
+                <span v-if="featuredArticle.category" class="text-secondary text-sm font-medium mb-2">
+                  {{ featuredArticle.category.name }}
                 </span>
-              </div>
-            </div>
-            <div class="p-8 lg:p-12 flex flex-col justify-center">
-              <span class="text-secondary text-sm font-medium mb-2">{{ featuredArticle.category }}</span>
-              <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">{{ t(featuredArticle.titleKey) }}</h2>
-              <p class="text-gray-600 mb-6">{{ t(featuredArticle.excerptKey) }}</p>
-              <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
-                <span>{{ featuredArticle.author }}</span>
-                <span>•</span>
-                <span>{{ featuredArticle.date }}</span>
-                <span>•</span>
-                <span>{{ featuredArticle.readTime }}</span>
-              </div>
-              <div>
-                <BaseButton variant="secondary">
-                  {{ t('news.readArticle') }}
-                </BaseButton>
-              </div>
-            </div>
-          </div>
-        </BaseCard>
-      </div>
-    </section>
-
-    <section class="py-20 bg-gray-50">
-      <div class="container mx-auto px-6">
-        <SectionHeader
-          :label="t('news.latestArticles')"
-          :title="t('news.industryNews')"
-          :subtitle="t('news.industrySubtitle')"
-        />
-
-        <div class="flex flex-wrap justify-center gap-3 mb-12">
-          <button
-            v-for="category in categories"
-            :key="category"
-            class="px-6 py-2 rounded-full text-sm font-medium transition-all bg-white text-gray-600 hover:bg-secondary hover:text-white shadow-sm"
-          >
-            {{ category }}
-          </button>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <BaseCard
-            v-for="article in articles"
-            :key="article.id"
-            :padding="'none'"
-            :hover="true"
-          >
-            <div class="relative h-48 overflow-hidden rounded-t-2xl">
-              <img
-                :src="article.image"
-                :alt="t(article.titleKey)"
-                class="w-full h-full object-cover"
-              />
-              <div class="absolute top-4 left-4">
-                <span class="bg-primary/80 text-white text-xs px-3 py-1 rounded-full">
-                  {{ article.category }}
-                </span>
-              </div>
-            </div>
-            <div class="p-6">
-              <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ t(article.titleKey) }}</h3>
-              <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ t(article.excerptKey) }}</p>
-              <div class="flex items-center justify-between text-sm text-gray-500">
-                <span>{{ article.author }}</span>
-                <span>{{ article.readTime }}</span>
+                <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">{{ featuredArticle.title }}</h2>
+                <p class="text-gray-600 mb-6">{{ featuredArticle.excerpt }}</p>
+                <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
+                  <span v-if="featuredArticle.author_name">{{ featuredArticle.author_name }}</span>
+                  <span v-if="featuredArticle.author_name">•</span>
+                  <span>{{ formatDate(featuredArticle.created_at) }}</span>
+                  <span v-if="featuredArticle.read_time">•</span>
+                  <span v-if="featuredArticle.read_time">{{ featuredArticle.read_time }} min read</span>
+                </div>
+                <div>
+                  <BaseButton variant="secondary">
+                    {{ t('news.readArticle') }}
+                  </BaseButton>
+                </div>
               </div>
             </div>
           </BaseCard>
         </div>
+      </section>
 
-        <div class="text-center mt-12">
-          <BaseButton variant="secondary" size="lg">
-            {{ t('news.loadMore') }}
-          </BaseButton>
+      <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <SectionHeader
+            :label="t('news.latestArticles')"
+            :title="t('news.industryNews')"
+            :subtitle="t('news.industrySubtitle')"
+          />
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <BaseCard
+              v-for="article in regularArticles"
+              :key="article.id"
+              :padding="'none'"
+              :hover="true"
+            >
+              <div class="relative h-48 overflow-hidden rounded-t-2xl">
+                <img
+                  v-if="article.cover_image"
+                  :src="article.cover_image"
+                  :alt="article.title"
+                  class="w-full h-full object-cover"
+                />
+                <div v-else class="w-full h-full bg-gray-200 flex items-center justify-center">
+                  <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                </div>
+                <div v-if="article.category" class="absolute top-4 left-4">
+                  <span class="bg-primary/80 text-white text-xs px-3 py-1 rounded-full">
+                    {{ article.category.name }}
+                  </span>
+                </div>
+              </div>
+              <div class="p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ article.title }}</h3>
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ article.excerpt }}</p>
+                <div class="flex items-center justify-between text-sm text-gray-500">
+                  <span>{{ article.author_name || '-' }}</span>
+                  <span v-if="article.read_time">{{ article.read_time }} min</span>
+                </div>
+              </div>
+            </BaseCard>
+          </div>
+
+          <div v-if="hasMore" class="text-center mt-12">
+            <BaseButton variant="secondary" size="lg" :disabled="loadingMore" @click="loadMore">
+              <span v-if="loadingMore">{{ t('common.loadingMore') }}</span>
+              <span v-else>{{ t('news.loadMore') }}</span>
+            </BaseButton>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </template>
+
+    <div v-else class="py-20 text-center">
+      <p class="text-gray-600">{{ t('news.noArticles') }}</p>
+    </div>
 
     <section class="py-20 bg-primary">
       <div class="container mx-auto px-6">
