@@ -13,16 +13,19 @@ const { t } = useI18n()
 const toast = useToast()
 
 const articles = ref<News[]>([])
+const featuredArticle = ref<News | null>(null)
 const loading = ref(false)
 const loadingMore = ref(false)
 const currentPage = ref(1)
 const hasMore = ref(false)
 
-const featuredArticle = computed(() => articles.value.find((a) => a.is_featured) || null)
-const regularArticles = computed(() => {
-  if (!featuredArticle.value) return articles.value
-  return articles.value.filter((a) => a.id !== featuredArticle.value.id)
-})
+async function fetchFeatured() {
+  try {
+    featuredArticle.value = await newsService.getFeatured()
+  } catch (err) {
+    console.error('Failed to fetch featured news:', err)
+  }
+}
 
 async function fetchNews(page = 1, append = false) {
   if (page === 1) {
@@ -63,6 +66,7 @@ function formatDate(dateString: string) {
 }
 
 onMounted(() => {
+  fetchFeatured()
   fetchNews()
 })
 </script>

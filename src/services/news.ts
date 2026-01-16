@@ -78,6 +78,15 @@ const newsService = {
     return response.data
   },
 
+  async getFeatured(): Promise<News | null> {
+    try {
+      const response = await api.get<News>('/news/featured/')
+      return response.data
+    } catch {
+      return null
+    }
+  },
+
   async create(data: NewsInput, coverImage?: File): Promise<News> {
     if (coverImage) {
       const formData = new FormData()
