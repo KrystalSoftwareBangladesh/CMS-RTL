@@ -362,12 +362,28 @@
       "subtitle": "Modifier les questions fréquentes",
       "searchPlaceholder": "Rechercher...",
       "addNew": "Ajouter",
+      "addQuestion": "Ajouter une question",
+      "editQuestion": "Modifier la question",
       "allCategories": "Toutes les catégories",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer cette FAQ ?",
+      "published": "Publié",
+      "draft": "Brouillon",
       "columns": {
         "question": "Question",
         "category": "Catégorie",
         "order": "Ordre",
         "status": "Statut"
+      },
+      "form": {
+        "question": "Question",
+        "answer": "Réponse",
+        "category": "Catégorie",
+        "noCategory": "Aucune catégorie",
+        "order": "Ordre d'affichage",
+        "published": "Publié",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement..."
       }
     },
     "settings": {

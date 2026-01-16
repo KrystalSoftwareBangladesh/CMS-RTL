@@ -61,6 +61,15 @@ The application integrates with a backend API for authentication.
 
 Category fields: `id`, `name`, `slug`, `description`, `parent`, `created_at`, `updated_at`
 
+### FAQ API
+- **List**: GET `/faqs/` - Returns paginated list of FAQs
+- **Get**: GET `/faqs/{id}/` - Returns single FAQ
+- **Create**: POST `/faqs/` - Creates new FAQ
+- **Update**: PATCH `/faqs/{id}/` - Updates FAQ
+- **Delete**: DELETE `/faqs/{id}/` - Deletes FAQ
+
+FAQ fields: `id`, `question`, `answer`, `category`, `order`, `is_published`, `created_at`, `updated_at`
+
 ## Directory Structure
 ```
 src/
@@ -70,7 +79,8 @@ src/
 ├── services/            # API services
 │   ├── api.ts           # Axios wrapper with interceptors
 │   ├── auth.ts          # Authentication service
-│   └── category.ts      # Category CRUD service
+│   ├── category.ts      # Category CRUD service
+│   └── faq.ts           # FAQ CRUD service
 ├── stores/              # Pinia stores
 │   └── auth.ts          # Authentication state management
 ├── components/
