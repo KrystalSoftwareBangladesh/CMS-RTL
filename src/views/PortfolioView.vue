@@ -207,16 +207,8 @@ onMounted(() => {
           </div>
 
           <div v-if="hasMore" class="text-center mt-12">
-            <BaseButton 
-              variant="outline" 
-              size="lg" 
-              @click="loadMore"
-              :disabled="loadingMore"
-            >
-              <span v-if="loadingMore" class="flex items-center gap-2">
-                <span class="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin"></span>
-                {{ t('common.loading') }}
-              </span>
+            <BaseButton variant="secondary" size="lg" :disabled="loadingMore" @click="loadMore">
+              <span v-if="loadingMore">{{ t('common.loadingMore') }}</span>
               <span v-else>{{ t('portfolio.loadMore') }}</span>
             </BaseButton>
           </div>
