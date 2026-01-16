@@ -5,7 +5,9 @@
     "error": "An error occurred",
     "saved": "Saved successfully",
     "deleted": "Deleted successfully",
-    "noData": "No data available"
+    "noData": "No data available",
+    "yes": "Yes",
+    "no": "No"
   },
   "nav": {
     "home": "Home",
@@ -377,6 +379,7 @@
         "title": "Title",
         "category": "Category",
         "author": "Author",
+        "highlighted": "Highlighted",
         "status": "Status",
         "publishedAt": "Published"
       },
@@ -394,6 +397,7 @@
         "order": "Display Order",
         "published": "Published",
         "featured": "Featured",
+        "highlighted": "Highlighted",
         "cancel": "Cancel",
         "save": "Save",
         "saving": "Saving..."

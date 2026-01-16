@@ -34,6 +34,7 @@ const form = ref<NewsInput>({
   category_id: undefined,
   is_active: true,
   is_featured: false,
+  is_highlighted: false,
   status: true,
   order: 1
 })
@@ -42,6 +43,7 @@ const columns = computed(() => [
   { key: 'title', label: t('admin.news.columns.title') },
   { key: 'category_name', label: t('admin.news.columns.category') },
   { key: 'author_name', label: t('admin.news.columns.author') },
+  { key: 'is_highlighted', label: t('admin.news.columns.highlighted') },
   { key: 'status', label: t('admin.news.columns.status') }
 ])
 
@@ -51,6 +53,7 @@ const tableData = computed(() =>
     title: article.title.length > 50 ? article.title.substring(0, 50) + '...' : article.title,
     category_name: article.category?.name || '-',
     author_name: article.author_name || '-',
+    is_highlighted: article.is_highlighted,
     status: article.status
   }))
 )
@@ -117,6 +120,7 @@ function openAddModal() {
     category_id: undefined,
     is_active: true,
     is_featured: false,
+    is_highlighted: false,
     status: true,
     order: 1
   }
@@ -137,6 +141,7 @@ function handleEdit(item: Record<string, unknown>) {
       category_id: article.category?.id,
       is_active: article.is_active,
       is_featured: article.is_featured,
+      is_highlighted: article.is_highlighted,
       status: article.status,
       order: article.order
     }
@@ -177,6 +182,7 @@ async function handleSubmit() {
       read_time: form.value.read_time,
       is_active: form.value.is_active,
       is_featured: form.value.is_featured,
+      is_highlighted: form.value.is_highlighted,
       status: form.value.status,
       order: form.value.order
     }
@@ -236,6 +242,14 @@ onMounted(() => {
           {{ value }}
         </span>
         <span v-else class="text-gray-400">{{ value }}</span>
+      </template>
+      <template #cell-is_highlighted="{ value }">
+        <span :class="[
+          'px-3 py-1 rounded-full text-xs font-medium',
+          value ? 'bg-yellow-100 text-yellow-800' : 'bg-gray-100 text-gray-600'
+        ]">
+          {{ value ? t('common.yes') : t('common.no') }}
+        </span>
       </template>
       <template #cell-status="{ value }">
         <span :class="[
@@ -408,6 +422,17 @@ onMounted(() => {
                   />
                   <label for="is_featured" class="text-sm font-medium text-gray-700">
                     {{ t('admin.news.form.featured') }}
+                  </label>
+                </div>
+                <div class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="is_highlighted"
+                    v-model="form.is_highlighted"
+                    class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  />
+                  <label for="is_highlighted" class="text-sm font-medium text-gray-700">
+                    {{ t('admin.news.form.highlighted') }}
                   </label>
                 </div>
               </div>

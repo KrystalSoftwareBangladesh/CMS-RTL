@@ -22,6 +22,7 @@ export interface News {
   category: NewsCategory | null
   is_active: boolean
   is_featured: boolean
+  is_highlighted: boolean
   status: boolean
   order: number
   created_by: number
@@ -48,6 +49,7 @@ export interface NewsInput {
   category_id?: number
   is_active?: boolean
   is_featured?: boolean
+  is_highlighted?: boolean
   status?: boolean
   order?: number
 }
