@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
@@ -19,10 +19,6 @@ const loadingMore = ref(false)
 const currentPage = ref(1)
 const hasMore = ref(false)
 
-const regularArticles = computed(() => {
-  if (!featuredArticle.value) return articles.value
-  return articles.value.filter((a) => a.id !== featuredArticle.value!.id)
-})
 
 async function fetchFeatured() {
   try {
@@ -39,7 +35,7 @@ async function fetchNews(page = 1, append = false) {
     loadingMore.value = true
   }
   try {
-    const response = await newsService.list({ page, page_size: 9 })
+    const response = await newsService.list({ page, page_size: 6, excluding_featured: true })
     if (append) {
       articles.value = [...articles.value, ...response.results]
     } else {
@@ -155,7 +151,7 @@ onMounted(() => {
 
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             <BaseCard
-              v-for="article in regularArticles"
+              v-for="article in articles"
               :key="article.id"
               :padding="'none'"
               :hover="true"
