@@ -29,6 +29,11 @@ const categoryService = {
     return response.data
   },
 
+  async search(query: string): Promise<Category[]> {
+    const response = await api.get<CategoryListResponse>(`/categories/?search=${encodeURIComponent(query)}`)
+    return response.data.results
+  },
+
   async listAll(): Promise<Category[]> {
     const categories: Category[] = []
     let page = 1

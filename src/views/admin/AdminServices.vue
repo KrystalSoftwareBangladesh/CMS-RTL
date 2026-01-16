@@ -5,8 +5,10 @@ import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import serviceService, { type Service, type ServiceInput } from '@/services/service'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const services = ref<Service[]>([])
 const loading = ref(false)
@@ -62,6 +64,7 @@ async function fetchServices(page = 1) {
     currentPage.value = page
   } catch (err) {
     console.error('Failed to fetch services:', err)
+    toast.error(t('common.error'))
   } finally {
     loading.value = false
   }
@@ -96,9 +99,11 @@ async function handleDelete(item: Record<string, unknown>) {
   if (!confirm(t('admin.services.confirmDelete'))) return
   try {
     await serviceService.delete(item.id as number)
+    toast.success(t('common.deleted'))
     await fetchServices(currentPage.value)
   } catch (err) {
     console.error('Failed to delete service:', err)
+    toast.error(t('common.error'))
   }
 }
 
@@ -119,9 +124,11 @@ async function handleSubmit() {
       await serviceService.create(payload)
     }
     showModal.value = false
+    toast.success(t('common.saved'))
     await fetchServices(currentPage.value)
   } catch (err) {
     console.error('Failed to save service:', err)
+    toast.error(t('common.error'))
   } finally {
     saving.value = false
   }

@@ -6,8 +6,10 @@ import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import faqService, { type FAQ, type FAQInput } from '@/services/faq'
 import categoryService, { type Category } from '@/services/category'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
 
 const faqs = ref<FAQ[]>([])
 const categories = ref<Category[]>([])
@@ -65,6 +67,7 @@ async function fetchFaqs(page = 1) {
     currentPage.value = page
   } catch (err) {
     console.error('Failed to fetch FAQs:', err)
+    toast.error(t('common.error'))
   } finally {
     loading.value = false
   }
@@ -107,9 +110,11 @@ async function handleDelete(item: Record<string, unknown>) {
   if (!confirm(t('admin.faq.confirmDelete'))) return
   try {
     await faqService.delete(item.id as number)
+    toast.success(t('common.deleted'))
     await fetchFaqs(currentPage.value)
   } catch (err) {
     console.error('Failed to delete FAQ:', err)
+    toast.error(t('common.error'))
   }
 }
 
@@ -132,9 +137,11 @@ async function handleSubmit() {
       await faqService.create(payload)
     }
     showModal.value = false
+    toast.success(t('common.saved'))
     await fetchFaqs(currentPage.value)
   } catch (err) {
     console.error('Failed to save FAQ:', err)
+    toast.error(t('common.error'))
   } finally {
     saving.value = false
   }
