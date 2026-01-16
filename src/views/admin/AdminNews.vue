@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import SearchableSelect from '@/components/base/SearchableSelect.vue'
 import newsService, { type News, type NewsInput } from '@/services/news'
 import categoryService, { type Category } from '@/services/category'
 
@@ -11,6 +12,7 @@ const { t } = useI18n()
 
 const articles = ref<News[]>([])
 const categories = ref<Category[]>([])
+const categoryLoading = ref(false)
 const loading = ref(false)
 const showModal = ref(false)
 const editingNews = ref<News | null>(null)
@@ -78,6 +80,21 @@ async function fetchCategories() {
     categories.value = await categoryService.listAll()
   } catch (err) {
     console.error('Failed to fetch categories:', err)
+  }
+}
+
+async function searchCategories(query: string) {
+  categoryLoading.value = true
+  try {
+    if (query.trim()) {
+      categories.value = await categoryService.search(query)
+    } else {
+      categories.value = await categoryService.listAll()
+    }
+  } catch (err) {
+    console.error('Failed to search categories:', err)
+  } finally {
+    categoryLoading.value = false
   }
 }
 
@@ -304,15 +321,14 @@ onMounted(() => {
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.news.form.category') }}
                 </label>
-                <select
+                <SearchableSelect
                   v-model="form.category"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-                >
-                  <option :value="undefined">{{ t('admin.news.form.noCategory') }}</option>
-                  <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-                    {{ cat.name }}
-                  </option>
-                </select>
+                  :options="categories"
+                  :placeholder="t('admin.news.form.searchCategory')"
+                  :no-option-label="t('admin.news.form.noCategory')"
+                  :loading="categoryLoading"
+                  @search="searchCategories"
+                />
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">

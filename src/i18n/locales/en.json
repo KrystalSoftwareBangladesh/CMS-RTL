@@ -381,6 +381,7 @@
         "excerpt": "Excerpt",
         "content": "Content",
         "category": "Category",
+        "searchCategory": "Search category...",
         "noCategory": "No Category",
         "authorName": "Author Name",
         "coverImage": "Cover Image",
