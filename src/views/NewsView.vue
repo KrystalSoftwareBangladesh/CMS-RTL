@@ -19,6 +19,11 @@ const loadingMore = ref(false)
 const currentPage = ref(1)
 const hasMore = ref(false)
 
+const regularArticles = computed(() => {
+  if (!featuredArticle.value) return articles.value
+  return articles.value.filter((a) => a.id !== featuredArticle.value!.id)
+})
+
 async function fetchFeatured() {
   try {
     featuredArticle.value = await newsService.getFeatured()
