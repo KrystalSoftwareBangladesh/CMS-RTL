@@ -124,6 +124,15 @@ function handleEdit(item: Record<string, unknown>) {
   }
 }
 
+const selectedFile = ref<File | null>(null)
+
+function handleImageChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (target.files && target.files[0]) {
+    selectedFile.value = target.files[0]
+  }
+}
+
 async function handleDelete(item: Record<string, unknown>) {
   if (!confirm(t('admin.news.confirmDelete'))) return
   try {
@@ -142,7 +151,6 @@ async function handleSubmit() {
       title: form.value.title,
       excerpt: form.value.excerpt,
       content: form.value.content,
-      cover_image: form.value.cover_image,
       author_name: form.value.author_name,
       read_time: form.value.read_time,
       is_active: form.value.is_active,
@@ -154,11 +162,12 @@ async function handleSubmit() {
       payload.category = form.value.category
     }
     if (editingNews.value) {
-      await newsService.update(editingNews.value.id, payload)
+      await newsService.update(editingNews.value.id, payload, selectedFile.value || undefined)
     } else {
-      await newsService.create(payload)
+      await newsService.create(payload, selectedFile.value || undefined)
     }
     showModal.value = false
+    selectedFile.value = null
     await fetchNews(currentPage.value)
   } catch (err) {
     console.error('Failed to save news:', err)
@@ -322,11 +331,14 @@ onMounted(() => {
                   {{ t('admin.news.form.coverImage') }}
                 </label>
                 <input
-                  v-model="form.cover_image"
-                  type="text"
-                  :placeholder="t('admin.news.form.imageUrl')"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                  type="file"
+                  accept="image/*"
+                  @change="handleImageChange"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none file:mr-4 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20"
                 />
+                <p v-if="form.cover_image" class="mt-1 text-xs text-gray-500 truncate">
+                  {{ t('admin.news.form.currentImage') }}: {{ form.cover_image }}
+                </p>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">

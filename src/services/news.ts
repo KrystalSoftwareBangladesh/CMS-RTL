@@ -78,12 +78,38 @@ const newsService = {
     return response.data
   },
 
-  async create(data: NewsInput): Promise<News> {
+  async create(data: NewsInput, coverImage?: File): Promise<News> {
+    if (coverImage) {
+      const formData = new FormData()
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, String(value))
+        }
+      })
+      formData.append('cover_image', coverImage)
+      const response = await api.post<News>('/news/', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      return response.data
+    }
     const response = await api.post<News>('/news/', data)
     return response.data
   },
 
-  async update(id: number, data: Partial<NewsInput>): Promise<News> {
+  async update(id: number, data: Partial<NewsInput>, coverImage?: File): Promise<News> {
+    if (coverImage) {
+      const formData = new FormData()
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, String(value))
+        }
+      })
+      formData.append('cover_image', coverImage)
+      const response = await api.patch<News>(`/news/${id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      return response.data
+    }
     const response = await api.patch<News>(`/news/${id}/`, data)
     return response.data
   },

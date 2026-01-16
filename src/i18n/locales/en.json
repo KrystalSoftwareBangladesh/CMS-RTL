@@ -384,7 +384,7 @@
         "noCategory": "No Category",
         "authorName": "Author Name",
         "coverImage": "Cover Image",
-        "imageUrl": "Image URL",
+        "currentImage": "Current",
         "readTime": "Read Time (min)",
         "order": "Display Order",
         "published": "Published",
