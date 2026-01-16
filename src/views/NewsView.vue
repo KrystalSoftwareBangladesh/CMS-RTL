@@ -18,10 +18,10 @@ const loadingMore = ref(false)
 const currentPage = ref(1)
 const hasMore = ref(false)
 
-const featuredArticle = computed(() => articles.value.find((a) => a.is_featured) || articles.value[0])
+const featuredArticle = computed(() => articles.value.find((a) => a.is_featured) || null)
 const regularArticles = computed(() => {
   if (!featuredArticle.value) return articles.value
-  return articles.value.filter((a) => a.id !== featuredArticle.value?.id)
+  return articles.value.filter((a) => a.id !== featuredArticle.value.id)
 })
 
 async function fetchNews(page = 1, append = false) {
