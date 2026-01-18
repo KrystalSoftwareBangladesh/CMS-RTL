@@ -163,7 +163,7 @@ onMounted(() => {
       <template #cell-icon_svg="{ value }">
         <div v-if="value" class="w-6 h-6 text-gray-600">
           <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="value" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="String(value)" />
           </svg>
         </div>
         <span v-else class="text-gray-400">-</span>
