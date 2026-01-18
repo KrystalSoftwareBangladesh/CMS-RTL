@@ -508,7 +508,7 @@
         "icon": "Icon Class",
         "iconPlaceholder": "e.g., fab fa-facebook",
         "iconSvg": "SVG Icon",
-        "iconSvgPlaceholder": "<svg>...</svg>",
+        "iconSvgPlaceholder": "Paste SVG code here",
         "cancel": "Cancel",
         "save": "Save",
         "saving": "Saving..."
