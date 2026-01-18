@@ -105,8 +105,8 @@ onMounted(() => {
               class="text-gray-400 hover:text-secondary transition-colors"
               :title="link.name"
             >
-              <svg v-if="link.icon_svg" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="link.icon_svg" />
+              <svg v-if="link.icon_svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path :d="link.icon_svg" />
               </svg>
               <span v-else class="text-xs">{{ link.name }}</span>
             </a>
