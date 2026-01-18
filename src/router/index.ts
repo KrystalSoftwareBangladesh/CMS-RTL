@@ -18,6 +18,7 @@ import AdminFAQ from '../views/admin/AdminFAQ.vue'
 import AdminSettings from '../views/admin/AdminSettings.vue'
 import AdminProfile from '../views/admin/AdminProfile.vue'
 import AdminCategories from '../views/admin/AdminCategories.vue'
+import AdminSocialLinks from '../views/admin/AdminSocialLinks.vue'
 import { getAccessToken } from '@/services/api'
 
 const router = createRouter({
@@ -115,6 +116,12 @@ const router = createRouter({
       path: '/admin/categories',
       name: 'admin-categories',
       component: AdminCategories,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/social-links',
+      name: 'admin-social-links',
+      component: AdminSocialLinks,
       meta: { requiresAuth: true },
     },
     {
