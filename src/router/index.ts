@@ -19,6 +19,7 @@ import AdminSettings from '../views/admin/AdminSettings.vue'
 import AdminProfile from '../views/admin/AdminProfile.vue'
 import AdminCategories from '../views/admin/AdminCategories.vue'
 import AdminSocialLinks from '../views/admin/AdminSocialLinks.vue'
+import AdminTeam from '../views/admin/AdminTeam.vue'
 import { getAccessToken } from '@/services/api'
 
 const router = createRouter({
@@ -122,6 +123,12 @@ const router = createRouter({
       path: '/admin/social-links',
       name: 'admin-social-links',
       component: AdminSocialLinks,
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/admin/team',
+      name: 'admin-team',
+      component: AdminTeam,
       meta: { requiresAuth: true },
     },
     {

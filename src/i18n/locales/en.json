@@ -267,6 +267,7 @@
       "services": "Services",
       "news": "News",
       "projects": "Projects",
+      "team": "Team",
       "testimonials": "Testimonials",
       "faq": "FAQ",
       "socialLinks": "Social Links",
@@ -510,6 +511,38 @@
         "iconPlaceholder": "e.g., fab fa-facebook",
         "iconSvg": "SVG Icon",
         "iconSvgPlaceholder": "Paste SVG code here",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+      }
+    },
+    "team": {
+      "title": "Team Members",
+      "subtitle": "Manage your team members and their profiles",
+      "addNew": "Add Member",
+      "addMember": "Add New Team Member",
+      "editMember": "Edit Team Member",
+      "confirmDelete": "Are you sure you want to delete this team member?",
+      "columns": {
+        "image": "Photo",
+        "name": "Name",
+        "designation": "Designation",
+        "featured": "Featured",
+        "order": "Order"
+      },
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "e.g., John Doe",
+        "designation": "Designation",
+        "designationPlaceholder": "e.g., CEO",
+        "shortBio": "Short Bio",
+        "shortBioPlaceholder": "Brief description for cards",
+        "bio": "Full Bio",
+        "bioPlaceholder": "Detailed biography",
+        "profileImage": "Profile Image URL",
+        "profileImagePlaceholder": "https://example.com/photo.jpg",
+        "order": "Display Order",
+        "isFeatured": "Featured Member",
         "cancel": "Cancel",
         "save": "Save",
         "saving": "Saving..."
