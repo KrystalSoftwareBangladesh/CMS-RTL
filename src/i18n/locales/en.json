@@ -269,6 +269,7 @@
       "projects": "Projects",
       "testimonials": "Testimonials",
       "faq": "FAQ",
+      "socialLinks": "Social Links",
       "settings": "Settings"
     },
     "backToSite": "Back to Website",
@@ -480,6 +481,35 @@
         "noCategory": "No category",
         "order": "Display Order",
         "published": "Published",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving..."
+      }
+    },
+    "socialLinks": {
+      "title": "Social Links",
+      "subtitle": "Manage social media links and icons",
+      "addNew": "Add Social Link",
+      "addLink": "Add New Social Link",
+      "editLink": "Edit Social Link",
+      "confirmDelete": "Are you sure you want to delete this social link?",
+      "columns": {
+        "icon": "Icon",
+        "name": "Name",
+        "key": "Key",
+        "baseUrl": "Base URL"
+      },
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "e.g., Facebook",
+        "key": "Key",
+        "keyPlaceholder": "e.g., facebook",
+        "baseUrl": "Base URL",
+        "baseUrlPlaceholder": "e.g., https://facebook.com/",
+        "icon": "Icon Class",
+        "iconPlaceholder": "e.g., fab fa-facebook",
+        "iconSvg": "SVG Icon",
+        "iconSvgPlaceholder": "Paste SVG code here",
         "cancel": "Cancel",
         "save": "Save",
         "saving": "Saving..."
