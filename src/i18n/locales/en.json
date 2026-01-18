@@ -494,6 +494,7 @@
       "editLink": "Edit Social Link",
       "confirmDelete": "Are you sure you want to delete this social link?",
       "columns": {
+        "icon": "Icon",
         "name": "Name",
         "key": "Key",
         "baseUrl": "Base URL"

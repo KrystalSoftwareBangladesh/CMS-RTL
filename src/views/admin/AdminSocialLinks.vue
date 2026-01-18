@@ -29,6 +29,7 @@ const form = ref<SocialLinkInput>({
 })
 
 const columns = computed(() => [
+  { key: 'icon_svg', label: t('admin.socialLinks.columns.icon') },
   { key: 'name', label: t('admin.socialLinks.columns.name') },
   { key: 'key', label: t('admin.socialLinks.columns.key') },
   { key: 'base_url', label: t('admin.socialLinks.columns.baseUrl') }
@@ -37,6 +38,7 @@ const columns = computed(() => [
 const tableData = computed(() =>
   socialLinks.value.map((link) => ({
     id: link.id,
+    icon_svg: link.icon_svg || '',
     name: link.name,
     key: link.key,
     base_url: link.base_url || '-'
@@ -158,6 +160,14 @@ onMounted(() => {
       @edit="handleEdit"
       @delete="handleDelete"
     >
+      <template #cell-icon_svg="{ value }">
+        <div v-if="value" class="w-6 h-6 text-gray-600">
+          <svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="value" />
+          </svg>
+        </div>
+        <span v-else class="text-gray-400">-</span>
+      </template>
       <template #cell-name="{ value }">
         <span class="font-medium">{{ value }}</span>
       </template>
