@@ -179,11 +179,11 @@ onMounted(() => {
           {{ t('common.noData') }}
         </div>
         
-        <div v-else class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
+        <div v-else class="flex flex-wrap justify-center gap-6">
           <div
             v-for="member in teamMembers"
             :key="member.id"
-            class="text-center group"
+            class="text-center group w-64"
           >
             <div v-if="member.profile_image" class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
               <img :src="member.profile_image" :alt="member.name" class="w-full h-full object-cover" />
