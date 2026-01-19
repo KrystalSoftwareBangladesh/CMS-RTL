@@ -16,6 +16,7 @@ const socialLinks = ref<SocialLink[]>([])
 const loading = ref(false)
 const showModal = ref(false)
 const editingMember = ref<TeamMember | null>(null)
+const originalPlatformIds = ref<Set<number>>(new Set())
 const saving = ref(false)
 const currentPage = ref(1)
 const totalCount = ref(0)
@@ -102,6 +103,7 @@ function goToPage(page: number) {
 
 function openAddModal() {
   editingMember.value = null
+  originalPlatformIds.value = new Set()
   form.value = {
     name: '',
     designation: '',
@@ -119,6 +121,7 @@ function handleEdit(item: Record<string, unknown>) {
   const member = teamMembers.value.find((m) => m.id === item.id)
   if (member) {
     editingMember.value = member
+    originalPlatformIds.value = new Set(member.social_profiles.map((sp) => sp.platform))
     form.value = {
       name: member.name,
       designation: member.designation || '',
@@ -180,11 +183,20 @@ async function handleSubmit() {
     payload.is_featured = form.value.is_featured
     payload.order = form.value.order
     
-    const validProfiles = form.value.social_profiles.filter(
-      (sp) => sp.platform > 0 && sp.profile_url.trim()
-    )
-    if (validProfiles.length > 0) {
-      payload.social_profiles = validProfiles
+    if (editingMember.value) {
+      const newProfiles = form.value.social_profiles.filter(
+        (sp) => sp.platform > 0 && sp.profile_url.trim() && !originalPlatformIds.value.has(sp.platform)
+      )
+      if (newProfiles.length > 0) {
+        payload.social_profiles = newProfiles
+      }
+    } else {
+      const validProfiles = form.value.social_profiles.filter(
+        (sp) => sp.platform > 0 && sp.profile_url.trim()
+      )
+      if (validProfiles.length > 0) {
+        payload.social_profiles = validProfiles
+      }
     }
 
     if (editingMember.value) {
