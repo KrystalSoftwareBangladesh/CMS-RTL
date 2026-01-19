@@ -1,21 +1,44 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
+import teamService, { type TeamMember } from '@/services/team'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 import cargoImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
 
 const { t } = useI18n()
 
-const team = [
-  { name: 'James Wilson', role: 'CEO & Founder', initials: 'JW' },
-  { name: 'Sarah Chen', role: 'Operations Director', initials: 'SC' },
-  { name: 'Michael Brown', role: 'Logistics Manager', initials: 'MB' },
-  { name: 'Emily Davis', role: 'Customer Relations', initials: 'ED' }
-]
+const teamMembers = ref<TeamMember[]>([])
+const loadingTeam = ref(false)
+
+function getInitials(name: string): string {
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2)
+}
+
+async function fetchTeamMembers() {
+  loadingTeam.value = true
+  try {
+    const response = await teamService.list({ page_size: 8 })
+    teamMembers.value = response.results
+  } catch (err) {
+    console.error('Failed to fetch team members:', err)
+  } finally {
+    loadingTeam.value = false
+  }
+}
+
+onMounted(() => {
+  fetchTeamMembers()
+})
 </script>
 
 <template>
@@ -147,17 +170,45 @@ const team = [
           :subtitle="t('about.teamSubtitle')"
           :light="true"
         />
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div v-if="loadingTeam" class="text-center py-8 text-white/70">
+          {{ t('common.loading') }}
+        </div>
+        
+        <div v-else-if="teamMembers.length === 0" class="text-center py-8 text-white/70">
+          {{ t('common.noData') }}
+        </div>
+        
+        <div v-else class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div
-            v-for="member in team"
-            :key="member.name"
+            v-for="member in teamMembers"
+            :key="member.id"
             class="text-center group"
           >
-            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
-              {{ member.initials }}
+            <div v-if="member.profile_image" class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
+              <img :src="member.profile_image" :alt="member.name" class="w-full h-full object-cover" />
+            </div>
+            <div v-else class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
+              {{ getInitials(member.name) }}
             </div>
             <h3 class="text-white font-semibold text-lg">{{ member.name }}</h3>
-            <p class="text-gray-400">{{ member.role }}</p>
+            <p class="text-gray-400 mb-3">{{ member.designation }}</p>
+            <div v-if="member.social_profiles.length > 0" class="flex items-center justify-center gap-3">
+              <a
+                v-for="profile in member.social_profiles"
+                :key="profile.platform"
+                :href="profile.profile_url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-secondary hover:text-white transition-colors"
+                :title="profile.platform_name"
+              >
+                <svg v-if="profile.platform_icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path :d="profile.platform_icon" />
+                </svg>
+                <span v-else class="text-xs">{{ profile.platform_name?.charAt(0) }}</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
