@@ -4,13 +4,15 @@ import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
-import teamService, { type TeamMember, type TeamMemberInput } from '@/services/team'
+import teamService, { type TeamMember, type TeamMemberInput, type SocialProfileInput } from '@/services/team'
+import socialService, { type SocialLink } from '@/services/social'
 import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
 const toast = useToast()
 
 const teamMembers = ref<TeamMember[]>([])
+const socialLinks = ref<SocialLink[]>([])
 const loading = ref(false)
 const showModal = ref(false)
 const editingMember = ref<TeamMember | null>(null)
@@ -20,12 +22,24 @@ const totalCount = ref(0)
 const hasNextPage = ref(false)
 const hasPrevPage = ref(false)
 
-const form = ref<TeamMemberInput>({
+interface FormData {
+  name: string
+  designation: string
+  short_bio: string
+  bio: string
+  profile_image: string
+  social_profiles: SocialProfileInput[]
+  is_featured: boolean
+  order: number
+}
+
+const form = ref<FormData>({
   name: '',
   designation: '',
   short_bio: '',
   bio: '',
   profile_image: '',
+  social_profiles: [],
   is_featured: false,
   order: 0
 })
@@ -73,6 +87,15 @@ async function fetchTeamMembers(page = 1) {
   }
 }
 
+async function fetchSocialLinks() {
+  try {
+    const response = await socialService.list({ page_size: 100 })
+    socialLinks.value = response.results
+  } catch (err) {
+    console.error('Failed to fetch social links:', err)
+  }
+}
+
 function goToPage(page: number) {
   fetchTeamMembers(page)
 }
@@ -85,6 +108,7 @@ function openAddModal() {
     short_bio: '',
     bio: '',
     profile_image: '',
+    social_profiles: [],
     is_featured: false,
     order: 0
   }
@@ -101,6 +125,11 @@ function handleEdit(item: Record<string, unknown>) {
       short_bio: member.short_bio || '',
       bio: member.bio || '',
       profile_image: member.profile_image || '',
+      social_profiles: member.social_profiles.map((sp) => ({
+        platform: sp.platform,
+        profile_url: sp.profile_url,
+        order: sp.order
+      })),
       is_featured: member.is_featured,
       order: member.order
     }
@@ -120,6 +149,23 @@ async function handleDelete(item: Record<string, unknown>) {
   }
 }
 
+function addSocialProfile() {
+  form.value.social_profiles.push({
+    platform: 0,
+    profile_url: '',
+    order: form.value.social_profiles.length
+  })
+}
+
+function removeSocialProfile(index: number) {
+  form.value.social_profiles.splice(index, 1)
+}
+
+function getPlatformName(platformId: number): string {
+  const platform = socialLinks.value.find((s) => s.id === platformId)
+  return platform?.name || ''
+}
+
 async function handleSubmit() {
   if (!form.value.name.trim()) return
   saving.value = true
@@ -133,6 +179,13 @@ async function handleSubmit() {
     if (form.value.profile_image) payload.profile_image = form.value.profile_image
     payload.is_featured = form.value.is_featured
     payload.order = form.value.order
+    
+    const validProfiles = form.value.social_profiles.filter(
+      (sp) => sp.platform > 0 && sp.profile_url.trim()
+    )
+    if (validProfiles.length > 0) {
+      payload.social_profiles = validProfiles
+    }
 
     if (editingMember.value) {
       await teamService.update(editingMember.value.slug, payload)
@@ -152,6 +205,7 @@ async function handleSubmit() {
 
 onMounted(() => {
   fetchTeamMembers()
+  fetchSocialLinks()
 })
 </script>
 
@@ -309,6 +363,69 @@ onMounted(() => {
                 :placeholder="t('admin.team.form.profileImagePlaceholder')"
               />
             </div>
+            
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-sm font-medium text-gray-700">
+                  {{ t('admin.team.form.socialProfiles') }}
+                </label>
+                <button
+                  type="button"
+                  @click="addSocialProfile"
+                  class="text-sm text-secondary hover:text-secondary-dark flex items-center gap-1"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                  {{ t('admin.team.form.addSocialProfile') }}
+                </button>
+              </div>
+              <div v-if="form.social_profiles.length === 0" class="text-sm text-gray-500 italic py-2">
+                {{ t('admin.team.form.noSocialProfiles') }}
+              </div>
+              <div v-else class="space-y-3">
+                <div
+                  v-for="(profile, index) in form.social_profiles"
+                  :key="index"
+                  class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                >
+                  <div class="flex-1 grid grid-cols-3 gap-3">
+                    <select
+                      v-model.number="profile.platform"
+                      class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm"
+                    >
+                      <option :value="0" disabled>{{ t('admin.team.form.selectPlatform') }}</option>
+                      <option v-for="link in socialLinks" :key="link.id" :value="link.id">
+                        {{ link.name }}
+                      </option>
+                    </select>
+                    <input
+                      v-model="profile.profile_url"
+                      type="url"
+                      class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm"
+                      :placeholder="t('admin.team.form.profileUrlPlaceholder')"
+                    />
+                    <input
+                      v-model.number="profile.order"
+                      type="number"
+                      min="0"
+                      class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm"
+                      :placeholder="t('admin.team.form.order')"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    @click="removeSocialProfile(index)"
+                    class="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">

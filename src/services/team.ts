@@ -1,5 +1,11 @@
 import api from './api'
 
+export interface SocialProfileInput {
+  platform: number
+  profile_url: string
+  order: number
+}
+
 export interface SocialProfile {
   platform: number
   platform_name: string
@@ -30,10 +36,12 @@ export interface TeamMemberListResponse {
 
 export interface TeamMemberInput {
   name: string
+  slug?: string
   designation?: string
   short_bio?: string
   bio?: string
   profile_image?: string
+  social_profiles?: SocialProfileInput[]
   is_featured?: boolean
   order?: number
 }
