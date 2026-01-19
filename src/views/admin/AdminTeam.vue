@@ -164,11 +164,6 @@ function removeSocialProfile(index: number) {
   form.value.social_profiles.splice(index, 1)
 }
 
-function getPlatformName(platformId: number): string {
-  const platform = socialLinks.value.find((s) => s.id === platformId)
-  return platform?.name || ''
-}
-
 async function handleSubmit() {
   if (!form.value.name.trim()) return
   saving.value = true
