@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
@@ -16,6 +16,7 @@ const teamMembers = ref<TeamMember[]>([])
 const loadingTeam = ref(false)
 const carouselRef = ref<HTMLElement | null>(null)
 const cardWidth = 256 + 24
+let autoSlideInterval: ReturnType<typeof setInterval> | null = null
 
 const showCarouselControls = computed(() => teamMembers.value.length > 5)
 
@@ -28,11 +29,35 @@ function getInitials(name: string): string {
     .slice(0, 2)
 }
 
-function scrollCarousel(direction: 'left' | 'right') {
+function autoSlide() {
   if (!carouselRef.value) return
-  const scrollAmount = direction === 'left' ? -cardWidth : cardWidth
-  carouselRef.value.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  const { scrollLeft, scrollWidth, clientWidth } = carouselRef.value
+  if (scrollLeft + clientWidth >= scrollWidth - 10) {
+    carouselRef.value.scrollTo({ left: 0, behavior: 'smooth' })
+  } else {
+    carouselRef.value.scrollBy({ left: cardWidth, behavior: 'smooth' })
+  }
 }
+
+function startAutoSlide() {
+  if (autoSlideInterval) return
+  autoSlideInterval = setInterval(autoSlide, 3000)
+}
+
+function stopAutoSlide() {
+  if (autoSlideInterval) {
+    clearInterval(autoSlideInterval)
+    autoSlideInterval = null
+  }
+}
+
+watch(showCarouselControls, (show) => {
+  if (show) {
+    startAutoSlide()
+  } else {
+    stopAutoSlide()
+  }
+})
 
 async function fetchTeamMembers() {
   loadingTeam.value = true
@@ -48,6 +73,10 @@ async function fetchTeamMembers() {
 
 onMounted(() => {
   fetchTeamMembers()
+})
+
+onUnmounted(() => {
+  stopAutoSlide()
 })
 </script>
 
@@ -190,16 +219,6 @@ onMounted(() => {
         </div>
         
         <div v-else class="relative">
-          <button
-            v-if="showCarouselControls"
-            @click="scrollCarousel('left')"
-            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-secondary flex items-center justify-center text-white transition-colors -ml-5"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          
           <div
             ref="carouselRef"
             class="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth"
@@ -236,16 +255,6 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          
-          <button
-            v-if="showCarouselControls"
-            @click="scrollCarousel('right')"
-            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-secondary flex items-center justify-center text-white transition-colors -mr-5"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
         </div>
       </div>
     </section>
