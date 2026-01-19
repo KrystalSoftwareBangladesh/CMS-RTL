@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
@@ -14,6 +14,10 @@ const { t } = useI18n()
 
 const teamMembers = ref<TeamMember[]>([])
 const loadingTeam = ref(false)
+const carouselRef = ref<HTMLElement | null>(null)
+const cardWidth = 256 + 24
+
+const showCarouselControls = computed(() => teamMembers.value.length > 5)
 
 function getInitials(name: string): string {
   return name
@@ -24,10 +28,16 @@ function getInitials(name: string): string {
     .slice(0, 2)
 }
 
+function scrollCarousel(direction: 'left' | 'right') {
+  if (!carouselRef.value) return
+  const scrollAmount = direction === 'left' ? -cardWidth : cardWidth
+  carouselRef.value.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+}
+
 async function fetchTeamMembers() {
   loadingTeam.value = true
   try {
-    const response = await teamService.list({ page_size: 8 })
+    const response = await teamService.list({ page_size: 20 })
     teamMembers.value = response.results
   } catch (err) {
     console.error('Failed to fetch team members:', err)
@@ -179,37 +189,63 @@ onMounted(() => {
           {{ t('common.noData') }}
         </div>
         
-        <div v-else class="flex flex-wrap justify-center gap-6">
-          <div
-            v-for="member in teamMembers"
-            :key="member.id"
-            class="text-center group w-64"
+        <div v-else class="relative">
+          <button
+            v-if="showCarouselControls"
+            @click="scrollCarousel('left')"
+            class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-secondary flex items-center justify-center text-white transition-colors -ml-5"
           >
-            <div v-if="member.profile_image" class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
-              <img :src="member.profile_image" :alt="member.name" class="w-full h-full object-cover" />
-            </div>
-            <div v-else class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
-              {{ getInitials(member.name) }}
-            </div>
-            <h3 class="text-white font-semibold text-lg">{{ member.name }}</h3>
-            <p class="text-gray-400 mb-3">{{ member.designation }}</p>
-            <div v-if="member.social_profiles.length > 0" class="flex items-center justify-center gap-3">
-              <a
-                v-for="profile in member.social_profiles"
-                :key="profile.platform"
-                :href="profile.profile_url"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-secondary hover:text-white transition-colors"
-                :title="profile.platform_name"
-              >
-                <svg v-if="profile.platform_icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path :d="profile.platform_icon" />
-                </svg>
-                <span v-else class="text-xs">{{ profile.platform_name?.charAt(0) }}</span>
-              </a>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          
+          <div
+            ref="carouselRef"
+            class="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth"
+            :class="{ 'justify-center': !showCarouselControls }"
+          >
+            <div
+              v-for="member in teamMembers"
+              :key="member.id"
+              class="text-center group flex-shrink-0 w-64"
+            >
+              <div v-if="member.profile_image" class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
+                <img :src="member.profile_image" :alt="member.name" class="w-full h-full object-cover" />
+              </div>
+              <div v-else class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
+                {{ getInitials(member.name) }}
+              </div>
+              <h3 class="text-white font-semibold text-lg">{{ member.name }}</h3>
+              <p class="text-gray-400 mb-3">{{ member.designation }}</p>
+              <div v-if="member.social_profiles.length > 0" class="flex items-center justify-center gap-3">
+                <a
+                  v-for="profile in member.social_profiles"
+                  :key="profile.platform"
+                  :href="profile.profile_url"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-secondary hover:text-white transition-colors"
+                  :title="profile.platform_name"
+                >
+                  <svg v-if="profile.platform_icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path :d="profile.platform_icon" />
+                  </svg>
+                  <span v-else class="text-xs">{{ profile.platform_name?.charAt(0) }}</span>
+                </a>
+              </div>
             </div>
           </div>
+          
+          <button
+            v-if="showCarouselControls"
+            @click="scrollCarousel('right')"
+            class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-secondary flex items-center justify-center text-white transition-colors -mr-5"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
