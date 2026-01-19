@@ -17,8 +17,14 @@ const loadingTeam = ref(false)
 const carouselRef = ref<HTMLElement | null>(null)
 const cardWidth = 256 + 24
 let autoSlideInterval: ReturnType<typeof setInterval> | null = null
+const currentIndex = ref(0)
 
 const showCarouselControls = computed(() => teamMembers.value.length > 5)
+
+const displayMembers = computed(() => {
+  if (!showCarouselControls.value) return teamMembers.value
+  return [...teamMembers.value, ...teamMembers.value, ...teamMembers.value]
+})
 
 function getInitials(name: string): string {
   return name
@@ -30,12 +36,17 @@ function getInitials(name: string): string {
 }
 
 function autoSlide() {
-  if (!carouselRef.value) return
-  const { scrollLeft, scrollWidth, clientWidth } = carouselRef.value
-  if (scrollLeft + clientWidth >= scrollWidth - 10) {
-    carouselRef.value.scrollTo({ left: 0, behavior: 'smooth' })
-  } else {
-    carouselRef.value.scrollBy({ left: cardWidth, behavior: 'smooth' })
+  if (!carouselRef.value || !showCarouselControls.value) return
+  currentIndex.value++
+  const targetScroll = currentIndex.value * cardWidth
+  carouselRef.value.scrollTo({ left: targetScroll, behavior: 'smooth' })
+  if (currentIndex.value >= teamMembers.value.length) {
+    setTimeout(() => {
+      if (carouselRef.value) {
+        carouselRef.value.scrollTo({ left: 0, behavior: 'instant' })
+        currentIndex.value = 0
+      }
+    }, 500)
   }
 }
 
@@ -225,8 +236,8 @@ onUnmounted(() => {
             :class="{ 'justify-center': !showCarouselControls }"
           >
             <div
-              v-for="member in teamMembers"
-              :key="member.id"
+              v-for="(member, index) in displayMembers"
+              :key="`${member.id}-${index}`"
               class="text-center group flex-shrink-0 w-64"
             >
               <div v-if="member.profile_image" class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
