@@ -179,7 +179,7 @@ onMounted(() => {
           {{ t('common.noData') }}
         </div>
         
-        <div v-else class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div v-else class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 justify-items-center">
           <div
             v-for="member in teamMembers"
             :key="member.id"
