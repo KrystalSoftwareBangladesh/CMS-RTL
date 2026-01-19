@@ -25,15 +25,16 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 }
 
 const AUTH_ENDPOINTS = ['/auth/login/', '/auth/refresh/']
-const PUBLIC_ENDPOINTS = ['/project/', '/news/', '/social/']
+const PUBLIC_ENDPOINTS = ['/project/', '/news/', '/social/', '/team/']
 
 const isAuthEndpoint = (url: string | undefined): boolean => {
   if (!url) return false
   return AUTH_ENDPOINTS.some(endpoint => url.includes(endpoint))
 }
 
-const isPublicEndpoint = (url: string | undefined): boolean => {
+const isPublicEndpoint = (url: string | undefined, method: string | undefined): boolean => {
   if (!url) return false
+  if (method?.toLowerCase() !== 'get') return false
   return PUBLIC_ENDPOINTS.some(endpoint => url.includes(endpoint))
 }
 
@@ -51,7 +52,7 @@ const api: AxiosInstance = axios.create({
 
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
-    if (isPublicEndpoint(config.url)) {
+    if (isPublicEndpoint(config.url, config.method)) {
       return config
     }
     const accessToken = localStorage.getItem('access_token')
@@ -73,7 +74,7 @@ api.interceptors.response.use(
     }
     
     if (error.response?.status === 401 && !originalRequest._retry) {
-      if (isPublicEndpoint(originalRequest.url)) {
+      if (isPublicEndpoint(originalRequest.url, originalRequest.method)) {
         return Promise.reject(error)
       }
 
