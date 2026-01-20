@@ -296,7 +296,11 @@
     "table": {
       "actions": "Actions",
       "loading": "Loading...",
-      "noData": "No data available"
+      "noData": "No data available",
+      "showing": "Showing",
+      "of": "of",
+      "prev": "Previous",
+      "next": "Next"
     },
     "pagination": {
       "total": "{count} results",
