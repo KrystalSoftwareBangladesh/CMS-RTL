@@ -30,6 +30,17 @@ const form = ref<TestimonialInput>({
   is_featured: false,
   order: 1
 })
+const avatarFile = ref<File | null>(null)
+const avatarPreview = ref<string>('')
+
+function handleAvatarChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (file) {
+    avatarFile.value = file
+    avatarPreview.value = URL.createObjectURL(file)
+  }
+}
 
 const columns = computed(() => [
   { key: 'name', label: t('admin.testimonials.columns.name') },
@@ -89,6 +100,8 @@ function openAddModal() {
     is_featured: false,
     order: 1
   }
+  avatarFile.value = null
+  avatarPreview.value = ''
   showModal.value = true
 }
 
@@ -106,6 +119,8 @@ function handleEdit(item: Record<string, unknown>) {
       is_featured: testimonial.is_featured,
       order: testimonial.order
     }
+    avatarFile.value = null
+    avatarPreview.value = testimonial.avatar || ''
     showModal.value = true
   }
 }
@@ -135,12 +150,11 @@ async function handleSubmit() {
     }
     if (form.value.designation) payload.designation = form.value.designation
     if (form.value.company) payload.company = form.value.company
-    if (form.value.avatar) payload.avatar = form.value.avatar
 
     if (editingTestimonial.value) {
-      await testimonialService.update(editingTestimonial.value.id, payload)
+      await testimonialService.update(editingTestimonial.value.id, payload, avatarFile.value || undefined)
     } else {
-      await testimonialService.create(payload)
+      await testimonialService.create(payload, avatarFile.value || undefined)
     }
     showModal.value = false
     toast.success(t('common.saved'))
@@ -274,10 +288,14 @@ onMounted(() => {
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.avatar') }}</label>
+            <div v-if="avatarPreview" class="mb-2 flex items-center gap-3">
+              <img :src="avatarPreview" alt="Avatar preview" class="w-16 h-16 rounded-full object-cover" />
+              <span class="text-sm text-gray-500">{{ t('admin.testimonials.form.currentAvatar') }}</span>
+            </div>
             <input
-              v-model="form.avatar"
-              type="url"
-              :placeholder="t('admin.testimonials.form.avatarPlaceholder')"
+              type="file"
+              accept="image/*"
+              @change="handleAvatarChange"
               class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
             />
           </div>

@@ -55,12 +55,38 @@ const testimonialService = {
     return response.data
   },
 
-  async create(data: TestimonialInput): Promise<Testimonial> {
+  async create(data: TestimonialInput, avatarFile?: File): Promise<Testimonial> {
+    if (avatarFile) {
+      const formData = new FormData()
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, String(value))
+        }
+      })
+      formData.append('avatar', avatarFile)
+      const response = await api.post<Testimonial>('/testimonial/', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      return response.data
+    }
     const response = await api.post<Testimonial>('/testimonial/', data)
     return response.data
   },
 
-  async update(id: number, data: Partial<TestimonialInput>): Promise<Testimonial> {
+  async update(id: number, data: Partial<TestimonialInput>, avatarFile?: File): Promise<Testimonial> {
+    if (avatarFile) {
+      const formData = new FormData()
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          formData.append(key, String(value))
+        }
+      })
+      formData.append('avatar', avatarFile)
+      const response = await api.patch<Testimonial>(`/testimonial/${id}/`, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      })
+      return response.data
+    }
     const response = await api.patch<Testimonial>(`/testimonial/${id}/`, data)
     return response.data
   },
