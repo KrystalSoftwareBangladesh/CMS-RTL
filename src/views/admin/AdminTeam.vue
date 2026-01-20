@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
+import AdminPagination from '@/components/admin/AdminPagination.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import teamService, { type TeamMember, type TeamMemberInput, type SocialProfileInput } from '@/services/team'
 import socialService, { type SocialLink } from '@/services/social'
@@ -117,6 +118,11 @@ function openAddModal() {
   showModal.value = true
 }
 
+function closeModal() {
+  showModal.value = false
+  editingMember.value = null
+}
+
 function handleEdit(item: Record<string, unknown>) {
   const member = teamMembers.value.find((m) => m.id === item.id)
   if (member) {
@@ -199,7 +205,7 @@ async function handleSubmit() {
     } else {
       await teamService.create(payload)
     }
-    showModal.value = false
+    closeModal()
     toast.success(t('common.saved'))
     await fetchTeamMembers(currentPage.value)
   } catch (err) {
@@ -268,46 +274,20 @@ onMounted(() => {
       </template>
     </DataTable>
 
-    <div v-if="!loading && showPagination" class="flex items-center justify-between mt-6 px-2">
-      <p class="text-sm text-gray-600">
-        {{ t('admin.pagination.total', { count: totalCount }) }}
-      </p>
-      <div class="flex items-center gap-2">
-        <button
-          @click="goToPage(currentPage - 1)"
-          :disabled="!hasPrevPage"
-          :class="[
-            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
-            hasPrevPage 
-              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
-              : 'border-gray-200 text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          {{ t('admin.pagination.previous') }}
-        </button>
-        <span class="text-sm text-gray-600 px-2">
-          {{ t('admin.pagination.pageNum', { page: currentPage }) }}
-        </span>
-        <button
-          @click="goToPage(currentPage + 1)"
-          :disabled="!hasNextPage"
-          :class="[
-            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
-            hasNextPage 
-              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
-              : 'border-gray-200 text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          {{ t('admin.pagination.next') }}
-        </button>
-      </div>
-    </div>
+    <AdminPagination
+      v-if="!loading && showPagination"
+      :current-page="currentPage"
+      :total-count="totalCount"
+      :has-next-page="hasNextPage"
+      :has-prev-page="hasPrevPage"
+      @page-change="goToPage"
+    />
 
     <Teleport to="body">
       <div
         v-if="showModal"
         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-        @click.self="showModal = false"
+        @click.self="closeModal"
       >
         <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
@@ -459,7 +439,7 @@ onMounted(() => {
               </div>
             </div>
             <div class="flex justify-end gap-3 pt-4">
-              <BaseButton type="button" variant="outline" size="sm" @click="showModal = false">
+              <BaseButton type="button" variant="outline" size="sm" @click="closeModal">
                 {{ t('admin.team.form.cancel') }}
               </BaseButton>
               <BaseButton type="submit" variant="secondary" size="sm" :disabled="saving">

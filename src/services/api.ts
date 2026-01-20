@@ -25,7 +25,7 @@ const processQueue = (error: Error | null, token: string | null = null) => {
 }
 
 const AUTH_ENDPOINTS = ['/auth/login/', '/auth/refresh/']
-const PUBLIC_ENDPOINTS = ['/project/', '/news/', '/social/', '/team/']
+const PUBLIC_ENDPOINTS = ['/project/', '/news/', '/social/', '/team/', '/testimonial/']
 
 const isAuthEndpoint = (url: string | undefined): boolean => {
   if (!url) return false

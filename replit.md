@@ -76,11 +76,18 @@ src/
 ├── assets/
 │   ├── images/          # Stock images and assets
 │   └── main.css         # Tailwind configuration with theme colors
+├── composables/         # Vue composables
+│   ├── useToast.ts      # Toast notification composable
+│   └── useAdminResource.ts  # Shared admin CRUD logic (pagination, modals, save/delete)
 ├── services/            # API services
 │   ├── api.ts           # Axios wrapper with interceptors
+│   ├── baseService.ts   # Generic CRUD service factory (list, listAll, get, create, update, delete)
 │   ├── auth.ts          # Authentication service
-│   ├── category.ts      # Category CRUD service
-│   └── faq.ts           # FAQ CRUD service
+│   ├── category.ts      # Category CRUD service (extends baseService)
+│   ├── faq.ts           # FAQ CRUD service (extends baseService)
+│   ├── team.ts          # Team member CRUD service (extends baseService)
+│   ├── testimonial.ts   # Testimonial CRUD service (extends baseService)
+│   └── social.ts        # Social links service
 ├── stores/              # Pinia stores
 │   └── auth.ts          # Authentication state management
 ├── components/
@@ -96,6 +103,7 @@ src/
 │   │   ├── AdminLayout.vue    # Main admin layout wrapper
 │   │   ├── AdminSidebar.vue   # Navigation sidebar
 │   │   ├── AdminHeader.vue    # Header with language/profile
+│   │   ├── AdminPagination.vue # Reusable pagination component
 │   │   ├── StatCard.vue       # Dashboard statistics cards
 │   │   └── DataTable.vue      # Reusable data table with CRUD actions
 │   └── sections/        # Page sections
