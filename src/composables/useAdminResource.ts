@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, type Ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from './useToast'
 import type { PaginatedResponse } from '@/services/baseService'
@@ -23,12 +23,12 @@ export function useAdminResource<T, TInput>(options: UseAdminResourceOptions<T, 
   const { t } = useI18n()
   const toast = useToast()
 
-  const items = ref<T[]>([]) as { value: T[] }
+  const items: Ref<T[]> = ref([])
   const loading = ref(false)
   const saving = ref(false)
   const showModal = ref(false)
-  const editingItem = ref<T | null>(null) as { value: T | null }
-  const form = ref<TInput>(getDefaultForm()) as { value: TInput }
+  const editingItem: Ref<T | null> = ref(null)
+  const form: Ref<TInput> = ref(getDefaultForm()) as Ref<TInput>
 
   const currentPage = ref(1)
   const totalCount = ref(0)
