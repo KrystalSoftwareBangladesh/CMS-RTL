@@ -18,13 +18,6 @@ function nextSlide() {
   currentIndex.value = (currentIndex.value + 1) % testimonials.value.length
 }
 
-function prevSlide() {
-  if (testimonials.value.length === 0) return
-  currentIndex.value = currentIndex.value === 0 
-    ? testimonials.value.length - 1 
-    : currentIndex.value - 1
-}
-
 function startAutoSlide() {
   if (autoSlideInterval) return
   autoSlideInterval = setInterval(nextSlide, 3000)
@@ -116,25 +109,6 @@ onUnmounted(() => {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div v-if="testimonials.length > 1" class="absolute right-8 top-1/2 -translate-y-1/2 flex gap-2">
-            <button 
-              @click="prevSlide"
-              class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-gray-50 transition-colors"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button 
-              @click="nextSlide"
-              class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:bg-gray-50 transition-colors"
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
           </div>
 
           <div v-if="testimonials.length > 1" class="flex justify-center gap-2 mt-6">
