@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
+import AdminPagination from '@/components/admin/AdminPagination.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import testimonialService, { type Testimonial, type TestimonialInput } from '@/services/testimonial'
 import { useToast } from '@/composables/useToast'
@@ -105,6 +106,11 @@ function openAddModal() {
   showModal.value = true
 }
 
+function closeModal() {
+  showModal.value = false
+  editingTestimonial.value = null
+}
+
 function handleEdit(item: Record<string, unknown>) {
   const testimonial = testimonials.value.find((t) => t.id === item.id)
   if (testimonial) {
@@ -156,7 +162,7 @@ async function handleSubmit() {
     } else {
       await testimonialService.create(payload, avatarFile.value || undefined)
     }
-    showModal.value = false
+    closeModal()
     toast.success(t('common.saved'))
     await fetchTestimonials(currentPage.value)
   } catch (err) {
@@ -213,131 +219,118 @@ onMounted(() => {
       </template>
     </DataTable>
 
-    <div v-if="showPagination" class="flex items-center justify-between mt-4">
-      <p class="text-sm text-gray-600">
-        {{ t('admin.table.showing') }} {{ testimonials.length }} {{ t('admin.table.of') }} {{ totalCount }}
-      </p>
-      <div class="flex gap-2">
-        <BaseButton
-          variant="outline"
-          size="sm"
-          :disabled="!hasPrevPage"
-          @click="goToPage(currentPage - 1)"
-        >
-          {{ t('admin.table.prev') }}
-        </BaseButton>
-        <BaseButton
-          variant="outline"
-          size="sm"
-          :disabled="!hasNextPage"
-          @click="goToPage(currentPage + 1)"
-        >
-          {{ t('admin.table.next') }}
-        </BaseButton>
-      </div>
-    </div>
+    <AdminPagination
+      v-if="!loading && showPagination"
+      :current-page="currentPage"
+      :total-count="totalCount"
+      :has-next-page="hasNextPage"
+      :has-prev-page="hasPrevPage"
+      @page-change="goToPage"
+    />
 
-    <div
-      v-if="showModal"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-      @click.self="showModal = false"
-    >
-      <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
-        <div class="flex items-center justify-between p-4 border-b">
-          <h3 class="text-lg font-semibold text-gray-900">{{ modalTitle }}</h3>
-          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <form @submit.prevent="handleSubmit" class="p-4 space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.name') }} *</label>
-            <input
-              v-model="form.name"
-              type="text"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-            />
+    <Teleport to="body">
+      <div
+        v-if="showModal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+        @click.self="closeModal"
+      >
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+          <div class="flex items-center justify-between p-4 border-b">
+            <h3 class="text-lg font-semibold text-gray-900">{{ modalTitle }}</h3>
+            <button @click="closeModal" class="text-gray-400 hover:text-gray-600">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.designation') }}</label>
-            <input
-              v-model="form.designation"
-              type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.company') }}</label>
-            <input
-              v-model="form.company"
-              type="text"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.message') }} *</label>
-            <textarea
-              v-model="form.message"
-              rows="4"
-              required
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
-            ></textarea>
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.avatar') }}</label>
-            <div v-if="avatarPreview" class="mb-2 flex items-center gap-3">
-              <img :src="avatarPreview" alt="Avatar preview" class="w-16 h-16 rounded-full object-cover" />
-              <span class="text-sm text-gray-500">{{ t('admin.testimonials.form.currentAvatar') }}</span>
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              @change="handleAvatarChange"
-              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-            />
-          </div>
-          <div class="grid grid-cols-2 gap-4">
+          <form @submit.prevent="handleSubmit" class="p-4 space-y-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.rating') }}</label>
-              <select
-                v-model.number="form.rating"
-                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
-              >
-                <option v-for="n in 5" :key="n" :value="n">{{ n }} {{ n === 1 ? t('admin.testimonials.form.star') : t('admin.testimonials.form.stars') }}</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.order') }}</label>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.name') }} *</label>
               <input
-                v-model.number="form.order"
-                type="number"
-                min="1"
+                v-model="form.name"
+                type="text"
+                required
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
               />
             </div>
-          </div>
-          <div class="flex items-center gap-2">
-            <input
-              v-model="form.is_featured"
-              type="checkbox"
-              id="is_featured"
-              class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
-            />
-            <label for="is_featured" class="text-sm text-gray-700">{{ t('admin.testimonials.form.isFeatured') }}</label>
-          </div>
-          <div class="flex justify-end gap-3 pt-4 border-t">
-            <BaseButton variant="outline" size="sm" type="button" @click="showModal = false">
-              {{ t('common.cancel') }}
-            </BaseButton>
-            <BaseButton variant="secondary" size="sm" type="submit" :disabled="saving">
-              {{ saving ? t('common.saving') : t('common.save') }}
-            </BaseButton>
-          </div>
-        </form>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.designation') }}</label>
+              <input
+                v-model="form.designation"
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.company') }}</label>
+              <input
+                v-model="form.company"
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.message') }} *</label>
+              <textarea
+                v-model="form.message"
+                rows="4"
+                required
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
+              ></textarea>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.avatar') }}</label>
+              <div v-if="avatarPreview" class="mb-2 flex items-center gap-3">
+                <img :src="avatarPreview" alt="Avatar preview" class="w-16 h-16 rounded-full object-cover" />
+                <span class="text-sm text-gray-500">{{ t('admin.testimonials.form.currentAvatar') }}</span>
+              </div>
+              <input
+                type="file"
+                accept="image/*"
+                @change="handleAvatarChange"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.rating') }}</label>
+                <select
+                  v-model.number="form.rating"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                >
+                  <option v-for="n in 5" :key="n" :value="n">{{ n }} {{ n === 1 ? t('admin.testimonials.form.star') : t('admin.testimonials.form.stars') }}</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.order') }}</label>
+                <input
+                  v-model.number="form.order"
+                  type="number"
+                  min="1"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+                />
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <input
+                v-model="form.is_featured"
+                type="checkbox"
+                id="is_featured"
+                class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              />
+              <label for="is_featured" class="text-sm text-gray-700">{{ t('admin.testimonials.form.isFeatured') }}</label>
+            </div>
+            <div class="flex justify-end gap-3 pt-4 border-t">
+              <BaseButton variant="outline" size="sm" type="button" @click="closeModal">
+                {{ t('common.cancel') }}
+              </BaseButton>
+              <BaseButton variant="secondary" size="sm" type="submit" :disabled="saving">
+                {{ saving ? t('common.saving') : t('common.save') }}
+              </BaseButton>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </Teleport>
   </AdminLayout>
 </template>

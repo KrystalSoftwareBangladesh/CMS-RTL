@@ -3,31 +3,47 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
+import AdminPagination from '@/components/admin/AdminPagination.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import faqService, { type FAQ, type FAQInput } from '@/services/faq'
 import categoryService, { type Category } from '@/services/category'
-import { useToast } from '@/composables/useToast'
+import { useAdminResource } from '@/composables/useAdminResource'
 
 const { t } = useI18n()
-const toast = useToast()
 
-const faqs = ref<FAQ[]>([])
 const categories = ref<Category[]>([])
-const loading = ref(false)
-const showModal = ref(false)
-const editingFaq = ref<FAQ | null>(null)
-const saving = ref(false)
-const currentPage = ref(1)
-const totalCount = ref(0)
-const hasNextPage = ref(false)
-const hasPrevPage = ref(false)
 
-const form = ref<FAQInput>({
-  question: '',
-  answer: '',
-  category: undefined,
-  order: 1,
-  status: true
+const {
+  items: faqs,
+  loading,
+  saving,
+  showModal,
+  form,
+  currentPage,
+  totalCount,
+  hasNextPage,
+  hasPrevPage,
+  isEditing,
+  showPagination,
+  fetchItems: fetchFaqs,
+  goToPage,
+  openCreate,
+  openEdit,
+  closeModal,
+  handleSave,
+  handleDelete
+} = useAdminResource<FAQ, FAQInput>({
+  service: faqService,
+  getItemId: (item) => item.id,
+  getDefaultForm: () => ({ question: '', answer: '', category: undefined, order: 1, status: true }),
+  itemToForm: (item) => ({
+    question: item.question,
+    answer: item.answer,
+    category: item.category,
+    order: item.order,
+    status: item.status
+  }),
+  confirmDeleteKey: 'admin.faq.confirmDelete'
 })
 
 const columns = computed(() => [
@@ -51,27 +67,8 @@ const tableData = computed(() =>
 )
 
 const modalTitle = computed(() =>
-  editingFaq.value ? t('admin.faq.editQuestion') : t('admin.faq.addQuestion')
+  isEditing.value ? t('admin.faq.editQuestion') : t('admin.faq.addQuestion')
 )
-
-const showPagination = computed(() => hasNextPage.value || hasPrevPage.value)
-
-async function fetchFaqs(page = 1) {
-  loading.value = true
-  try {
-    const response = await faqService.list({ page })
-    faqs.value = response.results
-    totalCount.value = response.count
-    hasNextPage.value = !!response.next
-    hasPrevPage.value = !!response.previous
-    currentPage.value = page
-  } catch (err) {
-    console.error('Failed to fetch FAQs:', err)
-    toast.error(t('common.error'))
-  } finally {
-    loading.value = false
-  }
-}
 
 async function fetchCategories() {
   try {
@@ -81,70 +78,19 @@ async function fetchCategories() {
   }
 }
 
-function goToPage(page: number) {
-  fetchFaqs(page)
-}
-
-function openAddModal() {
-  editingFaq.value = null
-  form.value = { question: '', answer: '', category: undefined, order: 1, status: true }
-  showModal.value = true
-}
-
-function handleEdit(item: Record<string, unknown>) {
+function handleEditRow(item: Record<string, unknown>) {
   const faq = faqs.value.find((f) => f.id === item.id)
-  if (faq) {
-    editingFaq.value = faq
-    form.value = {
-      question: faq.question,
-      answer: faq.answer,
-      category: faq.category,
-      order: faq.order,
-      status: faq.status
-    }
-    showModal.value = true
-  }
+  if (faq) openEdit(faq)
 }
 
-async function handleDelete(item: Record<string, unknown>) {
-  if (!confirm(t('admin.faq.confirmDelete'))) return
-  try {
-    await faqService.delete(item.id as number)
-    toast.success(t('common.deleted'))
-    await fetchFaqs(currentPage.value)
-  } catch (err) {
-    console.error('Failed to delete FAQ:', err)
-    toast.error(t('common.error'))
-  }
+async function handleDeleteRow(item: Record<string, unknown>) {
+  const faq = faqs.value.find((f) => f.id === item.id)
+  if (faq) await handleDelete(faq)
 }
 
 async function handleSubmit() {
   if (!form.value.question.trim() || !form.value.answer.trim()) return
-  saving.value = true
-  try {
-    const payload: FAQInput = {
-      question: form.value.question,
-      answer: form.value.answer,
-      order: form.value.order,
-      status: form.value.status
-    }
-    if (form.value.category) {
-      payload.category = form.value.category
-    }
-    if (editingFaq.value) {
-      await faqService.update(editingFaq.value.id, payload)
-    } else {
-      await faqService.create(payload)
-    }
-    showModal.value = false
-    toast.success(t('common.saved'))
-    await fetchFaqs(currentPage.value)
-  } catch (err) {
-    console.error('Failed to save FAQ:', err)
-    toast.error(t('common.error'))
-  } finally {
-    saving.value = false
-  }
+  await handleSave()
 }
 
 onMounted(() => {
@@ -156,7 +102,7 @@ onMounted(() => {
 <template>
   <AdminLayout :title="t('admin.faq.title')" :subtitle="t('admin.faq.subtitle')">
     <div class="flex items-center justify-end mb-6">
-      <BaseButton variant="secondary" size="sm" @click="openAddModal">
+      <BaseButton variant="secondary" size="sm" @click="openCreate">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
@@ -172,8 +118,8 @@ onMounted(() => {
       v-else
       :columns="columns"
       :data="tableData"
-      @edit="handleEdit"
-      @delete="handleDelete"
+      @edit="handleEditRow"
+      @delete="handleDeleteRow"
     >
       <template #cell-question="{ value }">
         <span class="font-medium">{{ value }}</span>
@@ -194,46 +140,20 @@ onMounted(() => {
       </template>
     </DataTable>
 
-    <div v-if="!loading && showPagination" class="flex items-center justify-between mt-6 px-2">
-      <p class="text-sm text-gray-600">
-        {{ t('admin.pagination.total', { count: totalCount }) }}
-      </p>
-      <div class="flex items-center gap-2">
-        <button
-          @click="goToPage(currentPage - 1)"
-          :disabled="!hasPrevPage"
-          :class="[
-            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
-            hasPrevPage 
-              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
-              : 'border-gray-200 text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          {{ t('admin.pagination.previous') }}
-        </button>
-        <span class="text-sm text-gray-600 px-2">
-          {{ t('admin.pagination.pageNum', { page: currentPage }) }}
-        </span>
-        <button
-          @click="goToPage(currentPage + 1)"
-          :disabled="!hasNextPage"
-          :class="[
-            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
-            hasNextPage 
-              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
-              : 'border-gray-200 text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          {{ t('admin.pagination.next') }}
-        </button>
-      </div>
-    </div>
+    <AdminPagination
+      v-if="!loading && showPagination"
+      :current-page="currentPage"
+      :total-count="totalCount"
+      :has-next-page="hasNextPage"
+      :has-prev-page="hasPrevPage"
+      @page-change="goToPage"
+    />
 
     <Teleport to="body">
       <div
         v-if="showModal"
         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-        @click.self="showModal = false"
+        @click.self="closeModal"
       >
         <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
@@ -299,7 +219,7 @@ onMounted(() => {
               </label>
             </div>
             <div class="flex justify-end gap-3 pt-4">
-              <BaseButton type="button" variant="outline" size="sm" @click="showModal = false">
+              <BaseButton type="button" variant="outline" size="sm" @click="closeModal">
                 {{ t('admin.faq.form.cancel') }}
               </BaseButton>
               <BaseButton type="submit" variant="secondary" size="sm" :disabled="saving">

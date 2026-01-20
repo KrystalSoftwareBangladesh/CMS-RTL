@@ -3,29 +3,76 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
+import AdminPagination from '@/components/admin/AdminPagination.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import categoryService, { type Category, type CategoryInput } from '@/services/category'
-import { useToast } from '@/composables/useToast'
+import { useAdminResource } from '@/composables/useAdminResource'
 
 const { t } = useI18n()
-const toast = useToast()
 
-const categories = ref<Category[]>([])
 const allCategories = ref<Category[]>([])
-const loading = ref(false)
-const showModal = ref(false)
-const editingCategory = ref<Category | null>(null)
-const saving = ref(false)
-const currentPage = ref(1)
-const totalCount = ref(0)
-const hasNextPage = ref(false)
-const hasPrevPage = ref(false)
 
-const form = ref<CategoryInput>({
-  name: '',
-  description: '',
-  parent: null
+const {
+  items: categories,
+  loading,
+  saving,
+  showModal,
+  editingItem: editingCategory,
+  form,
+  currentPage,
+  totalCount,
+  hasNextPage,
+  hasPrevPage,
+  isEditing,
+  showPagination,
+  fetchItems: fetchCategories,
+  goToPage,
+  openCreate: baseOpenCreate,
+  openEdit: baseOpenEdit,
+  closeModal,
+  handleSave: baseHandleSave,
+  handleDelete: baseHandleDelete
+} = useAdminResource<Category, CategoryInput>({
+  service: categoryService,
+  getItemId: (item) => item.id,
+  getDefaultForm: () => ({ name: '', description: '', parent: null }),
+  itemToForm: (item) => ({
+    name: item.name,
+    description: item.description || '',
+    parent: item.parent
+  }),
+  confirmDeleteKey: 'admin.categories.confirmDelete'
 })
+
+async function fetchAllCategories() {
+  try {
+    allCategories.value = await categoryService.listAll()
+  } catch (err) {
+    console.error('Failed to fetch all categories:', err)
+  }
+}
+
+function openCreate() {
+  baseOpenCreate()
+}
+
+function openEdit(category: Category) {
+  baseOpenEdit(category)
+}
+
+async function handleSave() {
+  const success = await baseHandleSave()
+  if (success) {
+    await fetchAllCategories()
+  }
+}
+
+async function handleDelete(category: Category) {
+  const success = await baseHandleDelete(category)
+  if (success) {
+    await fetchAllCategories()
+  }
+}
 
 const columns = computed(() => [
   { key: 'name', label: t('admin.categories.columns.name') },
@@ -45,91 +92,22 @@ const tableData = computed(() =>
 )
 
 const modalTitle = computed(() =>
-  editingCategory.value ? t('admin.categories.editCategory') : t('admin.categories.addCategory')
+  isEditing.value ? t('admin.categories.editCategory') : t('admin.categories.addCategory')
 )
 
-async function fetchCategories(page = 1) {
-  loading.value = true
-  try {
-    const response = await categoryService.list(page)
-    categories.value = response.results
-    totalCount.value = response.count
-    hasNextPage.value = !!response.next
-    hasPrevPage.value = !!response.previous
-    currentPage.value = page
-  } catch (err) {
-    console.error('Failed to fetch categories:', err)
-    toast.error(t('common.error'))
-  } finally {
-    loading.value = false
-  }
-}
-
-async function fetchAllCategories() {
-  try {
-    allCategories.value = await categoryService.listAll()
-  } catch (err) {
-    console.error('Failed to fetch all categories:', err)
-  }
-}
-
-function goToPage(page: number) {
-  fetchCategories(page)
-}
-
-const showPagination = computed(() => hasNextPage.value || hasPrevPage.value)
-
-function openAddModal() {
-  editingCategory.value = null
-  form.value = { name: '', description: '', parent: null }
-  showModal.value = true
-}
-
-function handleEdit(item: Record<string, unknown>) {
+function handleEditRow(item: Record<string, unknown>) {
   const category = categories.value.find((c) => c.id === item.id)
-  if (category) {
-    editingCategory.value = category
-    form.value = {
-      name: category.name,
-      description: category.description || '',
-      parent: category.parent
-    }
-    showModal.value = true
-  }
+  if (category) openEdit(category)
 }
 
-async function handleDelete(item: Record<string, unknown>) {
-  if (!confirm(t('admin.categories.confirmDelete'))) return
-  try {
-    await categoryService.delete(item.id as number)
-    toast.success(t('common.deleted'))
-    await fetchCategories(currentPage.value)
-    await fetchAllCategories()
-  } catch (err) {
-    console.error('Failed to delete category:', err)
-    toast.error(t('common.error'))
-  }
+async function handleDeleteRow(item: Record<string, unknown>) {
+  const category = categories.value.find((c) => c.id === item.id)
+  if (category) await handleDelete(category)
 }
 
 async function handleSubmit() {
   if (!form.value.name.trim()) return
-  saving.value = true
-  try {
-    if (editingCategory.value) {
-      await categoryService.update(editingCategory.value.id, form.value)
-    } else {
-      await categoryService.create(form.value)
-    }
-    showModal.value = false
-    toast.success(t('common.saved'))
-    await fetchCategories(currentPage.value)
-    await fetchAllCategories()
-  } catch (err) {
-    console.error('Failed to save category:', err)
-    toast.error(t('common.error'))
-  } finally {
-    saving.value = false
-  }
+  await handleSave()
 }
 
 onMounted(() => {
@@ -141,7 +119,7 @@ onMounted(() => {
 <template>
   <AdminLayout :title="t('admin.categories.title')" :subtitle="t('admin.categories.subtitle')">
     <div class="flex items-center justify-end mb-6">
-      <BaseButton variant="secondary" size="sm" @click="openAddModal">
+      <BaseButton variant="secondary" size="sm" @click="openCreate">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
@@ -157,50 +135,24 @@ onMounted(() => {
       v-else
       :columns="columns"
       :data="tableData"
-      @edit="handleEdit"
-      @delete="handleDelete"
+      @edit="handleEditRow"
+      @delete="handleDeleteRow"
     />
 
-    <div v-if="!loading && showPagination" class="flex items-center justify-between mt-6 px-2">
-      <p class="text-sm text-gray-600">
-        {{ t('admin.pagination.total', { count: totalCount }) }}
-      </p>
-      <div class="flex items-center gap-2">
-        <button
-          @click="goToPage(currentPage - 1)"
-          :disabled="!hasPrevPage"
-          :class="[
-            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
-            hasPrevPage 
-              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
-              : 'border-gray-200 text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          {{ t('admin.pagination.previous') }}
-        </button>
-        <span class="text-sm text-gray-600 px-2">
-          {{ t('admin.pagination.pageNum', { page: currentPage }) }}
-        </span>
-        <button
-          @click="goToPage(currentPage + 1)"
-          :disabled="!hasNextPage"
-          :class="[
-            'px-3 py-1.5 text-sm rounded-lg border transition-colors',
-            hasNextPage 
-              ? 'border-gray-300 hover:bg-gray-50 text-gray-700' 
-              : 'border-gray-200 text-gray-400 cursor-not-allowed'
-          ]"
-        >
-          {{ t('admin.pagination.next') }}
-        </button>
-      </div>
-    </div>
+    <AdminPagination
+      v-if="!loading && showPagination"
+      :current-page="currentPage"
+      :total-count="totalCount"
+      :has-next-page="hasNextPage"
+      :has-prev-page="hasPrevPage"
+      @page-change="goToPage"
+    />
 
     <Teleport to="body">
       <div
         v-if="showModal"
         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-        @click.self="showModal = false"
+        @click.self="closeModal"
       >
         <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
@@ -245,7 +197,7 @@ onMounted(() => {
               ></textarea>
             </div>
             <div class="flex justify-end gap-3 pt-4">
-              <BaseButton type="button" variant="outline" size="sm" @click="showModal = false">
+              <BaseButton type="button" variant="outline" size="sm" @click="closeModal">
                 {{ t('admin.categories.form.cancel') }}
               </BaseButton>
               <BaseButton type="submit" variant="secondary" size="sm" :disabled="saving">
