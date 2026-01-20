@@ -450,12 +450,30 @@
       "subtitle": "Manage customer reviews and testimonials",
       "searchPlaceholder": "Search testimonials...",
       "addNew": "Add Testimonial",
+      "addTestimonial": "Add New Testimonial",
+      "editTestimonial": "Edit Testimonial",
+      "confirmDelete": "Are you sure you want to delete this testimonial?",
+      "published": "Published",
+      "pending": "Pending",
       "columns": {
         "name": "Customer Name",
         "company": "Company",
         "rating": "Rating",
         "status": "Status",
         "createdAt": "Date Added"
+      },
+      "form": {
+        "name": "Customer Name",
+        "designation": "Designation",
+        "company": "Company",
+        "message": "Testimonial Message",
+        "avatar": "Avatar URL",
+        "avatarPlaceholder": "https://example.com/avatar.jpg",
+        "rating": "Rating",
+        "star": "Star",
+        "stars": "Stars",
+        "order": "Display Order",
+        "isFeatured": "Featured testimonial"
       }
     },
     "faq": {

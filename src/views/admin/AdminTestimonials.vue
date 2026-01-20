@@ -1,11 +1,35 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import AdminLayout from '@/components/admin/AdminLayout.vue'
 import DataTable from '@/components/admin/DataTable.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
+import testimonialService, { type Testimonial, type TestimonialInput } from '@/services/testimonial'
+import { useToast } from '@/composables/useToast'
 
 const { t } = useI18n()
+const toast = useToast()
+
+const testimonials = ref<Testimonial[]>([])
+const loading = ref(false)
+const showModal = ref(false)
+const editingTestimonial = ref<Testimonial | null>(null)
+const saving = ref(false)
+const currentPage = ref(1)
+const totalCount = ref(0)
+const hasNextPage = ref(false)
+const hasPrevPage = ref(false)
+
+const form = ref<TestimonialInput>({
+  name: '',
+  designation: '',
+  company: '',
+  message: '',
+  avatar: '',
+  rating: 5,
+  is_featured: false,
+  order: 1
+})
 
 const columns = computed(() => [
   { key: 'name', label: t('admin.testimonials.columns.name') },
@@ -15,49 +39,144 @@ const columns = computed(() => [
   { key: 'createdAt', label: t('admin.testimonials.columns.createdAt') }
 ])
 
-const testimonials = ref([
-  { id: 1, name: 'Michael Chen', company: 'Tech Innovations Ltd.', rating: 5, status: 'Published', createdAt: '2024-12-18' },
-  { id: 2, name: 'Sarah Johnson', company: 'Global Retail Inc.', rating: 5, status: 'Published', createdAt: '2024-12-15' },
-  { id: 3, name: 'Ahmed Hassan', company: 'Middle East Trading', rating: 4, status: 'Published', createdAt: '2024-12-10' },
-  { id: 4, name: 'Lisa Wang', company: 'Pacific Imports', rating: 5, status: 'Pending', createdAt: '2024-12-08' },
-  { id: 5, name: 'Roberto Silva', company: 'South American Exports', rating: 4, status: 'Published', createdAt: '2024-12-05' }
-])
+const tableData = computed(() =>
+  testimonials.value.map((item) => ({
+    id: item.id,
+    name: item.name,
+    company: item.company || '-',
+    rating: item.rating,
+    status: item.is_active ? t('admin.testimonials.published') : t('admin.testimonials.pending'),
+    createdAt: new Date(item.created_at).toLocaleDateString()
+  }))
+)
 
-const handleEdit = (item: Record<string, unknown>) => {
-  console.log('Edit:', item)
+const modalTitle = computed(() =>
+  editingTestimonial.value ? t('admin.testimonials.editTestimonial') : t('admin.testimonials.addTestimonial')
+)
+
+const showPagination = computed(() => hasNextPage.value || hasPrevPage.value)
+
+async function fetchTestimonials(page = 1) {
+  loading.value = true
+  try {
+    const response = await testimonialService.list({ page })
+    testimonials.value = response.results
+    totalCount.value = response.count
+    hasNextPage.value = !!response.next
+    hasPrevPage.value = !!response.previous
+    currentPage.value = page
+  } catch (err) {
+    console.error('Failed to fetch testimonials:', err)
+    toast.error(t('common.error'))
+  } finally {
+    loading.value = false
+  }
 }
 
-const handleDelete = (item: Record<string, unknown>) => {
-  console.log('Delete:', item)
+function goToPage(page: number) {
+  fetchTestimonials(page)
 }
+
+function openAddModal() {
+  editingTestimonial.value = null
+  form.value = {
+    name: '',
+    designation: '',
+    company: '',
+    message: '',
+    avatar: '',
+    rating: 5,
+    is_featured: false,
+    order: 1
+  }
+  showModal.value = true
+}
+
+function handleEdit(item: Record<string, unknown>) {
+  const testimonial = testimonials.value.find((t) => t.id === item.id)
+  if (testimonial) {
+    editingTestimonial.value = testimonial
+    form.value = {
+      name: testimonial.name,
+      designation: testimonial.designation,
+      company: testimonial.company,
+      message: testimonial.message,
+      avatar: testimonial.avatar,
+      rating: testimonial.rating,
+      is_featured: testimonial.is_featured,
+      order: testimonial.order
+    }
+    showModal.value = true
+  }
+}
+
+async function handleDelete(item: Record<string, unknown>) {
+  if (!confirm(t('admin.testimonials.confirmDelete'))) return
+  try {
+    await testimonialService.delete(item.id as number)
+    toast.success(t('common.deleted'))
+    await fetchTestimonials(currentPage.value)
+  } catch (err) {
+    console.error('Failed to delete testimonial:', err)
+    toast.error(t('common.error'))
+  }
+}
+
+async function handleSubmit() {
+  if (!form.value.name.trim() || !form.value.message?.trim()) return
+  saving.value = true
+  try {
+    const payload: TestimonialInput = {
+      name: form.value.name,
+      message: form.value.message,
+      rating: form.value.rating,
+      is_featured: form.value.is_featured,
+      order: form.value.order
+    }
+    if (form.value.designation) payload.designation = form.value.designation
+    if (form.value.company) payload.company = form.value.company
+    if (form.value.avatar) payload.avatar = form.value.avatar
+
+    if (editingTestimonial.value) {
+      await testimonialService.update(editingTestimonial.value.id, payload)
+    } else {
+      await testimonialService.create(payload)
+    }
+    showModal.value = false
+    toast.success(t('common.saved'))
+    await fetchTestimonials(currentPage.value)
+  } catch (err) {
+    console.error('Failed to save testimonial:', err)
+    toast.error(t('common.error'))
+  } finally {
+    saving.value = false
+  }
+}
+
+onMounted(() => {
+  fetchTestimonials()
+})
 </script>
 
 <template>
   <AdminLayout :title="t('admin.testimonials.title')" :subtitle="t('admin.testimonials.subtitle')">
-    <div class="flex items-center justify-between mb-6">
-      <div class="flex items-center gap-4">
-        <div class="relative">
-          <input 
-            type="text" 
-            :placeholder="t('admin.testimonials.searchPlaceholder')"
-            class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none w-64"
-          />
-          <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-        </div>
-      </div>
-      <BaseButton variant="secondary" size="sm">
+    <div class="flex items-center justify-end mb-6">
+      <BaseButton variant="secondary" size="sm" @click="openAddModal">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
         </svg>
         {{ t('admin.testimonials.addNew') }}
       </BaseButton>
     </div>
-    
-    <DataTable 
-      :columns="columns" 
-      :data="testimonials"
+
+    <div v-if="loading" class="text-center py-8 text-gray-500">
+      {{ t('admin.table.loading') }}
+    </div>
+
+    <DataTable
+      v-else
+      :columns="columns"
+      :data="tableData"
       @edit="handleEdit"
       @delete="handleDelete"
     >
@@ -72,12 +191,135 @@ const handleDelete = (item: Record<string, unknown>) => {
         <span 
           :class="[
             'px-3 py-1 rounded-full text-xs font-medium',
-            (value as string) === 'Published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+            (value as string) === t('admin.testimonials.published') ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
           ]"
         >
           {{ value }}
         </span>
       </template>
     </DataTable>
+
+    <div v-if="showPagination" class="flex items-center justify-between mt-4">
+      <p class="text-sm text-gray-600">
+        {{ t('admin.table.showing') }} {{ testimonials.length }} {{ t('admin.table.of') }} {{ totalCount }}
+      </p>
+      <div class="flex gap-2">
+        <BaseButton
+          variant="outline"
+          size="sm"
+          :disabled="!hasPrevPage"
+          @click="goToPage(currentPage - 1)"
+        >
+          {{ t('admin.table.prev') }}
+        </BaseButton>
+        <BaseButton
+          variant="outline"
+          size="sm"
+          :disabled="!hasNextPage"
+          @click="goToPage(currentPage + 1)"
+        >
+          {{ t('admin.table.next') }}
+        </BaseButton>
+      </div>
+    </div>
+
+    <div
+      v-if="showModal"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      @click.self="showModal = false"
+    >
+      <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
+        <div class="flex items-center justify-between p-4 border-b">
+          <h3 class="text-lg font-semibold text-gray-900">{{ modalTitle }}</h3>
+          <button @click="showModal = false" class="text-gray-400 hover:text-gray-600">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <form @submit.prevent="handleSubmit" class="p-4 space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.name') }} *</label>
+            <input
+              v-model="form.name"
+              type="text"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.designation') }}</label>
+            <input
+              v-model="form.designation"
+              type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.company') }}</label>
+            <input
+              v-model="form.company"
+              type="text"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.message') }} *</label>
+            <textarea
+              v-model="form.message"
+              rows="4"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
+            ></textarea>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.avatar') }}</label>
+            <input
+              v-model="form.avatar"
+              type="url"
+              :placeholder="t('admin.testimonials.form.avatarPlaceholder')"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+            />
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.rating') }}</label>
+              <select
+                v-model.number="form.rating"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+              >
+                <option v-for="n in 5" :key="n" :value="n">{{ n }} {{ n === 1 ? t('admin.testimonials.form.star') : t('admin.testimonials.form.stars') }}</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.order') }}</label>
+              <input
+                v-model.number="form.order"
+                type="number"
+                min="1"
+                class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
+              />
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <input
+              v-model="form.is_featured"
+              type="checkbox"
+              id="is_featured"
+              class="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+            />
+            <label for="is_featured" class="text-sm text-gray-700">{{ t('admin.testimonials.form.isFeatured') }}</label>
+          </div>
+          <div class="flex justify-end gap-3 pt-4 border-t">
+            <BaseButton variant="outline" size="sm" type="button" @click="showModal = false">
+              {{ t('common.cancel') }}
+            </BaseButton>
+            <BaseButton variant="secondary" size="sm" type="submit" :disabled="saving">
+              {{ saving ? t('common.saving') : t('common.save') }}
+            </BaseButton>
+          </div>
+        </form>
+      </div>
+    </div>
   </AdminLayout>
 </template>
