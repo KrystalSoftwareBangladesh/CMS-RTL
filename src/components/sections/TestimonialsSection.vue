@@ -81,43 +81,45 @@ onUnmounted(() => {
       </div>
 
       <div v-else class="max-w-3xl mx-auto">
-        <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+        <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden">
           <div class="absolute top-8 left-8 text-8xl text-secondary/20 font-serif leading-none">
             "
           </div>
 
-          <div class="relative z-10">
-            <p class="text-gray-600 text-lg leading-relaxed mb-8">
-              {{ currentTestimonial?.message }}
-            </p>
+          <Transition name="fade-slide" mode="out-in">
+            <div :key="currentIndex" class="relative z-10">
+              <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                {{ currentTestimonial?.message }}
+              </p>
 
-            <div class="flex items-center gap-4">
-              <img
-                v-if="currentTestimonial?.avatar"
-                :src="currentTestimonial.avatar"
-                :alt="currentTestimonial.name"
-                class="w-14 h-14 rounded-full object-cover"
-              />
-              <div v-else class="w-14 h-14 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-lg font-bold">
-                {{ getInitials(currentTestimonial?.name || '') }}
-              </div>
-              <div>
-                <div class="font-semibold text-gray-900">{{ currentTestimonial?.name }}</div>
-                <div class="text-sm text-gray-500">
-                  {{ currentTestimonial?.designation }}
-                  <span v-if="currentTestimonial?.company"> - {{ currentTestimonial.company }}</span>
+              <div class="flex items-center gap-4">
+                <img
+                  v-if="currentTestimonial?.avatar"
+                  :src="currentTestimonial.avatar"
+                  :alt="currentTestimonial.name"
+                  class="w-14 h-14 rounded-full object-cover"
+                />
+                <div v-else class="w-14 h-14 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-lg font-bold">
+                  {{ getInitials(currentTestimonial?.name || '') }}
+                </div>
+                <div>
+                  <div class="font-semibold text-gray-900">{{ currentTestimonial?.name }}</div>
+                  <div class="text-sm text-gray-500">
+                    {{ currentTestimonial?.designation }}
+                    <span v-if="currentTestimonial?.company"> - {{ currentTestimonial.company }}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </Transition>
 
           <div v-if="testimonials.length > 1" class="flex justify-center gap-2 mt-6">
             <button
               v-for="(_, index) in testimonials"
               :key="index"
               @click="currentIndex = index"
-              class="w-2 h-2 rounded-full transition-colors"
-              :class="index === currentIndex ? 'bg-secondary' : 'bg-gray-300'"
+              class="w-2 h-2 rounded-full transition-colors duration-300"
+              :class="index === currentIndex ? 'bg-secondary scale-125' : 'bg-gray-300'"
             />
           </div>
         </div>
@@ -125,3 +127,20 @@ onUnmounted(() => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.5s ease;
+}
+
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateX(-30px);
+}
+</style>
