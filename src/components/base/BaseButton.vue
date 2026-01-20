@@ -21,7 +21,7 @@ const sizeClasses = {
 const variantClasses = {
   primary: 'bg-white text-primary hover:bg-gray-100',
   secondary: 'bg-secondary text-white hover:bg-secondary-light',
-  outline: 'border-2 border-white text-white hover:bg-white hover:text-primary',
+  outline: 'border-2 border-gray-300 text-gray-700 hover:bg-gray-100 hover:border-gray-400',
   white: 'bg-white text-primary hover:bg-gray-50'
 }
 </script>
