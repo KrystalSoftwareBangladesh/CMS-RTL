@@ -2,7 +2,6 @@
 import { useI18n } from 'vue-i18n'
 import BaseButton from '@/components/base/BaseButton.vue'
 import { partners } from '@/data/navigation'
-import heroImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
 
 const { t } = useI18n()
 const slides = ['01', '02', '03']
@@ -11,10 +10,16 @@ const currentSlide = 1
 
 <template>
   <section class="relative min-h-screen bg-primary overflow-hidden">
-    <div
-      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      :style="{ backgroundImage: `url(${heroImage})` }"
-    >
+    <div class="absolute inset-0">
+      <video
+        autoplay
+        loop
+        playsinline
+        preload="auto"
+        class="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/hero-background.mp4" type="video/mp4" />
+      </video>
       <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/95 via-primary/80 to-primary-light/40"></div>
     </div>
 
