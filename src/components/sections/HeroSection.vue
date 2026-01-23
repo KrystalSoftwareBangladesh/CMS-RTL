@@ -8,6 +8,7 @@ import { partners } from '@/data/navigation'
       <video
         autoplay
         loop
+        muted
         playsinline
         preload="auto"
         class="absolute inset-0 w-full h-full object-cover"
