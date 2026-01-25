@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { partners } from '@/data/navigation'
 
 const videoRef = ref<HTMLVideoElement | null>(null)
@@ -11,6 +11,17 @@ function toggleSound() {
     isMuted.value = videoRef.value.muted
   }
 }
+
+onMounted(() => {
+  if (videoRef.value) {
+    videoRef.value.addEventListener('canplay', () => {
+      if (videoRef.value) {
+        videoRef.value.muted = false
+        isMuted.value = false
+      }
+    }, { once: true })
+  }
+})
 </script>
 
 <template>
@@ -27,9 +38,12 @@ function toggleSound() {
       >
         <source src="/hero-background.mp4" type="video/mp4" />
       </video>
+    </div>
+
+    <div class="flex-1 flex items-end justify-end p-6">
       <button
         @click="toggleSound"
-        class="absolute bottom-6 right-6 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all"
+        class="relative z-20 bg-secondary hover:bg-secondary-dark text-white p-4 rounded-full shadow-lg transition-all"
         :title="isMuted ? 'Click to unmute' : 'Click to mute'"
       >
         <svg v-if="isMuted" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -41,8 +55,6 @@ function toggleSound() {
         </svg>
       </button>
     </div>
-
-    <div class="flex-1"></div>
 
     <div class="relative z-10 bg-white mt-auto">
       <div class="container mx-auto px-6 py-8">
