@@ -1,5 +1,4 @@
 import { createBaseService, type PaginatedResponse } from './baseService'
-import api from './api'
 
 export interface Testimonial {
   id: number
