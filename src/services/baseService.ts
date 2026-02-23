@@ -13,7 +13,7 @@ export interface ListParams {
   [key: string]: unknown
 }
 
-export function createBaseService<T, TInput>(endpoint: string, useSlug = false) {
+export function createBaseService<T, TInput>(endpoint: string) {
   const normalizedEndpoint = endpoint.endsWith('/') ? endpoint : `${endpoint}/`
 
   return {
