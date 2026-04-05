@@ -23,7 +23,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm run dev"
+args = "pnpm dev"
 waitForPort = 5000
 
 [workflows.workflow.metadata]
@@ -39,7 +39,7 @@ externalPort = 3000
 
 [deployment]
 deploymentTarget = "static"
-build = ["npm", "run", "build"]
+build = ["pnpm", "build"]
 publicDir = "dist"
 
 [userenv]
