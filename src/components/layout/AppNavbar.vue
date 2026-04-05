@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { navLinks } from '@/data/navigation'
-import { languages } from '@/i18n'
 
-const { locale, t } = useI18n()
+const { t } = useI18n()
 const isMenuOpen = ref(false)
 const isScrolled = ref(false)
-const isLangOpen = ref(false)
 
-const currentLang = computed(() => {
-  const found = languages.find(l => l.code === locale.value)
-  return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
-})
-
-const changeLanguage = (code: string) => {
-  locale.value = code
-  localStorage.setItem('locale', code)
-  isLangOpen.value = false
-}
+// Multi-language switching is temporarily disabled.
+// const isLangOpen = ref(false)
+// const currentLang = computed(() => {
+//   const found = languages.find(l => l.code === locale.value)
+//   return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
+// })
+// const changeLanguage = (code: string) => {
+//   locale.value = code
+//   localStorage.setItem('locale', code)
+//   isLangOpen.value = false
+// }
 
 const handleScroll = () => {
   isScrolled.value = window.scrollY > 50
@@ -63,7 +62,8 @@ onUnmounted(() => {
         </div>
 
         <div class="hidden md:flex items-center gap-4">
-          <div class="relative">
+          <!-- Multi-language dropdown temporarily disabled. -->
+          <!-- <div class="relative">
             <button
               @click="isLangOpen = !isLangOpen"
               class="flex items-center gap-2 text-white/80 hover:text-white transition-colors px-3 py-1.5 rounded-lg hover:bg-white/10"
@@ -91,7 +91,7 @@ onUnmounted(() => {
                 <span>{{ lang.name }}</span>
               </button>
             </div>
-          </div>
+          </div> -->
           <button class="text-white/80 hover:text-white transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -126,7 +126,8 @@ onUnmounted(() => {
         >
           {{ t(link.key) }}
         </RouterLink>
-        <div class="border-t border-white/20 mt-3 pt-3">
+        <!-- Multi-language mobile controls temporarily disabled. -->
+        <!-- <div class="border-t border-white/20 mt-3 pt-3">
           <p class="text-white/50 text-xs mb-2">Language</p>
           <div class="flex flex-wrap gap-2">
             <button
@@ -142,7 +143,7 @@ onUnmounted(() => {
               <span>{{ lang.code.toUpperCase() }}</span>
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </nav>

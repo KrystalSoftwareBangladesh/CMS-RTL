@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-import { languages } from '@/i18n'
 import { useAuthStore } from '@/stores/auth'
 
 interface Props {
@@ -13,26 +12,25 @@ interface Props {
 defineProps<Props>()
 
 const router = useRouter()
-const { locale, t } = useI18n()
+const { t } = useI18n()
 const authStore = useAuthStore()
-const isLangOpen = ref(false)
 const isProfileOpen = ref(false)
-
-const currentLang = computed(() => {
-  const found = languages.find(l => l.code === locale.value)
-  return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
-})
 
 const userInitial = computed(() => {
   const name = authStore.userName
   return name.charAt(0).toUpperCase()
 })
-
-const changeLanguage = (code: string) => {
-  locale.value = code
-  localStorage.setItem('locale', code)
-  isLangOpen.value = false
-}
+// Multi-language switching is temporarily disabled.
+// const isLangOpen = ref(false)
+// const currentLang = computed(() => {
+//   const found = languages.find(l => l.code === locale.value)
+//   return found ?? { code: 'en', name: 'English', flag: '🇺🇸' }
+// })
+// const changeLanguage = (code: string) => {
+//   locale.value = code
+//   localStorage.setItem('locale', code)
+//   isLangOpen.value = false
+// }
 
 const handleLogout = () => {
   authStore.logout()
@@ -49,7 +47,8 @@ const handleLogout = () => {
       </div>
       
       <div class="flex items-center gap-4">
-        <div class="relative">
+        <!-- Multi-language dropdown temporarily disabled. -->
+        <!-- <div class="relative">
           <button 
             @click="isLangOpen = !isLangOpen"
             class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -75,7 +74,7 @@ const handleLogout = () => {
               <span>{{ lang.name }}</span>
             </button>
           </div>
-        </div>
+        </div> -->
         
         <button class="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
           <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
