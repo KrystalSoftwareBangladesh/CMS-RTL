@@ -1,19 +1,26 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onUnmounted, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
-import teamService, { type TeamMember } from '@/services/team'
+import teamMembersData from '@/data/team.json'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 import cargoImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
 
 const { t } = useI18n()
 
-const teamMembers = ref<TeamMember[]>([])
-const loadingTeam = ref(false)
+interface TeamMember {
+  id: number
+  name: string
+  designation: string
+  phone: string
+  email: string
+}
+
+const teamMembers = ref<TeamMember[]>(teamMembersData as TeamMember[])
 const carouselRef = ref<HTMLElement | null>(null)
 const cardWidth = 256 + 24
 let autoSlideInterval: ReturnType<typeof setInterval> | null = null
@@ -68,22 +75,6 @@ watch(showCarouselControls, (show) => {
   } else {
     stopAutoSlide()
   }
-})
-
-async function fetchTeamMembers() {
-  loadingTeam.value = true
-  try {
-    const response = await teamService.list({ page_size: 20 })
-    teamMembers.value = response.results
-  } catch (err) {
-    console.error('Failed to fetch team members:', err)
-  } finally {
-    loadingTeam.value = false
-  }
-}
-
-onMounted(() => {
-  fetchTeamMembers()
 })
 
 onUnmounted(() => {
@@ -221,11 +212,7 @@ onUnmounted(() => {
           :light="true"
         />
         
-        <div v-if="loadingTeam" class="text-center py-8 text-white/70">
-          {{ t('common.loading') }}
-        </div>
-        
-        <div v-else-if="teamMembers.length === 0" class="text-center py-8 text-white/70">
+        <div v-if="teamMembers.length === 0" class="text-center py-8 text-white/70">
           {{ t('common.noData') }}
         </div>
         
@@ -240,28 +227,23 @@ onUnmounted(() => {
               :key="`${member.id}-${index}`"
               class="text-center group flex-shrink-0 w-64"
             >
-              <div v-if="member.profile_image" class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
-                <img :src="member.profile_image" :alt="member.name" class="w-full h-full object-cover" />
-              </div>
-              <div v-else class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
+              <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
                 {{ getInitials(member.name) }}
               </div>
               <h3 class="text-white font-semibold text-lg">{{ member.name }}</h3>
               <p class="text-gray-400 mb-3">{{ member.designation }}</p>
-              <div v-if="member.social_profiles.length > 0" class="flex items-center justify-center gap-3">
+              <div class="space-y-2 text-sm">
                 <a
-                  v-for="profile in member.social_profiles"
-                  :key="profile.platform"
-                  :href="profile.profile_url"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:bg-secondary hover:text-white transition-colors"
-                  :title="profile.platform_name"
+                  :href="`tel:${member.phone}`"
+                  class="block text-white/80 hover:text-white transition-colors"
                 >
-                  <svg v-if="profile.platform_icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path :d="profile.platform_icon" />
-                  </svg>
-                  <span v-else class="text-xs">{{ profile.platform_name?.charAt(0) }}</span>
+                  {{ member.phone }}
+                </a>
+                <a
+                  :href="`mailto:${member.email}`"
+                  class="block text-white/80 hover:text-white transition-colors break-all"
+                >
+                  {{ member.email }}
                 </a>
               </div>
             </div>
