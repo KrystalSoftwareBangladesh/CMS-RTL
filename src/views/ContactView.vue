@@ -4,16 +4,24 @@ import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
 import FAQSection from '@/components/sections/FAQSection.vue'
+import contactData from '@/data/contact.json'
+import officesData from '@/data/offices.json'
 import truckImage from '@/assets/images/semi_truck_on_highwa_08289769.jpg'
 
 const { t } = useI18n()
 
-const offices = [
-  { city: 'Dhaka', country: 'Bangladesh', typeKey: 'headquarters' },
-  { city: 'Chittagong', country: 'Bangladesh', typeKey: 'regionalOffice' },
-  { city: 'Singapore', country: 'Asia', typeKey: 'tradePartner' },
-  { city: 'Dubai', country: 'UAE', typeKey: 'tradePartner' }
-]
+interface ContactInfo {
+  phones: string[]
+  emails: string[]
+}
+
+interface OfficeLocation {
+  country: string
+  typeKey: 'headquarters' | 'regionalOffice' | 'tradePartner'
+}
+
+const contactInfo = contactData as ContactInfo
+const offices = officesData as OfficeLocation[]
 </script>
 
 <template>
@@ -58,8 +66,14 @@ const offices = [
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('contact.callUs') }}</h3>
             <div class="space-y-1">
-              <p class="text-gray-600 text-sm">+880 1XXX-XXXXXX</p>
-              <p class="text-gray-600 text-sm">+880 2XXX-XXXXXX</p>
+              <a
+                v-for="phone in contactInfo.phones"
+                :key="phone"
+                :href="`tel:${phone}`"
+                class="block text-gray-600 text-sm hover:text-secondary transition-colors"
+              >
+                {{ phone }}
+              </a>
               <p class="text-gray-600 text-sm">Sun-Thu: 9AM - 6PM</p>
             </div>
           </BaseCard>
@@ -71,9 +85,14 @@ const offices = [
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('contact.emailUs') }}</h3>
             <div class="space-y-1">
-              <p class="text-gray-600 text-sm">info@risingtradingltd.com</p>
-              <p class="text-gray-600 text-sm">support@risingtradingltd.com</p>
-              <p class="text-gray-600 text-sm">sales@risingtradingltd.com</p>
+              <a
+                v-for="email in contactInfo.emails"
+                :key="email"
+                :href="`mailto:${email}`"
+                class="block text-gray-600 text-sm hover:text-secondary transition-colors break-all"
+              >
+                {{ email }}
+              </a>
             </div>
           </BaseCard>
         </div>
@@ -156,7 +175,7 @@ const offices = [
             <div class="space-y-4 mb-8">
               <BaseCard
                 v-for="office in offices"
-                :key="office.city"
+                :key="office.country"
                 :padding="'sm'"
                 :hover="true"
               >
@@ -168,7 +187,7 @@ const offices = [
                       </svg>
                     </div>
                     <div>
-                      <h4 class="font-semibold text-gray-900">{{ office.city }}, {{ office.country }}</h4>
+                      <h4 class="font-semibold text-gray-900">{{ office.country }}</h4>
                       <p class="text-sm text-gray-500">{{ t(`contact.${office.typeKey}`) }}</p>
                     </div>
                   </div>

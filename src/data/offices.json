@@ -1,0 +1,30 @@
+[
+  {
+    "country": "Canada",
+    "typeKey": "tradePartner"
+  },
+  {
+    "country": "USA",
+    "typeKey": "tradePartner"
+  },
+  {
+    "country": "UK",
+    "typeKey": "tradePartner"
+  },
+  {
+    "country": "France",
+    "typeKey": "tradePartner"
+  },
+  {
+    "country": "India",
+    "typeKey": "tradePartner"
+  },
+  {
+    "country": "Japan",
+    "typeKey": "tradePartner"
+  },
+  {
+    "country": "Australia",
+    "typeKey": "tradePartner"
+  }
+]

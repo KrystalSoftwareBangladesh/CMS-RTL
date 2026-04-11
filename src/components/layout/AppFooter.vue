@@ -1,16 +1,19 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import contactData from '@/data/contact.json'
 import socialService, { type SocialLink } from '@/services/social'
 
 const { t } = useI18n()
 
 const socialLinks = ref<SocialLink[]>([])
 
-const contactInfo = {
-  phone: '+880 1XXX-XXXXXX',
-  email: 'info@risingtradingltd.com'
+interface ContactInfo {
+  phones: string[]
+  emails: string[]
 }
+
+const contactInfo = contactData as ContactInfo
 
 async function fetchSocialLinks() {
   try {
@@ -74,8 +77,22 @@ onMounted(() => {
         <div>
           <h4 class="font-semibold text-gray-900 mb-4">{{ t('footer.contactUs') }}</h4>
           <ul class="space-y-3">
-            <li class="text-gray-600 text-sm">{{ contactInfo.phone }}</li>
-            <li class="text-gray-600 text-sm">{{ contactInfo.email }}</li>
+            <li v-for="phone in contactInfo.phones" :key="phone">
+              <a
+                :href="`tel:${phone}`"
+                class="text-gray-600 hover:text-secondary transition-colors text-sm"
+              >
+                {{ phone }}
+              </a>
+            </li>
+            <li v-for="email in contactInfo.emails" :key="email">
+              <a
+                :href="`mailto:${email}`"
+                class="text-gray-600 hover:text-secondary transition-colors text-sm break-all"
+              >
+                {{ email }}
+              </a>
+            </li>
           </ul>
         </div>
       </div>
