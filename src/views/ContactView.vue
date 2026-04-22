@@ -18,6 +18,7 @@ interface ContactInfo {
 interface OfficeLocation {
   country: string
   typeKey: 'headquarters' | 'regionalOffice' | 'tradePartner'
+  addressLines: string[]
 }
 
 const contactInfo = contactData as ContactInfo
@@ -52,10 +53,21 @@ const offices = officesData as OfficeLocation[]
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-3">{{ t('contact.visitUs') }}</h3>
-            <div class="space-y-1">
-              <p class="text-gray-600 text-sm">Dhaka, Bangladesh</p>
-              <p class="text-gray-600 text-sm">Business District</p>
-              <p class="text-gray-600 text-sm">Rising Trading Ltd.</p>
+            <div class="space-y-4">
+              <div
+                v-for="office in offices"
+                :key="`visit-${office.country}`"
+                class="space-y-1"
+              >
+                <p class="text-gray-800 text-sm font-medium">{{ office.country }}</p>
+                <p
+                  v-for="line in office.addressLines"
+                  :key="`${office.country}-${line}`"
+                  class="text-gray-600 text-sm"
+                >
+                  {{ line }}
+                </p>
+              </div>
             </div>
           </BaseCard>
           <BaseCard :hover="true" class="text-center">
@@ -179,8 +191,8 @@ const offices = officesData as OfficeLocation[]
                 :padding="'sm'"
                 :hover="true"
               >
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-4">
+                <div class="flex items-start justify-between gap-4">
+                  <div class="flex items-start gap-4">
                     <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center">
                       <svg class="w-6 h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -189,11 +201,17 @@ const offices = officesData as OfficeLocation[]
                     <div>
                       <h4 class="font-semibold text-gray-900">{{ office.country }}</h4>
                       <p class="text-sm text-gray-500">{{ t(`contact.${office.typeKey}`) }}</p>
+                      <div class="mt-2 space-y-1">
+                        <p
+                          v-for="line in office.addressLines"
+                          :key="`${office.country}-location-${line}`"
+                          class="text-sm text-gray-600"
+                        >
+                          {{ line }}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
                 </div>
               </BaseCard>
             </div>
