@@ -1,30 +1,21 @@
 [
   {
-    "country": "Canada",
-    "typeKey": "tradePartner"
-  },
-  {
-    "country": "USA",
-    "typeKey": "tradePartner"
-  },
-  {
-    "country": "UK",
-    "typeKey": "tradePartner"
-  },
-  {
-    "country": "France",
-    "typeKey": "tradePartner"
+    "country": "Bangladesh",
+    "typeKey": "headquarters",
+    "addressLines": [
+      "BTA Tower (7th Floor North)",
+      "29, Kemal Ataturk Avenue",
+      "Banani Commercial Area, Road 17",
+      "Dhaka 1213, Bangladesh"
+    ]
   },
   {
     "country": "India",
-    "typeKey": "tradePartner"
-  },
-  {
-    "country": "Japan",
-    "typeKey": "tradePartner"
-  },
-  {
-    "country": "Australia",
-    "typeKey": "tradePartner"
+    "typeKey": "regionalOffice",
+    "addressLines": [
+      "301/382/B, SKD Road",
+      "Bangaon, North 24 Parganas",
+      "Pin Code: 743235, West Bengal, India"
+    ]
   }
 ]
