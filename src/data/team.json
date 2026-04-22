@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Mst. Elora Parvin",
     "designation": "Chairman",
+    "image": "chairman.jpeg",
     "phone": "+8801706223259",
     "email": "elora@risingtradingltd.com"
   },
@@ -10,6 +11,7 @@
     "id": 2,
     "name": "Md.Morshidul Alam",
     "designation": "Managing Director",
+    "image": "managing-director.jpeg",
     "phone": "+8801712619977",
     "email": "morshidul@risingtradingltd.com"
   },
@@ -17,6 +19,7 @@
     "id": 3,
     "name": "Badal Bhwomick",
     "designation": "Director",
+    "image": "director.jpeg",
     "phone": "+8801711370993",
     "email": "badal@risingtradingltd.com"
   }

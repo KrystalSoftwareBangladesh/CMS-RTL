@@ -5,7 +5,7 @@ export interface NavLink {
 
 export const navLinks: NavLink[] = [
   { key: 'nav.home', path: '/' },
-  { key: 'nav.about', path: '/about' },
+  { key: 'nav.about', path: '/we-are' },
   { key: 'nav.services', path: '/services' },
   { key: 'nav.portfolio', path: '/portfolio' },
   { key: 'nav.news', path: '/news' },

@@ -31,8 +31,8 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/we-are',
+      name: 'we-are',
       component: AboutView,
     },
     {

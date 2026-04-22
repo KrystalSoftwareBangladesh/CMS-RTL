@@ -28,7 +28,7 @@ const { t } = useI18n()
         <p class="text-gray-500 text-sm">{{ t('notFound.helpLinks') }}</p>
         <div class="mt-4 flex flex-wrap gap-4 justify-center">
           <RouterLink to="/services" class="text-secondary hover:underline">{{ t('nav.services') }}</RouterLink>
-          <RouterLink to="/about" class="text-secondary hover:underline">{{ t('nav.about') }}</RouterLink>
+          <RouterLink to="/we-are" class="text-secondary hover:underline">{{ t('nav.about') }}</RouterLink>
           <RouterLink to="/portfolio" class="text-secondary hover:underline">{{ t('nav.portfolio') }}</RouterLink>
           <RouterLink to="/news" class="text-secondary hover:underline">{{ t('nav.news') }}</RouterLink>
         </div>

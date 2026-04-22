@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { ref, onUnmounted, computed, watch } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import BaseButton from '@/components/base/BaseButton.vue'
 import BaseCard from '@/components/base/BaseCard.vue'
-import TestimonialsSection from '@/components/sections/TestimonialsSection.vue'
 import CTASection from '@/components/sections/CTASection.vue'
 import teamMembersData from '@/data/team.json'
 import warehouseImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
@@ -16,22 +15,19 @@ interface TeamMember {
   id: number
   name: string
   designation: string
+  image?: string
   phone: string
   email: string
 }
 
+const teamImages = import.meta.glob('../assets/images/*', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>
+
 const teamMembers = ref<TeamMember[]>(teamMembersData as TeamMember[])
-const carouselRef = ref<HTMLElement | null>(null)
-const cardWidth = 256 + 24
-let autoSlideInterval: ReturnType<typeof setInterval> | null = null
-const currentIndex = ref(0)
-
-const showCarouselControls = computed(() => teamMembers.value.length > 5)
-
-const displayMembers = computed(() => {
-  if (!showCarouselControls.value) return teamMembers.value
-  return [...teamMembers.value, ...teamMembers.value, ...teamMembers.value]
-})
+const featuredManagement = computed(() => teamMembers.value[0] ?? null)
+const leadershipMembers = computed(() => teamMembers.value.slice(1))
 
 function getInitials(name: string): string {
   return name
@@ -42,44 +38,10 @@ function getInitials(name: string): string {
     .slice(0, 2)
 }
 
-function autoSlide() {
-  if (!carouselRef.value || !showCarouselControls.value) return
-  currentIndex.value++
-  const targetScroll = currentIndex.value * cardWidth
-  carouselRef.value.scrollTo({ left: targetScroll, behavior: 'smooth' })
-  if (currentIndex.value >= teamMembers.value.length) {
-    setTimeout(() => {
-      if (carouselRef.value) {
-        carouselRef.value.scrollTo({ left: 0, behavior: 'instant' })
-        currentIndex.value = 0
-      }
-    }, 500)
-  }
+function getMemberImage(imageName?: string): string | null {
+  if (!imageName) return null
+  return teamImages[`../assets/images/${imageName}`] ?? null
 }
-
-function startAutoSlide() {
-  if (autoSlideInterval) return
-  autoSlideInterval = setInterval(autoSlide, 3000)
-}
-
-function stopAutoSlide() {
-  if (autoSlideInterval) {
-    clearInterval(autoSlideInterval)
-    autoSlideInterval = null
-  }
-}
-
-watch(showCarouselControls, (show) => {
-  if (show) {
-    startAutoSlide()
-  } else {
-    stopAutoSlide()
-  }
-})
-
-onUnmounted(() => {
-  stopAutoSlide()
-})
 </script>
 
 <template>
@@ -211,49 +173,108 @@ onUnmounted(() => {
           :subtitle="t('about.teamSubtitle')"
           :light="true"
         />
-        
+
         <div v-if="teamMembers.length === 0" class="text-center py-8 text-white/70">
           {{ t('common.noData') }}
         </div>
-        
-        <div v-else class="relative">
-          <div
-            ref="carouselRef"
-            class="flex gap-6 overflow-x-auto scrollbar-hide scroll-smooth"
-            :class="{ 'justify-center': !showCarouselControls }"
+
+        <div v-else class="grid gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(20rem,0.95fr)]">
+          <BaseCard
+            v-if="featuredManagement"
+            padding="lg"
+            :shadow="false"
+            class="min-h-[30rem] overflow-hidden border border-white/10 bg-white/8 text-white backdrop-blur-sm xl:min-h-[34rem]"
           >
-            <div
-              v-for="(member, index) in displayMembers"
-              :key="`${member.id}-${index}`"
-              class="text-center group flex-shrink-0 w-64"
-            >
-              <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-gradient-to-br from-secondary to-secondary-dark flex items-center justify-center text-white text-3xl font-bold group-hover:scale-105 transition-transform">
-                {{ getInitials(member.name) }}
+            <div class="flex h-full flex-col gap-10 lg:flex-row lg:items-center">
+              <div class="flex flex-col items-center text-center lg:w-64 lg:flex-shrink-0">
+                <div class="mb-6 flex h-44 w-44 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-gradient-to-br from-secondary to-secondary-dark text-4xl font-bold shadow-lg shadow-secondary/20 xl:h-52 xl:w-52">
+                  <img
+                    v-if="getMemberImage(featuredManagement.image)"
+                    :src="getMemberImage(featuredManagement.image) ?? undefined"
+                    :alt="featuredManagement.name"
+                    class="h-full w-full object-cover"
+                  />
+                  <span v-else>{{ getInitials(featuredManagement.name) }}</span>
+                </div>
+                <span class="rounded-full border border-secondary/40 bg-secondary/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-secondary-light">
+                  {{ featuredManagement.designation }}
+                </span>
               </div>
-              <h3 class="text-white font-semibold text-lg">{{ member.name }}</h3>
-              <p class="text-gray-400 mb-3">{{ member.designation }}</p>
-              <div class="space-y-2 text-sm">
-                <a
-                  :href="`tel:${member.phone}`"
-                  class="block text-white/80 hover:text-white transition-colors"
-                >
-                  {{ member.phone }}
-                </a>
-                <a
-                  :href="`mailto:${member.email}`"
-                  class="block text-white/80 hover:text-white transition-colors break-all"
-                >
-                  {{ member.email }}
-                </a>
+
+              <div class="flex-1">
+                <p class="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/50">
+                  {{ t('about.teamLabel') }}
+                </p>
+                <h3 class="mb-3 text-3xl font-bold text-white xl:text-4xl">
+                  {{ featuredManagement.name }}
+                </h3>
+                <p class="mb-8 max-w-2xl text-base leading-7 text-white/70 xl:text-lg">
+                  {{ t('about.teamSubtitle') }}
+                </p>
+                <div class="grid gap-5 sm:grid-cols-2">
+                  <a
+                    :href="`tel:${featuredManagement.phone}`"
+                    class="rounded-2xl border border-white/10 bg-white/6 px-6 py-5 transition-colors hover:border-secondary/50 hover:bg-white/10"
+                  >
+                    <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/50">{{ t('contact.phone') }}</p>
+                    <p class="text-base font-medium text-white">{{ featuredManagement.phone }}</p>
+                  </a>
+                  <a
+                    :href="`mailto:${featuredManagement.email}`"
+                    class="rounded-2xl border border-white/10 bg-white/6 px-6 py-5 transition-colors hover:border-secondary/50 hover:bg-white/10"
+                  >
+                    <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/50">{{ t('contact.email') }}</p>
+                    <p class="break-all text-base font-medium text-white">{{ featuredManagement.email }}</p>
+                  </a>
+                </div>
               </div>
             </div>
+          </BaseCard>
+
+          <div class="grid gap-8">
+            <BaseCard
+              v-for="member in leadershipMembers"
+              :key="member.id"
+              padding="lg"
+              :shadow="false"
+              class="min-h-[14rem] border border-white/10 bg-white/8 text-white backdrop-blur-sm xl:min-h-[16rem]"
+            >
+              <div class="flex h-full items-start gap-5">
+                <div class="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-secondary-dark text-2xl font-bold text-white xl:h-28 xl:w-28">
+                  <img
+                    v-if="getMemberImage(member.image)"
+                    :src="getMemberImage(member.image) ?? undefined"
+                    :alt="member.name"
+                    class="h-full w-full object-cover"
+                  />
+                  <span v-else>{{ getInitials(member.name) }}</span>
+                </div>
+                <div class="min-w-0 flex-1">
+                  <p class="mb-1 text-xs uppercase tracking-[0.24em] text-secondary-light">
+                    {{ member.designation }}
+                  </p>
+                  <h3 class="mb-5 text-2xl font-semibold text-white">{{ member.name }}</h3>
+                  <div class="space-y-4 text-base">
+                    <a
+                      :href="`tel:${member.phone}`"
+                      class="block text-white/75 transition-colors hover:text-white"
+                    >
+                      {{ member.phone }}
+                    </a>
+                    <a
+                      :href="`mailto:${member.email}`"
+                      class="block break-all text-white/75 transition-colors hover:text-white"
+                    >
+                      {{ member.email }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </BaseCard>
           </div>
         </div>
       </div>
     </section>
-
-    <TestimonialsSection />
-
     <CTASection />
   </main>
 </template>

@@ -14,7 +14,7 @@
   },
   "nav": {
     "home": "Home",
-    "about": "About Us",
+    "about": "We Are",
     "services": "Services",
     "portfolio": "Portfolio",
     "news": "News",
@@ -29,7 +29,7 @@
     "learnMore": "Learn More"
   },
   "about": {
-    "pageTitle": "About Us",
+    "pageTitle": "We Are",
     "pageSubtitle": "Delivering excellence in logistics and transportation since 1998",
     "label": "Our Story",
     "title": "Building Trust Through Reliable Logistics",
@@ -56,9 +56,9 @@
     "globalReachDesc": "With partners worldwide, we connect you to markets across the globe seamlessly.",
     "sustainability": "Sustainability",
     "sustainabilityDesc": "We are committed to eco-friendly practices that minimize our environmental footprint.",
-    "teamLabel": "Our Team",
-    "teamTitle": "Meet The Experts",
-    "teamSubtitle": "Our dedicated professionals work tirelessly to deliver exceptional logistics solutions."
+    "teamLabel": "Chairman",
+    "teamTitle": "Leadership Team",
+    "teamSubtitle": "The company is guided by experienced leaders who shape strategy, relationships, and long-term growth."
   },
   "services": {
     "pageTitle": "Our Services",
