@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { FAQ } from '@/services/faq'
+
+interface FAQItem {
+  id: string | number
+  question: string
+  answer: string
+}
 
 interface Props {
-  faqs: FAQ[]
+  faqs: FAQItem[]
   initialOpenIndex?: number | null
 }
 

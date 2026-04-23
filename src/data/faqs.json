@@ -1,0 +1,62 @@
+[
+  {
+    "id": "faq-001",
+    "category": "Logistics",
+    "question": "What are Incoterms and why do they matter?",
+    "answer": "Incoterms (International Commercial Terms) are standardized rules that define the responsibilities of buyers and sellers. They dictate who handles shipping costs, insurance, and at what point the risk of loss transfers.",
+    "keywords": [
+      "shipping",
+      "risk",
+      "FOB",
+      "CIF"
+    ]
+  },
+  {
+    "id": "faq-002",
+    "category": "Documentation",
+    "question": "Which documents are mandatory for every shipment?",
+    "answer": "Most international shipments require the 'Golden Three': the Commercial Invoice (bill of sale), the Packing List (cargo details), and the Bill of Lading or Air Waybill (contract of carriage).",
+    "keywords": [
+      "customs",
+      "paperwork",
+      "invoice",
+      "B/L"
+    ]
+  },
+  {
+    "id": "faq-003",
+    "category": "Customs",
+    "question": "How do I determine the 'HS Code' for my products?",
+    "answer": "The Harmonized System (HS) code is a numerical method of classifying products for customs. It is used to identify goods and apply correct taxes. You can find these via government tariff tools or a customs broker.",
+    "keywords": [
+      "tax",
+      "tariff",
+      "classification",
+      "duties"
+    ]
+  },
+  {
+    "id": "faq-004",
+    "category": "Finance",
+    "question": "How can I ensure I get paid or receive my goods?",
+    "answer": "A Letter of Credit (L/C) is a common security measure where a bank guarantees payment once proof of shipment is provided. Alternatively, many use Telegraphic Transfer (T/T) with a percentage deposit.",
+    "keywords": [
+      "payment",
+      "bank",
+      "security",
+      "L/C"
+    ]
+  },
+  {
+    "id": "faq-005",
+    "category": "Operations",
+    "question": "What is the role of a Freight Forwarder vs. a Customs Broker?",
+    "answer": "A Freight Forwarder acts as a travel agent for cargo, arranging physical transport. A Customs Broker focuses on legal compliance, ensuring goods clear government checkpoints smoothly.",
+    "keywords": [
+      "shipping agent",
+      "brokerage",
+      "logistics",
+      "compliance"
+    ]
+  }
+]
