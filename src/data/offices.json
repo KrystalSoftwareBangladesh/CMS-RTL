@@ -1,12 +1,23 @@
 [
   {
     "country": "Bangladesh",
+    "officeLocation": "Dhaka",
     "typeKey": "headquarters",
     "addressLines": [
       "BTA Tower (7th Floor North)",
       "29, Kemal Ataturk Avenue",
       "Banani Commercial Area, Road 17",
       "Dhaka 1213, Bangladesh"
+    ]
+  },
+  {
+    "country": "Bangladesh",
+    "officeLocation": "Chittagong",
+    "typeKey": "regionalOffice",
+    "addressLines": [
+      "SK. J. M Villa (3rd floor), 283 D. T. Road",
+      "(East Side of Double Mooring Thana)",
+      "Dewanhat, Chittagong, Bangladesh"
     ]
   },
   {

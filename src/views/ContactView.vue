@@ -17,12 +17,15 @@ interface ContactInfo {
 
 interface OfficeLocation {
   country: string
+  officeLocation?: string
   typeKey: 'headquarters' | 'regionalOffice' | 'tradePartner'
   addressLines: string[]
 }
 
 const contactInfo = contactData as ContactInfo
 const offices = officesData as OfficeLocation[]
+console.log('Offices', offices);
+
 </script>
 
 <template>
@@ -59,7 +62,9 @@ const offices = officesData as OfficeLocation[]
                 :key="`visit-${office.country}`"
                 class="space-y-1"
               >
-                <p class="text-gray-800 text-sm font-medium">{{ office.country }}</p>
+                <p class="text-gray-800 text-sm font-medium">
+                  {{ office.officeLocation ? `${office.officeLocation}, ${office.country}` : office.country }}
+                </p>
                 <p
                   v-for="line in office.addressLines"
                   :key="`${office.country}-${line}`"
@@ -199,7 +204,9 @@ const offices = officesData as OfficeLocation[]
                       </svg>
                     </div>
                     <div>
-                      <h4 class="font-semibold text-gray-900">{{ office.country }}</h4>
+                      <h4 class="font-semibold text-gray-900">
+                          {{ office.officeLocation ? `${office.officeLocation}, ${office.country}` : office.country }}
+                      </h4>
                       <p class="text-sm text-gray-500">{{ t(`contact.${office.typeKey}`) }}</p>
                       <div class="mt-2 space-y-1">
                         <p
