@@ -83,23 +83,138 @@ The frontend expects `VITE_API_BASE_URL` for all API requests.
 ## Repository Structure
 
 ```text
-src/
-  assets/           Global styles and images
-  components/
-    admin/          Shared admin UI
-    base/           Reusable primitives
-    layout/         Navbar/footer layout pieces
-    sections/       Marketing page sections
-  composables/      Shared Composition API logic
-  data/             Static site content
-  i18n/             Locale setup and translation JSON files
-  router/           App routing and auth guards
-  services/         Axios client and entity services
-  stores/           Pinia stores
-  views/            Route-level pages
-    admin/          Admin route views
-e2e/                Playwright specs
-public/             Static assets
+krystalsoftwarebangladesh-cms-rtl/
+└── ├── README.md
+    ├── AGENTS.md
+    ├── env.d.ts
+    ├── eslint.config.ts
+    ├── index.html
+    ├── package.json
+    ├── playwright.config.ts
+    ├── replit.md
+    ├── tsconfig.app.json
+    ├── tsconfig.json
+    ├── tsconfig.node.json
+    ├── tsconfig.vitest.json
+    ├── vite.config.ts
+    ├── vitest.config.ts
+    ├── . oxlintrc.json
+    ├── .editorconfig
+    ├── .env.example
+    ├── .prettierrc.json
+    ├── .replit
+    ├── attached_assets/
+    │   ├── base_1767018821406.webp
+    │   ├── bottom_1767018821404.webp
+    │   ├── front_1767018821402.webp
+    │   ├── Pasted-AdminSocialLinks-vue-275-intlify-Detected-HTML-in-svg-s_1768744976283.txt
+    │   ├── Pasted-You-are-a-senior-frontend-engineer-and-UI-architect-You_1767018830350.txt
+    │   └── Pasted-You-are-a-senior-frontend-engineer-and-UI-architect-You_1767018834510.txt
+    ├── e2e/
+    │   ├── tsconfig.json
+    │   └── vue.spec.ts
+    ├── src/
+    │   ├── App.vue
+    │   ├── main.ts
+    │   ├── assets/
+    │   │   ├── main.css
+    │   │   └── images/
+    │   │       ├── base_1767018821406.webp
+    │   │       ├── bottom_1767018821404.webp
+    │   │       └── front_1767018821402.webp
+    │   ├── components/
+    │   │   ├── admin/
+    │   │   │   ├── AdminHeader.vue
+    │   │   │   ├── AdminLayout.vue
+    │   │   │   ├── AdminPagination.vue
+    │   │   │   ├── AdminSidebar.vue
+    │   │   │   ├── DataTable.vue
+    │   │   │   └── StatCard.vue
+    │   │   ├── base/
+    │   │   │   ├── BaseButton.vue
+    │   │   │   ├── BaseCard.vue
+    │   │   │   ├── FAQAccordion.vue
+    │   │   │   ├── SearchableSelect.vue
+    │   │   │   ├── SectionHeader.vue
+    │   │   │   ├── ServiceCard.vue
+    │   │   │   └── ToastContainer.vue
+    │   │   ├── layout/
+    │   │   │   ├── AppFooter.vue
+    │   │   │   └── AppNavbar.vue
+    │   │   └── sections/
+    │   │       ├── AboutSection.vue
+    │   │       ├── CTASection.vue
+    │   │       ├── FAQSection.vue
+    │   │       ├── HeroSection.vue
+    │   │       ├── NewsSection.vue
+    │   │       ├── ProjectSection.vue
+    │   │       ├── ServicesSection.vue
+    │   │       └── TestimonialsSection.vue
+    │   ├── composables/
+    │   │   ├── useAdminResource.ts
+    │   │   └── useToast.ts
+    │   ├── data/
+    │   │   ├── contact.json
+    │   │   ├── faq.ts
+    │   │   ├── faqs.json
+    │   │   ├── navigation.ts
+    │   │   ├── news.ts
+    │   │   ├── offices.json
+    │   │   ├── services.ts
+    │   │   ├── team.json
+    │   │   └── testimonials.ts
+    │   ├── i18n/
+    │   │   ├── index.ts
+    │   │   └── locales/
+    │   │       ├── bn.json
+    │   │       ├── en.json
+    │   │       ├── fr.json
+    │   │       ├── hi.json
+    │   │       ├── no.json
+    │   │       └── zh.json
+    │   ├── router/
+    │   │   └── index.ts
+    │   ├── services/
+    │   │   ├── api.ts
+    │   │   ├── auth.ts
+    │   │   ├── baseService.ts
+    │   │   ├── category.ts
+    │   │   ├── faq.ts
+    │   │   ├── news.ts
+    │   │   ├── project.ts
+    │   │   ├── service.ts
+    │   │   ├── social.ts
+    │   │   ├── team.ts
+    │   │   └── testimonial.ts
+    │   ├── stores/
+    │   │   └── auth.ts
+    │   └── views/
+    │       ├── AboutView.vue
+    │       ├── ContactView.vue
+    │       ├── FAQsView.vue
+    │       ├── HomeView.vue
+    │       ├── NewsView.vue
+    │       ├── NotFoundView.vue
+    │       ├── PortfolioView.vue
+    │       ├── ServicesView.vue
+    │       └── admin/
+    │           ├── AdminCategories.vue
+    │           ├── AdminDashboard.vue
+    │           ├── AdminFAQ.vue
+    │           ├── AdminLogin.vue
+    │           ├── AdminNews.vue
+    │           ├── AdminProfile.vue
+    │           ├── AdminProjects.vue
+    │           ├── AdminServices.vue
+    │           ├── AdminSettings.vue
+    │           ├── AdminSocialLinks.vue
+    │           ├── AdminTeam.vue
+    │           └── AdminTestimonials.vue
+    └── .github/
+        └── workflows/
+            ├── deploy.yml
+            └── pr-quality-check.yml
+
 ```
 
 ## Architecture Notes
