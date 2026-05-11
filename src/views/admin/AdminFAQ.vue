@@ -101,7 +101,7 @@ onMounted(() => {
 
 <template>
   <AdminLayout :title="t('admin.faq.title')" :subtitle="t('admin.faq.subtitle')">
-    <div class="flex items-center justify-end mb-6">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
       <BaseButton variant="secondary" size="sm" @click="openCreate">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -152,10 +152,10 @@ onMounted(() => {
     <Teleport to="body">
       <div
         v-if="showModal"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
         @click.self="closeModal"
       >
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6">
+        <div class="w-full max-w-lg rounded-xl bg-white p-4 shadow-xl sm:p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
           <form @submit.prevent="handleSubmit" class="space-y-4">
             <div>
@@ -180,7 +180,7 @@ onMounted(() => {
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
               ></textarea>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.faq.form.category') }}
@@ -218,7 +218,7 @@ onMounted(() => {
                 {{ t('admin.faq.form.published') }}
               </label>
             </div>
-            <div class="flex justify-end gap-3 pt-4">
+            <div class="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-end">
               <BaseButton type="button" variant="outline" size="sm" @click="closeModal">
                 {{ t('admin.faq.form.cancel') }}
               </BaseButton>

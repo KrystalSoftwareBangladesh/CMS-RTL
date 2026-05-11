@@ -180,7 +180,7 @@ onMounted(() => {
 
 <template>
   <AdminLayout :title="t('admin.testimonials.title')" :subtitle="t('admin.testimonials.subtitle')">
-    <div class="flex items-center justify-end mb-6">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
       <BaseButton variant="secondary" size="sm" @click="openAddModal">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -231,7 +231,7 @@ onMounted(() => {
     <Teleport to="body">
       <div
         v-if="showModal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
         @click.self="closeModal"
       >
         <div class="bg-white rounded-lg shadow-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
@@ -243,7 +243,7 @@ onMounted(() => {
               </svg>
             </button>
           </div>
-          <form @submit.prevent="handleSubmit" class="p-4 space-y-4">
+          <form @submit.prevent="handleSubmit" class="space-y-4 p-4 sm:p-5">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.name') }} *</label>
               <input
@@ -291,7 +291,7 @@ onMounted(() => {
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
               />
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">{{ t('admin.testimonials.form.rating') }}</label>
                 <select
@@ -320,7 +320,7 @@ onMounted(() => {
               />
               <label for="is_featured" class="text-sm text-gray-700">{{ t('admin.testimonials.form.isFeatured') }}</label>
             </div>
-            <div class="flex justify-end gap-3 pt-4 border-t">
+            <div class="flex flex-col-reverse gap-3 border-t pt-4 sm:flex-row sm:justify-end">
               <BaseButton variant="outline" size="sm" type="button" @click="closeModal">
                 {{ t('common.cancel') }}
               </BaseButton>

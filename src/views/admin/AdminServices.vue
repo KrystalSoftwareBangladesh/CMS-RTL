@@ -141,7 +141,7 @@ onMounted(() => {
 
 <template>
   <AdminLayout :title="t('admin.services.title')" :subtitle="t('admin.services.subtitle')">
-    <div class="flex items-center justify-end mb-6">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
       <BaseButton variant="secondary" size="sm" @click="openAddModal">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -180,11 +180,11 @@ onMounted(() => {
       </template>
     </DataTable>
 
-    <div v-if="!loading && showPagination" class="flex items-center justify-between mt-6 px-2">
+    <div v-if="!loading && showPagination" class="mt-6 flex flex-col gap-3 px-2 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-sm text-gray-600">
         {{ t('admin.pagination.total', { count: totalCount }) }}
       </p>
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <button
           @click="goToPage(currentPage - 1)"
           :disabled="!hasPrevPage"
@@ -218,10 +218,10 @@ onMounted(() => {
     <Teleport to="body">
       <div
         v-if="showModal"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
         @click.self="showModal = false"
       >
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg p-6">
+        <div class="w-full max-w-lg rounded-xl bg-white p-4 shadow-xl sm:p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
           <form @submit.prevent="handleSubmit" class="space-y-4">
             <div>
@@ -257,7 +257,7 @@ onMounted(() => {
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
               />
             </div>
-            <div class="flex items-center gap-6">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
               <div class="flex items-center gap-2">
                 <input
                   type="checkbox"
@@ -281,7 +281,7 @@ onMounted(() => {
                 </label>
               </div>
             </div>
-            <div class="flex justify-end gap-3 pt-4">
+            <div class="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-end">
               <BaseButton type="button" variant="outline" size="sm" @click="showModal = false">
                 {{ t('admin.services.form.cancel') }}
               </BaseButton>

@@ -218,7 +218,7 @@ onMounted(() => {
 
 <template>
   <AdminLayout :title="t('admin.projects.title')" :subtitle="t('admin.projects.subtitle')">
-    <div class="flex items-center justify-end mb-6">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
       <BaseButton variant="secondary" size="sm" @click="openAddModal">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -257,11 +257,11 @@ onMounted(() => {
       </template>
     </DataTable>
 
-    <div v-if="!loading && showPagination" class="flex items-center justify-between mt-6 px-2">
+    <div v-if="!loading && showPagination" class="mt-6 flex flex-col gap-3 px-2 sm:flex-row sm:items-center sm:justify-between">
       <p class="text-sm text-gray-600">
         {{ t('admin.pagination.total', { count: totalCount }) }}
       </p>
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <button
           @click="goToPage(currentPage - 1)"
           :disabled="!hasPrevPage"
@@ -298,7 +298,7 @@ onMounted(() => {
         class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
         @click.self="showModal = false"
       >
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6">
+        <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-4 shadow-xl sm:p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
           <form @submit.prevent="handleSubmit" class="space-y-4">
             <div>
@@ -332,7 +332,7 @@ onMounted(() => {
                 class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none resize-none"
               ></textarea>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.projects.form.service') }}
@@ -361,7 +361,7 @@ onMounted(() => {
                 </p>
               </div>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.projects.form.deliveriesCount') }}
@@ -398,7 +398,7 @@ onMounted(() => {
                 />
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.projects.form.order') }}
@@ -410,7 +410,7 @@ onMounted(() => {
                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                 />
               </div>
-              <div class="flex items-end gap-6 pb-2">
+              <div class="flex flex-col gap-3 pb-2 sm:justify-end">
                 <div class="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -435,7 +435,7 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-            <div class="flex justify-end gap-3 pt-4">
+            <div class="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-end">
               <BaseButton type="button" variant="outline" size="sm" @click="showModal = false">
                 {{ t('admin.projects.form.cancel') }}
               </BaseButton>

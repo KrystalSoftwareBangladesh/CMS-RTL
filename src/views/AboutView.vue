@@ -83,9 +83,9 @@ function getMemberImage(imageName?: string): string | null {
             <img
               :src="warehouseImage"
               alt="Warehouse operations"
-              class="rounded-2xl shadow-xl w-full h-[400px] object-cover"
+              class="h-72 w-full rounded-2xl object-cover shadow-xl sm:h-80 lg:h-[400px]"
             />
-            <div class="absolute -bottom-6 -left-6 bg-secondary text-white p-6 rounded-2xl shadow-lg">
+            <div class="absolute bottom-4 left-4 rounded-2xl bg-secondary p-4 text-white shadow-lg sm:-bottom-6 sm:-left-6 sm:p-6">
               <div class="text-4xl font-bold">25+</div>
               <div class="text-sm">{{ t('about.yearsExcellence') }}</div>
             </div>
@@ -96,7 +96,7 @@ function getMemberImage(imageName?: string): string | null {
 
     <section class="py-20 bg-gray-50">
       <div class="container mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">25+</div>
             <div class="text-gray-600">{{ t('about.yearsExperience') }}</div>

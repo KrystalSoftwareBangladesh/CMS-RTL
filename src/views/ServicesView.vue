@@ -90,7 +90,7 @@ onMounted(() => {
             <img
               :src="cargoImage"
               alt="Cargo shipping"
-              class="rounded-2xl shadow-xl w-full h-[450px] object-cover"
+              class="h-72 w-full rounded-2xl object-cover shadow-xl sm:h-80 lg:h-[450px]"
             />
           </div>
           <div>

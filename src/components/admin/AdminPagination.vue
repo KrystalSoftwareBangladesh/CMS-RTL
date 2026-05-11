@@ -16,11 +16,11 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="flex items-center justify-between mt-6 px-2">
+  <div class="mt-6 flex flex-col gap-3 px-2 sm:flex-row sm:items-center sm:justify-between">
     <p class="text-sm text-gray-600">
       {{ t('admin.pagination.total', { count: totalCount }) }}
     </p>
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <button
         @click="emit('page-change', currentPage - 1)"
         :disabled="!hasPrevPage"

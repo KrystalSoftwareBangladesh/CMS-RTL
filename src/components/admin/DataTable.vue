@@ -29,29 +29,29 @@ defineEmits<{
 <template>
   <BaseCard padding="none">
     <div class="overflow-x-auto">
-      <table class="w-full">
+      <table class="w-full min-w-[640px]">
         <thead class="bg-gray-50 border-b border-gray-200">
           <tr>
             <th 
               v-for="column in columns" 
               :key="column.key"
-              class="px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider"
+              class="px-4 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider sm:px-6"
             >
               {{ column.label }}
             </th>
-            <th class="px-6 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
+            <th class="px-4 py-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider sm:px-6">
               {{ t('admin.table.actions') }}
             </th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
           <tr v-if="loading" class="animate-pulse">
-            <td :colspan="columns.length + 1" class="px-6 py-8 text-center text-gray-500">
+            <td :colspan="columns.length + 1" class="px-4 py-8 text-center text-gray-500 sm:px-6">
               {{ t('admin.table.loading') }}
             </td>
           </tr>
           <tr v-else-if="data.length === 0">
-            <td :colspan="columns.length + 1" class="px-6 py-8 text-center text-gray-500">
+            <td :colspan="columns.length + 1" class="px-4 py-8 text-center text-gray-500 sm:px-6">
               {{ t('admin.table.noData') }}
             </td>
           </tr>
@@ -64,13 +64,13 @@ defineEmits<{
             <td 
               v-for="column in columns" 
               :key="column.key"
-              class="px-6 py-4 text-sm text-gray-900"
+              class="px-4 py-4 text-sm text-gray-900 sm:px-6"
             >
               <slot :name="`cell-${column.key}`" :item="item" :value="item[column.key]">
                 {{ item[column.key] }}
               </slot>
             </td>
-            <td class="px-6 py-4 text-right">
+            <td class="px-4 py-4 text-right sm:px-6">
               <div class="flex items-center justify-end gap-2">
                 <button 
                   @click="$emit('edit', item)"

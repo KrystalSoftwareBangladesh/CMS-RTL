@@ -105,7 +105,7 @@ onMounted(() => {
 
     <section class="py-20 bg-gray-50">
       <div class="container mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">500+</div>
             <div class="text-gray-600">{{ t('about.projectsCompleted') }}</div>

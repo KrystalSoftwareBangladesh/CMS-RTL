@@ -8,10 +8,12 @@ const route = useRoute()
 
 defineProps<{
   collapsed: boolean
+  mobileOpen: boolean
 }>()
 
 const emit = defineEmits<{
   (e: 'toggle'): void
+  (e: 'close-mobile'): void
 }>()
 
 const menuItems = [
@@ -51,18 +53,20 @@ const iconPaths = computed(() => ({
 <template>
   <aside
     :class="[
-      'bg-primary min-h-screen fixed left-0 top-0 z-40 transition-all duration-300',
-      collapsed ? 'w-20' : 'w-64'
+      'fixed left-0 top-0 z-40 h-screen bg-primary transition-all duration-300',
+      mobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+      collapsed ? 'lg:w-20' : 'lg:w-64',
+      'w-72 lg:translate-x-0'
     ]"
   >
     <div class="p-4 border-b border-white/10 flex items-center justify-between">
       <RouterLink to="/" class="flex items-center gap-3 overflow-hidden">
-        <img src="/logo-white.png" alt="Rising Trading Ltd." :class="['h-10 flex-shrink-0', collapsed ? 'mx-auto' : '']" />
+        <img src="/logo-white.png" alt="Rising Trading Ltd." :class="['h-10 flex-shrink-0', collapsed ? 'lg:mx-auto' : '']" />
       </RouterLink>
       <button
         @click="emit('toggle')"
-        class="p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
-        :class="collapsed ? 'absolute right-2 top-4' : ''"
+        class="hidden rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white lg:block"
+        :class="collapsed ? 'lg:absolute lg:right-2 lg:top-4' : ''"
       >
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
@@ -73,6 +77,15 @@ const iconPaths = computed(() => ({
           />
         </svg>
       </button>
+      <button
+        @click="emit('close-mobile')"
+        class="rounded-lg p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white lg:hidden"
+        aria-label="Close navigation menu"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
 
     <nav class="p-2">
@@ -80,19 +93,21 @@ const iconPaths = computed(() => ({
         <li v-for="item in menuItems" :key="item.path">
           <RouterLink
             :to="item.path"
+            @click="emit('close-mobile')"
             :class="[
               'flex items-center gap-3 px-4 py-3 rounded-lg transition-colors',
               isActive(item)
                 ? 'bg-secondary text-white'
                 : 'text-white/70 hover:bg-white/10 hover:text-white',
-              collapsed ? 'justify-center' : ''
+              collapsed ? 'lg:justify-center' : ''
             ]"
             :title="collapsed ? t(item.key) : undefined"
           >
             <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" :d="iconPaths[item.icon as keyof typeof iconPaths]" />
             </svg>
-            <span v-if="!collapsed" class="font-medium">{{ t(item.key) }}</span>
+            <span v-if="!collapsed" class="font-medium lg:inline">{{ t(item.key) }}</span>
+            <span v-else class="font-medium lg:hidden">{{ t(item.key) }}</span>
           </RouterLink>
         </li>
       </ul>
@@ -101,16 +116,18 @@ const iconPaths = computed(() => ({
     <div class="absolute bottom-0 left-0 right-0 p-2 border-t border-white/10">
       <RouterLink
         to="/"
+        @click="emit('close-mobile')"
         :class="[
           'flex items-center gap-3 px-4 py-3 text-white/70 hover:text-white transition-colors rounded-lg',
-          collapsed ? 'justify-center' : ''
+          collapsed ? 'lg:justify-center' : ''
         ]"
         :title="collapsed ? t('admin.backToSite') : undefined"
       >
         <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
         </svg>
-        <span v-if="!collapsed" class="font-medium">{{ t('admin.backToSite') }}</span>
+        <span v-if="!collapsed" class="font-medium lg:inline">{{ t('admin.backToSite') }}</span>
+        <span v-else class="font-medium lg:hidden">{{ t('admin.backToSite') }}</span>
       </RouterLink>
     </div>
   </aside>

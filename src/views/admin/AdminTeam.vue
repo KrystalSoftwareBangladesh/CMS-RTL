@@ -224,7 +224,7 @@ onMounted(() => {
 
 <template>
   <AdminLayout :title="t('admin.team.title')" :subtitle="t('admin.team.subtitle')">
-    <div class="flex items-center justify-end mb-6">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
       <BaseButton variant="secondary" size="sm" @click="openAddModal">
         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -286,13 +286,13 @@ onMounted(() => {
     <Teleport to="body">
       <div
         v-if="showModal"
-        class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
         @click.self="closeModal"
       >
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
+        <div class="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-xl bg-white p-4 shadow-xl sm:p-6">
           <h3 class="text-lg font-semibold text-gray-900 mb-4">{{ modalTitle }}</h3>
           <form @submit.prevent="handleSubmit" class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.team.form.name') }} *
@@ -359,7 +359,7 @@ onMounted(() => {
                 <button
                   type="button"
                   @click="addSocialProfile"
-                  class="text-sm text-secondary hover:text-secondary-dark flex items-center gap-1"
+                class="flex items-center gap-1 text-sm text-secondary hover:text-secondary-dark"
                 >
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -374,9 +374,9 @@ onMounted(() => {
                 <div
                   v-for="(profile, index) in form.social_profiles"
                   :key="index"
-                  class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                  class="rounded-lg bg-gray-50 p-3"
                 >
-                  <div class="flex-1 grid grid-cols-3 gap-3">
+                  <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <select
                       v-model.number="profile.platform"
                       class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none text-sm"
@@ -403,7 +403,7 @@ onMounted(() => {
                   <button
                     type="button"
                     @click="removeSocialProfile(index)"
-                    class="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                    class="mt-3 rounded-lg p-2 text-red-500 transition-colors hover:bg-red-50 hover:text-red-700 sm:mt-0"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -413,7 +413,7 @@ onMounted(() => {
               </div>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-1">
                   {{ t('admin.team.form.order') }}
@@ -425,7 +425,7 @@ onMounted(() => {
                   class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                 />
               </div>
-              <div class="flex items-center pt-6">
+              <div class="flex items-center sm:pt-6">
                 <label class="flex items-center gap-2 cursor-pointer">
                   <input
                     v-model="form.is_featured"
@@ -438,7 +438,7 @@ onMounted(() => {
                 </label>
               </div>
             </div>
-            <div class="flex justify-end gap-3 pt-4">
+            <div class="flex flex-col-reverse gap-3 pt-4 sm:flex-row sm:justify-end">
               <BaseButton type="button" variant="outline" size="sm" @click="closeModal">
                 {{ t('admin.team.form.cancel') }}
               </BaseButton>

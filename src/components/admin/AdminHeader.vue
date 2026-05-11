@@ -11,6 +11,10 @@ interface Props {
 
 defineProps<Props>()
 
+defineEmits<{
+  (e: 'toggle-mobile-nav'): void
+}>()
+
 const router = useRouter()
 const { t } = useI18n()
 const authStore = useAuthStore()
@@ -39,14 +43,25 @@ const handleLogout = () => {
 </script>
 
 <template>
-  <header class="bg-white border-b border-gray-200 px-8 py-4 sticky top-0 z-30">
-    <div class="flex items-center justify-between">
-      <div>
-        <h1 class="text-2xl font-bold text-gray-900">{{ title }}</h1>
+  <header class="sticky top-0 z-30 bg-white border-b border-gray-200 px-4 py-4 sm:px-6 md:px-8">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div class="flex min-w-0 items-start gap-3">
+        <button
+          class="mt-1 rounded-lg border border-gray-200 p-2 text-gray-600 transition-colors hover:bg-gray-100 lg:hidden"
+          @click="$emit('toggle-mobile-nav')"
+          aria-label="Open navigation menu"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <div class="min-w-0">
+        <h1 class="text-xl font-bold text-gray-900 sm:text-2xl">{{ title }}</h1>
         <p v-if="subtitle" class="text-gray-500 mt-1">{{ subtitle }}</p>
+        </div>
       </div>
       
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 sm:gap-4">
         <!-- Multi-language dropdown temporarily disabled. -->
         <!-- <div class="relative">
           <button 
@@ -76,7 +91,7 @@ const handleLogout = () => {
           </div>
         </div> -->
         
-        <button class="p-2 rounded-lg hover:bg-gray-100 transition-colors relative">
+          <button class="relative rounded-lg p-2 transition-colors hover:bg-gray-100">
           <svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
@@ -86,12 +101,12 @@ const handleLogout = () => {
         <div class="relative">
           <button 
             @click="isProfileOpen = !isProfileOpen"
-            class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+            class="flex items-center gap-2 rounded-lg px-2 py-2 transition-colors hover:bg-gray-100 sm:gap-3 sm:px-3"
           >
             <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
               <span class="text-white text-sm font-medium">{{ userInitial }}</span>
             </div>
-            <span class="text-sm font-medium text-gray-700">{{ authStore.userName }}</span>
+            <span class="hidden text-sm font-medium text-gray-700 sm:inline">{{ authStore.userName }}</span>
           </button>
           
           <div 
