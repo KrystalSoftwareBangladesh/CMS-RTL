@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 import { navLinks } from '@/data/navigation'
 
 const { t } = useI18n()
 const isMenuOpen = ref(false)
-const isScrolled = ref(false)
 
 // Multi-language switching is temporarily disabled.
 // const isLangOpen = ref(false)
@@ -20,26 +19,11 @@ const isScrolled = ref(false)
 //   isLangOpen.value = false
 // }
 
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50
-}
-
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll)
-  handleScroll()
-})
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
-})
 </script>
 
 <template>
   <nav
-    :class="[
-      'fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300',
-      isScrolled ? 'bg-secondary-light/30 backdrop-blur-md shadow-lg' : 'bg-transparent'
-    ]"
+    class="fixed top-0 left-0 right-0 z-50 bg-primary shadow-lg py-4"
   >
     <div class="container mx-auto px-6">
       <div class="flex items-center justify-between">
@@ -53,8 +37,8 @@ onUnmounted(() => {
             :key="link.path"
             :to="link.path"
             :class="[
-              'relative text-white/70 hover:text-white transition-colors text-sm font-bold py-2',
-              isScrolled ? 'router-link-active-styled' : ''
+              'relative text-white/70 text-sm font-bold py-2',
+              'router-link-active-styled'
             ]"
           >
             {{ t(link.key) }}
@@ -119,8 +103,8 @@ onUnmounted(() => {
           :key="link.path"
           :to="link.path"
           :class="[
-            'block py-2 text-white/70 hover:text-white transition-colors font-bold',
-            isScrolled ? 'router-link-active-styled-mobile' : ''
+            'block py-2 text-white/70 font-bold',
+            'router-link-active-styled-mobile'
           ]"
           @click="isMenuOpen = false"
         >
