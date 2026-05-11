@@ -23,7 +23,7 @@ const faqs = faqsData as PublicFAQ[]
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
           {{ t('faq.pageTitle') || 'Frequently Asked Questions' }}
         </h1>
-        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+        <p class="text-white/85 text-lg max-w-2xl mx-auto">
           {{ t('faq.pageSubtitle') || 'Find answers to common questions about our services' }}
         </p>
       </div>

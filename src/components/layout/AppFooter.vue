@@ -37,7 +37,7 @@ onMounted(() => {
           <div class="flex items-center mb-6">
             <img src="/logo-black.png" alt="Rising Trading Ltd." class="h-12" />
           </div>
-          <p class="text-gray-600 text-sm mb-6">
+          <p class="text-gray-700 text-sm mb-6">
             {{ t('footer.tagline') }}
           </p>
           <div class="flex flex-col gap-2">
@@ -55,22 +55,22 @@ onMounted(() => {
         <div>
           <h4 class="font-semibold text-gray-900 mb-4">{{ t('footer.services') }}</h4>
           <ul class="space-y-3">
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.importExport') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.wholesaleTrade') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.supplyChain') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.distribution') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.logistics') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.importExport') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.wholesaleTrade') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.supplyChain') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.distribution') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.logistics') }}</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="font-semibold text-gray-900 mb-4">{{ t('footer.resources') }}</h4>
           <ul class="space-y-3">
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.documentation') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.aboutUs') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.newsUpdates') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.contact') }}</a></li>
-            <li><a href="#" class="text-gray-600 hover:text-secondary transition-colors text-sm">{{ t('footer.partnerWithUs') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.documentation') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.aboutUs') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.newsUpdates') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.contact') }}</a></li>
+            <li><a href="#" class="text-gray-700 hover:text-secondary transition-colors text-sm">{{ t('footer.partnerWithUs') }}</a></li>
           </ul>
         </div>
 
@@ -80,7 +80,7 @@ onMounted(() => {
             <li v-for="phone in contactInfo.phones" :key="phone">
               <a
                 :href="`tel:${phone}`"
-                class="text-gray-600 hover:text-secondary transition-colors text-sm"
+                class="text-gray-700 hover:text-secondary transition-colors text-sm"
               >
                 {{ phone }}
               </a>
@@ -88,7 +88,7 @@ onMounted(() => {
             <li v-for="email in contactInfo.emails" :key="email">
               <a
                 :href="`mailto:${email}`"
-                class="text-gray-600 hover:text-secondary transition-colors text-sm break-all"
+                class="text-gray-700 hover:text-secondary transition-colors text-sm break-all"
               >
                 {{ email }}
               </a>
@@ -119,7 +119,7 @@ onMounted(() => {
               :href="link.base_url"
               target="_blank"
               rel="noopener noreferrer"
-              class="text-gray-400 hover:text-secondary transition-colors"
+              class="text-gray-600 hover:text-secondary transition-colors"
               :title="link.name"
             >
               <svg v-if="link.icon_svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

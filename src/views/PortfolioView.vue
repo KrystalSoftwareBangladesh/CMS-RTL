@@ -97,7 +97,7 @@ onMounted(() => {
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('portfolio.pageTitle') }}</h1>
-        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+        <p class="text-white/85 text-lg max-w-2xl mx-auto">
           {{ t('portfolio.pageSubtitle') }}
         </p>
       </div>
@@ -142,7 +142,7 @@ onMounted(() => {
               'px-6 py-2 rounded-full text-sm font-medium transition-all',
               activeServiceId === filter.id
                 ? 'bg-secondary text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
             ]"
             @click="filterByService(filter.id)"
           >
@@ -152,12 +152,12 @@ onMounted(() => {
 
         <div v-if="loading" class="text-center py-12">
           <div class="inline-block w-8 h-8 border-4 border-secondary border-t-transparent rounded-full animate-spin"></div>
-          <p class="mt-4 text-gray-500">{{ t('common.loading') }}</p>
+          <p class="mt-4 text-gray-700">{{ t('common.loading') }}</p>
         </div>
 
         <template v-else>
           <div v-if="projects.length === 0" class="text-center py-12">
-            <p class="text-gray-500">{{ t('portfolio.noProjects') }}</p>
+            <p class="text-gray-700">{{ t('portfolio.noProjects') }}</p>
           </div>
 
           <div v-else class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -187,19 +187,19 @@ onMounted(() => {
               </div>
               <div class="p-6">
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ project.title }}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ project.short_description }}</p>
+                <p class="text-gray-700 text-sm mb-4 line-clamp-2">{{ project.short_description }}</p>
                 <div class="flex justify-between text-center border-t pt-4">
                   <div>
                     <div class="text-secondary font-bold">{{ project.deliveries_count || '-' }}</div>
-                    <div class="text-xs text-gray-500">{{ t('portfolio.deliveries') }}</div>
+                    <div class="text-xs text-gray-700">{{ t('portfolio.deliveries') }}</div>
                   </div>
                   <div>
                     <div class="text-secondary font-bold">{{ project.countries_count || 0 }}</div>
-                    <div class="text-xs text-gray-500">{{ t('portfolio.countries') }}</div>
+                    <div class="text-xs text-gray-700">{{ t('portfolio.countries') }}</div>
                   </div>
                   <div>
                     <div class="text-secondary font-bold">{{ project.on_time_rate ? project.on_time_rate + '%' : '-' }}</div>
-                    <div class="text-xs text-gray-500">{{ t('portfolio.onTime') }}</div>
+                    <div class="text-xs text-gray-700">{{ t('portfolio.onTime') }}</div>
                   </div>
                 </div>
               </div>

@@ -37,7 +37,7 @@ const isMenuOpen = ref(false)
             :key="link.path"
             :to="link.path"
             :class="[
-              'relative text-white/70 text-sm font-bold py-2',
+              'relative text-white/90 text-sm font-bold py-2',
               'router-link-active-styled'
             ]"
           >
@@ -103,7 +103,7 @@ const isMenuOpen = ref(false)
           :key="link.path"
           :to="link.path"
           :class="[
-            'block py-2 text-white/70 font-bold',
+            'block py-2 text-white/90 font-bold',
             'router-link-active-styled-mobile'
           ]"
           @click="isMenuOpen = false"
@@ -135,7 +135,7 @@ const isMenuOpen = ref(false)
 
 <style scoped>
 .router-link-active-styled.router-link-active {
-  color: var(--color-secondary);
+  color: #ffffff;
 }
 
 .router-link-active-styled.router-link-active::after {
@@ -150,8 +150,8 @@ const isMenuOpen = ref(false)
 }
 
 .router-link-active-styled-mobile.router-link-active {
-  color: var(--color-secondary);
-  border-left: 2px solid var(--color-secondary);
+  color: #ffffff;
+  border-left: 2px solid var(--color-secondary-light);
   padding-left: 0.75rem;
 }
 </style>

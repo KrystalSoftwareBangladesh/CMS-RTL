@@ -83,7 +83,7 @@ onMounted(() => {
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('news.pageTitle') }}</h1>
-        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+        <p class="text-white/85 text-lg max-w-2xl mx-auto">
           {{ t('news.pageSubtitle') }}
         </p>
       </div>
@@ -122,8 +122,8 @@ onMounted(() => {
                   {{ featuredArticle.category.name }}
                 </span>
                 <h2 class="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">{{ featuredArticle.title }}</h2>
-                <p class="text-gray-600 mb-6">{{ featuredArticle.excerpt }}</p>
-                <div class="flex items-center gap-4 text-sm text-gray-500 mb-6">
+                <p class="text-gray-700 mb-6">{{ featuredArticle.excerpt }}</p>
+                <div class="flex items-center gap-4 text-sm text-gray-700 mb-6">
                   <span v-if="featuredArticle.author_name">{{ featuredArticle.author_name }}</span>
                   <span v-if="featuredArticle.author_name">•</span>
                   <span>{{ formatDate(featuredArticle.created_at) }}</span>
@@ -176,8 +176,8 @@ onMounted(() => {
               </div>
               <div class="p-6">
                 <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ article.title }}</h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">{{ article.excerpt }}</p>
-                <div class="flex items-center justify-between text-sm text-gray-500">
+                <p class="text-gray-700 text-sm mb-4 line-clamp-2">{{ article.excerpt }}</p>
+                <div class="flex items-center justify-between text-sm text-gray-700">
                   <span>{{ article.author_name || '-' }}</span>
                   <span v-if="article.read_time">{{ article.read_time }} min</span>
                 </div>
@@ -212,7 +212,7 @@ onMounted(() => {
             <input
               type="email"
               :placeholder="t('news.enterEmail')"
-              class="flex-1 px-6 py-3 rounded-full bg-white/10 border border-white/20 text-white placeholder-white/50 focus:outline-none focus:border-secondary"
+              class="flex-1 rounded-full border border-white/35 bg-white/16 px-6 py-3 text-white placeholder-white/75 focus:outline-none focus:border-white"
             />
             <BaseButton variant="secondary">
               {{ t('footer.subscribe') }}

@@ -55,7 +55,7 @@ function getMemberImage(imageName?: string): string | null {
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('about.pageTitle') }}</h1>
-        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+        <p class="text-white/85 text-lg max-w-2xl mx-auto">
           {{ t('about.pageSubtitle') }}
         </p>
       </div>
@@ -69,10 +69,10 @@ function getMemberImage(imageName?: string): string | null {
             <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               {{ t('about.title') }}
             </h2>
-            <p class="text-gray-600 mb-4">
+            <p class="text-gray-700 mb-4">
               {{ t('about.description1') }}
             </p>
-            <p class="text-gray-600 mb-6">
+            <p class="text-gray-700 mb-6">
               {{ t('about.description2') }}
             </p>
             <BaseButton variant="primary">
@@ -99,19 +99,19 @@ function getMemberImage(imageName?: string): string | null {
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">25+</div>
-            <div class="text-gray-600">{{ t('about.yearsExperience') }}</div>
+            <div class="text-gray-700">{{ t('about.yearsExperience') }}</div>
           </div>
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">500+</div>
-            <div class="text-gray-600">{{ t('about.projectsCompleted') }}</div>
+            <div class="text-gray-700">{{ t('about.projectsCompleted') }}</div>
           </div>
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">150+</div>
-            <div class="text-gray-600">{{ t('about.teamMembers') }}</div>
+            <div class="text-gray-700">{{ t('about.teamMembers') }}</div>
           </div>
           <div class="text-center">
             <div class="text-4xl md:text-5xl font-bold text-secondary mb-2">50+</div>
-            <div class="text-gray-600">{{ t('about.countriesServed') }}</div>
+            <div class="text-gray-700">{{ t('about.countriesServed') }}</div>
           </div>
         </div>
       </div>
@@ -132,7 +132,7 @@ function getMemberImage(imageName?: string): string | null {
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('about.reliability') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('about.reliabilityDesc') }}</p>
+            <p class="text-gray-700 text-sm">{{ t('about.reliabilityDesc') }}</p>
           </BaseCard>
           <BaseCard :hover="true">
             <div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
@@ -141,7 +141,7 @@ function getMemberImage(imageName?: string): string | null {
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('about.customerFocus') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('about.customerFocusDesc') }}</p>
+            <p class="text-gray-700 text-sm">{{ t('about.customerFocusDesc') }}</p>
           </BaseCard>
           <BaseCard :hover="true">
             <div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
@@ -150,7 +150,7 @@ function getMemberImage(imageName?: string): string | null {
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('about.globalReach') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('about.globalReachDesc') }}</p>
+            <p class="text-gray-700 text-sm">{{ t('about.globalReachDesc') }}</p>
           </BaseCard>
           <BaseCard :hover="true">
             <div class="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-4">
@@ -159,7 +159,7 @@ function getMemberImage(imageName?: string): string | null {
               </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ t('about.sustainability') }}</h3>
-            <p class="text-gray-600 text-sm">{{ t('about.sustainabilityDesc') }}</p>
+            <p class="text-gray-700 text-sm">{{ t('about.sustainabilityDesc') }}</p>
           </BaseCard>
         </div>
       </div>
@@ -183,7 +183,7 @@ function getMemberImage(imageName?: string): string | null {
             v-if="featuredManagement"
             padding="lg"
             :shadow="false"
-            class="min-h-[30rem] overflow-hidden border border-white/10 bg-white/8 text-white backdrop-blur-sm xl:min-h-[34rem]"
+            class="min-h-[30rem] overflow-hidden border border-white/20 bg-white/14 text-white backdrop-blur-sm xl:min-h-[34rem]"
           >
             <div class="flex h-full flex-col gap-10 lg:flex-row lg:items-center">
               <div class="flex flex-col items-center text-center lg:w-64 lg:flex-shrink-0">
@@ -196,34 +196,34 @@ function getMemberImage(imageName?: string): string | null {
                   />
                   <span v-else>{{ getInitials(featuredManagement.name) }}</span>
                 </div>
-                <span class="rounded-full border border-secondary/40 bg-secondary/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-secondary-light">
+                <span class="rounded-full border border-secondary/50 bg-secondary/20 px-4 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-white">
                   {{ featuredManagement.designation }}
                 </span>
               </div>
 
               <div class="flex-1">
-                <p class="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/50">
+                <p class="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-white/75">
                   {{ t('about.teamLabel') }}
                 </p>
                 <h3 class="mb-3 text-3xl font-bold text-white xl:text-4xl">
                   {{ featuredManagement.name }}
                 </h3>
-                <p class="mb-8 max-w-2xl text-base leading-7 text-white/70 xl:text-lg">
+                <p class="mb-8 max-w-2xl text-base leading-7 text-white/90 xl:text-lg">
                   {{ t('about.teamSubtitle') }}
                 </p>
                 <div class="grid gap-5 sm:grid-cols-2">
                   <a
                     :href="`tel:${featuredManagement.phone}`"
-                    class="rounded-2xl border border-white/10 bg-white/6 px-6 py-5 transition-colors hover:border-secondary/50 hover:bg-white/10"
+                    class="rounded-2xl border border-white/20 bg-white/12 px-6 py-5 transition-colors hover:border-secondary/50 hover:bg-white/16"
                   >
-                    <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/50">{{ t('contact.phone') }}</p>
+                    <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/75">{{ t('contact.phone') }}</p>
                     <p class="text-base font-medium text-white">{{ featuredManagement.phone }}</p>
                   </a>
                   <a
                     :href="`mailto:${featuredManagement.email}`"
-                    class="rounded-2xl border border-white/10 bg-white/6 px-6 py-5 transition-colors hover:border-secondary/50 hover:bg-white/10"
+                    class="rounded-2xl border border-white/20 bg-white/12 px-6 py-5 transition-colors hover:border-secondary/50 hover:bg-white/16"
                   >
-                    <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/50">{{ t('contact.email') }}</p>
+                    <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/75">{{ t('contact.email') }}</p>
                     <p class="break-all text-base font-medium text-white">{{ featuredManagement.email }}</p>
                   </a>
                 </div>
@@ -237,7 +237,7 @@ function getMemberImage(imageName?: string): string | null {
               :key="member.id"
               padding="lg"
               :shadow="false"
-              class="min-h-[14rem] border border-white/10 bg-white/8 text-white backdrop-blur-sm xl:min-h-[16rem]"
+              class="min-h-[14rem] border border-white/20 bg-white/14 text-white backdrop-blur-sm xl:min-h-[16rem]"
             >
               <div class="flex h-full items-start gap-5">
                 <div class="flex h-24 w-24 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-secondary to-secondary-dark text-2xl font-bold text-white xl:h-28 xl:w-28">
@@ -250,20 +250,20 @@ function getMemberImage(imageName?: string): string | null {
                   <span v-else>{{ getInitials(member.name) }}</span>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <p class="mb-1 text-xs uppercase tracking-[0.24em] text-secondary-light">
+                  <p class="mb-1 text-xs uppercase tracking-[0.24em] text-white/80">
                     {{ member.designation }}
                   </p>
                   <h3 class="mb-5 text-2xl font-semibold text-white">{{ member.name }}</h3>
                   <div class="space-y-4 text-base">
                     <a
                       :href="`tel:${member.phone}`"
-                      class="block text-white/75 transition-colors hover:text-white"
+                      class="block text-white/90 transition-colors hover:text-white"
                     >
                       {{ member.phone }}
                     </a>
                     <a
                       :href="`mailto:${member.email}`"
-                      class="block break-all text-white/75 transition-colors hover:text-white"
+                      class="block break-all text-white/90 transition-colors hover:text-white"
                     >
                       {{ member.email }}
                     </a>

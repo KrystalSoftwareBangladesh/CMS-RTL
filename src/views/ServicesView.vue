@@ -47,7 +47,7 @@ onMounted(() => {
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('services.pageTitle') }}</h1>
-        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+        <p class="text-white/85 text-lg max-w-2xl mx-auto">
           {{ t('services.pageSubtitle') }}
         </p>
       </div>
@@ -75,7 +75,7 @@ onMounted(() => {
               <div class="text-secondary text-3xl font-bold">{{ formatNumber(index) }}</div>
               <div>
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">{{ service.title }}</h3>
-                <p class="text-gray-600 text-sm">{{ service.description }}</p>
+                <p class="text-gray-700 text-sm">{{ service.description }}</p>
               </div>
             </div>
           </BaseCard>
@@ -107,7 +107,7 @@ onMounted(() => {
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ t('services.onTimeDelivery') }}</h3>
-                  <p class="text-gray-600 text-sm">{{ t('services.onTimeDeliveryDesc') }}</p>
+                  <p class="text-gray-700 text-sm">{{ t('services.onTimeDeliveryDesc') }}</p>
                 </div>
               </div>
               <div class="flex gap-4">
@@ -118,7 +118,7 @@ onMounted(() => {
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ t('services.cargoInsurance') }}</h3>
-                  <p class="text-gray-600 text-sm">{{ t('services.cargoInsuranceDesc') }}</p>
+                  <p class="text-gray-700 text-sm">{{ t('services.cargoInsuranceDesc') }}</p>
                 </div>
               </div>
               <div class="flex gap-4">
@@ -129,7 +129,7 @@ onMounted(() => {
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ t('services.globalNetwork') }}</h3>
-                  <p class="text-gray-600 text-sm">{{ t('services.globalNetworkDesc') }}</p>
+                  <p class="text-gray-700 text-sm">{{ t('services.globalNetworkDesc') }}</p>
                 </div>
               </div>
               <div class="flex gap-4">
@@ -140,7 +140,7 @@ onMounted(() => {
                 </div>
                 <div>
                   <h3 class="text-lg font-semibold text-gray-900 mb-1">{{ t('services.costOptimization') }}</h3>
-                  <p class="text-gray-600 text-sm">{{ t('services.costOptimizationDesc') }}</p>
+                  <p class="text-gray-700 text-sm">{{ t('services.costOptimizationDesc') }}</p>
                 </div>
               </div>
             </div>
@@ -161,25 +161,25 @@ onMounted(() => {
           <div class="relative text-center">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-white text-2xl font-bold">01</div>
             <h3 class="text-white font-semibold text-lg mb-2">{{ t('services.requestQuote') }}</h3>
-            <p class="text-gray-400 text-sm">{{ t('services.requestQuoteDesc') }}</p>
+            <p class="text-white/85 text-sm">{{ t('services.requestQuoteDesc') }}</p>
             <div class="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-secondary/30"></div>
           </div>
           <div class="relative text-center">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-white text-2xl font-bold">02</div>
             <h3 class="text-white font-semibold text-lg mb-2">{{ t('services.bookShipment') }}</h3>
-            <p class="text-gray-400 text-sm">{{ t('services.bookShipmentDesc') }}</p>
+            <p class="text-white/85 text-sm">{{ t('services.bookShipmentDesc') }}</p>
             <div class="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-secondary/30"></div>
           </div>
           <div class="relative text-center">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-white text-2xl font-bold">03</div>
             <h3 class="text-white font-semibold text-lg mb-2">{{ t('services.trackMonitor') }}</h3>
-            <p class="text-gray-400 text-sm">{{ t('services.trackMonitorDesc') }}</p>
+            <p class="text-white/85 text-sm">{{ t('services.trackMonitorDesc') }}</p>
             <div class="hidden lg:block absolute top-10 left-[60%] w-[80%] h-0.5 bg-secondary/30"></div>
           </div>
           <div class="relative text-center">
             <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-secondary flex items-center justify-center text-white text-2xl font-bold">04</div>
             <h3 class="text-white font-semibold text-lg mb-2">{{ t('services.safeDelivery') }}</h3>
-            <p class="text-gray-400 text-sm">{{ t('services.safeDeliveryDesc') }}</p>
+            <p class="text-white/85 text-sm">{{ t('services.safeDeliveryDesc') }}</p>
           </div>
         </div>
       </div>

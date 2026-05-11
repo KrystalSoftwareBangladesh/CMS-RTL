@@ -19,7 +19,7 @@ withDefaults(defineProps<Props>(), {
       v-if="label"
       :class="[
         'text-sm font-medium tracking-wider uppercase mb-2 block',
-        light ? 'text-gray-300' : 'text-gray-500'
+        light ? 'text-white/80' : 'text-gray-600'
       ]"
     >
       {{ label }}
@@ -37,7 +37,7 @@ withDefaults(defineProps<Props>(), {
       :class="[
         'text-lg max-w-2xl',
         centered ? 'mx-auto' : '',
-        light ? 'text-gray-300' : 'text-gray-600'
+        light ? 'text-white/85' : 'text-gray-700'
       ]"
     >
       {{ subtitle }}

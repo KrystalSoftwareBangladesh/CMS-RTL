@@ -39,7 +39,7 @@ console.log('Offices', offices);
       </div>
       <div class="relative z-10 container mx-auto px-6 text-center">
         <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">{{ t('contact.pageTitle') }}</h1>
-        <p class="text-white/70 text-lg max-w-2xl mx-auto">
+        <p class="text-white/85 text-lg max-w-2xl mx-auto">
           {{ t('contact.pageSubtitle') }}
         </p>
       </div>
@@ -68,7 +68,7 @@ console.log('Offices', offices);
                 <p
                   v-for="line in office.addressLines"
                   :key="`${office.country}-${line}`"
-                  class="text-gray-600 text-sm"
+                  class="text-gray-700 text-sm"
                 >
                   {{ line }}
                 </p>
@@ -87,11 +87,11 @@ console.log('Offices', offices);
                 v-for="phone in contactInfo.phones"
                 :key="phone"
                 :href="`tel:${phone}`"
-                class="block text-gray-600 text-sm hover:text-secondary transition-colors"
+                class="block text-gray-700 text-sm hover:text-secondary transition-colors"
               >
                 {{ phone }}
               </a>
-              <p class="text-gray-600 text-sm">Sun-Thu: 9AM - 6PM</p>
+              <p class="text-gray-700 text-sm">Sun-Thu: 9AM - 6PM</p>
             </div>
           </BaseCard>
           <BaseCard :hover="true" class="text-center">
@@ -106,7 +106,7 @@ console.log('Offices', offices);
                 v-for="email in contactInfo.emails"
                 :key="email"
                 :href="`mailto:${email}`"
-                class="block text-gray-600 text-sm hover:text-secondary transition-colors break-all"
+                class="block text-gray-700 text-sm hover:text-secondary transition-colors break-all"
               >
                 {{ email }}
               </a>
@@ -207,12 +207,12 @@ console.log('Offices', offices);
                       <h4 class="font-semibold text-gray-900">
                           {{ office.officeLocation ? `${office.officeLocation}, ${office.country}` : office.country }}
                       </h4>
-                      <p class="text-sm text-gray-500">{{ t(`contact.${office.typeKey}`) }}</p>
+                      <p class="text-sm text-gray-600">{{ t(`contact.${office.typeKey}`) }}</p>
                       <div class="mt-2 space-y-1">
                         <p
                           v-for="line in office.addressLines"
                           :key="`${office.country}-location-${line}`"
-                          class="text-sm text-gray-600"
+                          class="text-sm text-gray-700"
                         >
                           {{ line }}
                         </p>

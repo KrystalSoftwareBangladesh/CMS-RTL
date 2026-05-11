@@ -51,7 +51,7 @@ onMounted(() => {
               </svg>
               <div>
                 <div class="text-2xl font-bold">2.5K+</div>
-                <div class="text-sm text-white/80">{{ t('portfolio.happyClients') }}</div>
+                <div class="text-sm text-white/95">{{ t('portfolio.happyClients') }}</div>
               </div>
             </div>
           </div>
