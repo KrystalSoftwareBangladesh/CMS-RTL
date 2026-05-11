@@ -102,15 +102,15 @@ onMounted(() => {
       <div class="container mx-auto px-6 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="text-center md:text-left">
-            <p class="text-gray-500 text-sm">
-              © 2026 
-              <a 
-                href="https://github.com/KrystalSoftwareBangladesh/" 
-                target="_blank" 
+            <!-- <p class="text-gray-500 text-sm">
+              © 2026
+              <a
+                href="https://github.com/KrystalSoftwareBangladesh/"
+                target="_blank"
                 rel="noopener noreferrer"
                 class="text-secondary hover:underline"
               >Krystal Software Bangladesh</a>. {{ t('footer.allRightsReserved') }}
-            </p>
+            </p> -->
           </div>
           <div class="flex items-center gap-4">
             <a
