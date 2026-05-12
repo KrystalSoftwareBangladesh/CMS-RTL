@@ -28,10 +28,10 @@ const toggleFAQ = (index: number) => {
     <div
       v-for="(faq, index) in faqs"
       :key="faq.id"
-      class="border border-gray-200 rounded-xl overflow-hidden"
+      class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-[0_16px_40px_-32px_rgba(15,23,42,0.3)] transition-shadow duration-300 hover:shadow-[0_22px_55px_-36px_rgba(15,23,42,0.32)]"
     >
       <button
-        class="w-full flex items-center justify-between p-6 text-left bg-white hover:bg-gray-50 transition-colors"
+        class="flex w-full items-center justify-between bg-white p-6 text-left transition-colors hover:bg-slate-50"
         @click="toggleFAQ(index)"
       >
         <span class="font-medium text-gray-900">{{ faq.question }}</span>
@@ -49,7 +49,7 @@ const toggleFAQ = (index: number) => {
       </button>
       <div
         v-if="openIndex === index"
-        class="px-6 pb-6 text-gray-600"
+        class="px-6 pb-6 text-gray-700"
       >
         {{ faq.answer }}
       </div>

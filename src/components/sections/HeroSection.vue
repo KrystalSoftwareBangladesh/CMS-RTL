@@ -20,11 +20,12 @@ function toggleSound() {
         class="absolute inset-0 w-full h-full object-cover">
         <source src="/hero-background.mp4" type="video/mp4" />
       </video>
+      <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/78 via-primary-dark/60 to-primary-dark/86"></div>
     </div>
 
     <div class="flex-1 flex items-end justify-end p-6">
       <button @click="toggleSound"
-        class="relative z-20 bg-secondary hover:bg-secondary-dark text-white p-4 rounded-full shadow-lg transition-all"
+        class="relative z-20 rounded-full border border-white/15 bg-secondary p-4 text-white shadow-[0_24px_60px_-28px_rgba(15,23,42,0.55)] transition-all hover:-translate-y-0.5 hover:bg-secondary-dark"
         :title="isMuted ? 'Click to unmute' : 'Click to mute'">
         <svg v-if="isMuted" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,11 +40,11 @@ function toggleSound() {
       </button>
     </div>
 
-    <div class="relative z-10 bg-white mt-auto">
+    <div class="relative z-10 mt-auto border-t border-white/10 bg-white/95 backdrop-blur-md">
       <div class="container mx-auto px-6 py-8">
-        <div class="flex flex-wrap justify-center md:justify-between items-center gap-8 md:gap-4">
+        <div class="flex flex-wrap items-center justify-center gap-6 md:justify-between md:gap-4">
           <span v-for="partner in partners" :key="partner"
-            class="text-gray-400 text-lg md:text-xl font-semibold tracking-wider">
+            class="text-base font-semibold tracking-[0.18em] text-slate-500 md:text-lg">
             {{ partner }}
           </span>
         </div>

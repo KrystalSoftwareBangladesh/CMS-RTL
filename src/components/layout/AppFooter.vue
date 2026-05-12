@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <footer class="bg-white border-t border-gray-100">
+  <footer class="border-t border-slate-200 bg-slate-50">
     <div class="container mx-auto px-6 py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         <div>
@@ -40,11 +40,11 @@ onMounted(() => {
           <p class="text-gray-700 text-sm mb-6">
             {{ t('footer.tagline') }}
           </p>
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-3 shadow-[0_16px_40px_-34px_rgba(15,23,42,0.3)]">
             <input
               type="email"
               placeholder="E-mail"
-              class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-secondary"
+              class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:border-secondary focus:outline-none"
             />
             <button class="bg-secondary text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-secondary-light transition-colors w-full">
               {{ t('footer.subscribe') }}
@@ -98,7 +98,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="border-t border-gray-100">
+    <div class="border-t border-slate-200">
       <div class="container mx-auto px-6 py-6">
         <div class="flex flex-col md:flex-row justify-between items-center gap-4">
           <div class="text-center md:text-left">

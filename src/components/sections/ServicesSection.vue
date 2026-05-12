@@ -35,16 +35,17 @@ onMounted(() => {
 <template>
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-start">
+      <div class="grid items-start gap-16 lg:grid-cols-2">
         <div class="relative">
-          <div class="rounded-3xl overflow-hidden shadow-2xl">
+          <div class="overflow-hidden rounded-[2rem] border border-white/60 bg-white p-3 shadow-[0_28px_80px_-40px_rgba(15,23,42,0.38)]">
             <img
               :src="truckImage"
               alt="Yellow truck"
-              class="w-full h-80 object-cover"
+              class="h-80 w-full rounded-[1.4rem] object-cover"
             />
           </div>
-          <div class="absolute -bottom-8 -right-8 bg-secondary text-white p-6 rounded-2xl shadow-xl">
+          <div class="absolute -bottom-6 right-3 rounded-2xl border border-white/15 bg-secondary text-white shadow-[0_24px_55px_-30px_rgba(15,23,42,0.45)] md:-bottom-8 md:-right-8">
+            <div class="p-5 md:p-6">
             <div class="flex items-center gap-3">
               <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -53,6 +54,7 @@ onMounted(() => {
                 <div class="text-2xl font-bold">2.5K+</div>
                 <div class="text-sm text-white/95">{{ t('portfolio.happyClients') }}</div>
               </div>
+            </div>
             </div>
           </div>
         </div>

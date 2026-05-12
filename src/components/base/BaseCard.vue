@@ -24,11 +24,11 @@ const paddingClasses = {
 <template>
   <div
     :class="[
-      'bg-white',
+      'bg-white border border-slate-200/80',
       paddingClasses[padding],
-      shadow ? 'shadow-lg' : '',
+      shadow ? 'shadow-[0_18px_45px_-24px_rgba(15,23,42,0.28)]' : '',
       rounded ? 'rounded-2xl' : '',
-      hover ? 'hover:shadow-xl transition-shadow duration-300' : ''
+      hover ? 'transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_24px_60px_-28px_rgba(15,23,42,0.34)]' : ''
     ]"
   >
     <slot />

@@ -44,18 +44,18 @@ onMounted(() => {
         <div class="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
       </div>
 
-      <div v-else-if="articles.length > 0" class="grid md:grid-cols-3 gap-8">
+      <div v-else-if="articles.length > 0" class="grid gap-8 md:grid-cols-3">
         <article
           v-for="article in articles"
           :key="article.id"
-          class="group cursor-pointer"
+          class="group cursor-pointer rounded-3xl border border-slate-200 bg-white p-3 shadow-[0_20px_55px_-38px_rgba(15,23,42,0.32)] transition-all duration-300 hover:-translate-y-1 hover:border-slate-300 hover:shadow-[0_26px_70px_-42px_rgba(15,23,42,0.36)]"
         >
-          <div class="rounded-2xl overflow-hidden mb-4">
+          <div class="mb-5 overflow-hidden rounded-[1.4rem]">
             <img
               v-if="article.cover_image"
               :src="article.cover_image"
               :alt="article.title"
-              class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+              class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
             />
             <div v-else class="w-full h-48 bg-gray-200 flex items-center justify-center">
               <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -63,10 +63,10 @@ onMounted(() => {
               </svg>
             </div>
           </div>
-          <h3 class="font-semibold text-gray-900 mb-2 group-hover:text-secondary transition-colors">
+          <h3 class="mb-2 text-lg font-semibold text-gray-900 transition-colors group-hover:text-secondary">
             {{ article.title }}
           </h3>
-          <div class="flex items-center gap-4 text-sm text-gray-500">
+          <div class="flex items-center gap-4 text-sm text-gray-600">
             <span v-if="article.author_name" class="flex items-center gap-1">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -83,7 +83,7 @@ onMounted(() => {
         </article>
       </div>
 
-      <div v-else class="text-center py-12 text-gray-500">
+      <div v-else class="py-12 text-center text-gray-600">
         No news available
       </div>
     </div>

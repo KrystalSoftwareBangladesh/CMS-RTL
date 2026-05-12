@@ -80,15 +80,15 @@ onUnmounted(() => {
         {{ t('common.noData') }}
       </div>
 
-      <div v-else class="max-w-3xl mx-auto">
-        <div class="relative bg-white rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden">
-          <div class="absolute top-8 left-8 text-8xl text-secondary/20 font-serif leading-none">
+      <div v-else class="mx-auto max-w-3xl">
+        <div class="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-8 shadow-[0_28px_75px_-44px_rgba(15,23,42,0.34)] md:p-12">
+          <div class="absolute left-8 top-8 font-serif text-8xl leading-none text-secondary/15">
             "
           </div>
 
           <Transition name="fade-slide" mode="out-in">
             <div :key="currentIndex" class="relative z-10">
-              <p class="text-gray-600 text-lg leading-relaxed mb-8">
+              <p class="mb-8 text-lg leading-relaxed text-gray-700">
                 {{ currentTestimonial?.message }}
               </p>
 
@@ -104,7 +104,7 @@ onUnmounted(() => {
                 </div>
                 <div>
                   <div class="font-semibold text-gray-900">{{ currentTestimonial?.name }}</div>
-                  <div class="text-sm text-gray-500">
+                  <div class="text-sm text-gray-600">
                     {{ currentTestimonial?.designation }}
                     <span v-if="currentTestimonial?.company"> - {{ currentTestimonial.company }}</span>
                   </div>

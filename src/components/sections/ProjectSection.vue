@@ -7,13 +7,13 @@ import portImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
 <template>
   <section class="py-20 bg-white">
     <div class="container mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="grid items-center gap-16 lg:grid-cols-2">
         <div class="relative">
-          <div class="rounded-3xl overflow-hidden shadow-xl">
+          <div class="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-[0_24px_70px_-42px_rgba(15,23,42,0.36)]">
             <img
               :src="workerImage"
               alt="Delivery worker"
-              class="w-full h-96 object-cover"
+              class="h-96 w-full rounded-[1.4rem] object-cover"
             />
           </div>
         </div>
@@ -26,11 +26,11 @@ import portImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
             :centered="false"
           />
 
-          <div class="rounded-2xl overflow-hidden shadow-lg">
+          <div class="overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white p-3 shadow-[0_20px_55px_-35px_rgba(15,23,42,0.32)]">
             <img
               :src="portImage"
               alt="Container port"
-              class="w-full h-48 object-cover"
+              class="h-48 w-full rounded-[1.2rem] object-cover"
             />
           </div>
         </div>
