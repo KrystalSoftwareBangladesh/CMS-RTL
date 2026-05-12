@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import BaseButton from '@/components/base/BaseButton.vue'
 import { partners } from '@/data/navigation'
 
 const videoRef = ref<HTMLVideoElement | null>(null)
 const isMuted = ref(true)
+const { t } = useI18n()
 
 function toggleSound() {
   if (videoRef.value) {
@@ -23,7 +26,31 @@ function toggleSound() {
       <div class="absolute inset-0 bg-gradient-to-b from-primary-dark/78 via-primary-dark/60 to-primary-dark/86"></div>
     </div>
 
-    <div class="flex-1 flex items-end justify-end p-6">
+    <div class="relative z-10 flex-1">
+      <div class="container mx-auto flex min-h-screen flex-col justify-center px-6 pb-24 pt-32">
+        <div class="max-w-3xl">
+          <p class="mb-5 text-sm font-semibold uppercase tracking-[0.35em] text-white/80">
+            {{ t('hero.subtitle') }}
+          </p>
+          <h1 class="mb-6 text-5xl font-bold leading-tight text-white md:text-6xl lg:text-7xl">
+            {{ t('hero.title') }}
+          </h1>
+          <p class="max-w-2xl text-lg leading-8 text-white/85 md:text-xl">
+            {{ t('hero.description') }}
+          </p>
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <BaseButton to="/contact" variant="secondary" size="lg">
+              Get Quotation
+            </BaseButton>
+            <BaseButton to="/services" variant="outline" size="lg">
+              Learn More
+            </BaseButton>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-end justify-end p-6">
       <button @click="toggleSound"
         class="relative z-20 rounded-full border border-white/15 bg-secondary p-4 text-white shadow-[0_24px_60px_-28px_rgba(15,23,42,0.55)] transition-all hover:-translate-y-0.5 hover:bg-secondary-dark"
         :title="isMuted ? 'Click to unmute' : 'Click to mute'">

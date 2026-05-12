@@ -23,9 +23,14 @@ const { t } = useI18n()
         <p class="text-white/85 mb-8">
           {{ t('cta.description') }}
         </p>
-        <BaseButton variant="outline" size="md">
-          {{ t('cta.button') }}
-        </BaseButton>
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <BaseButton to="/contact" variant="secondary" size="md">
+            Contact Us
+          </BaseButton>
+          <BaseButton to="/services" variant="outline" size="md">
+            Book Service
+          </BaseButton>
+        </div>
       </div>
     </div>
   </section>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import BaseButton from '@/components/base/BaseButton.vue'
 import SectionHeader from '@/components/base/SectionHeader.vue'
 import workerImage from '@/assets/images/warehouse_worker_wit_259b881f.jpg'
 import portImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
@@ -32,6 +33,15 @@ import portImage from '@/assets/images/cargo_ship_container_77664e3d.jpg'
               alt="Container port"
               class="h-48 w-full rounded-[1.2rem] object-cover"
             />
+          </div>
+
+          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+            <BaseButton to="/portfolio" variant="secondary">
+              Order Now
+            </BaseButton>
+            <BaseButton to="/contact" variant="white">
+              Get Quotation
+            </BaseButton>
           </div>
         </div>
       </div>

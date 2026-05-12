@@ -16,9 +16,12 @@ const { t } = useI18n()
         :centered="true"
       />
 
-      <div class="mb-16 flex justify-center">
-        <BaseButton variant="secondary">
-          {{ t('hero.learnMore') }}
+      <div class="mb-16 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <BaseButton to="/we-are" variant="secondary">
+          Learn More
+        </BaseButton>
+        <BaseButton to="/contact" variant="white">
+          Contact Us
         </BaseButton>
       </div>
 

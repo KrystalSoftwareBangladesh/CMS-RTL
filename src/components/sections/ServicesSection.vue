@@ -84,6 +84,15 @@ onMounted(() => {
               :description="service.description"
             />
           </div>
+
+          <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+            <BaseButton to="/contact" variant="secondary">
+              Book Service
+            </BaseButton>
+            <BaseButton to="/services" variant="white">
+              Learn More
+            </BaseButton>
+          </div>
         </div>
       </div>
     </div>

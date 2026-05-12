@@ -193,11 +193,11 @@ onMounted(() => {
           :subtitle="t('services.getStartedSubtitle')"
         />
         <div class="flex flex-wrap justify-center gap-4">
-          <BaseButton variant="secondary" size="lg">
-            {{ t('hero.getQuote') }}
+          <BaseButton to="/contact" variant="secondary" size="lg">
+            Get Quotation
           </BaseButton>
-          <BaseButton variant="primary" size="lg">
-            {{ t('cta.button') }}
+          <BaseButton to="/contact" variant="primary" size="lg">
+            Contact Us
           </BaseButton>
         </div>
       </div>

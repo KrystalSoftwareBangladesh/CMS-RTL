@@ -225,11 +225,11 @@ onMounted(() => {
           :light="true"
         />
         <div class="flex flex-wrap justify-center gap-4">
-          <BaseButton variant="secondary" size="lg">
-            {{ t('hero.getQuote') }}
+          <BaseButton to="/contact" variant="secondary" size="lg">
+            Get Quotation
           </BaseButton>
-          <BaseButton variant="outline" size="lg">
-            {{ t('portfolio.viewCaseStudies') }}
+          <BaseButton to="/contact" variant="outline" size="lg">
+            Contact Us
           </BaseButton>
         </div>
       </div>

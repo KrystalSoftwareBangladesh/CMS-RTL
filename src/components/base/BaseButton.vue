@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
+
 interface Props {
   variant?: 'primary' | 'secondary' | 'outline' | 'white'
   size?: 'sm' | 'md' | 'lg'
   href?: string
+  to?: string
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'md'
 })
@@ -24,12 +28,20 @@ const variantClasses = {
   outline: 'border-2 border-white/85 text-white backdrop-blur-sm hover:bg-white hover:text-primary hover:-translate-y-0.5',
   white: 'bg-white text-primary hover:bg-slate-50 hover:-translate-y-0.5'
 }
+
+const componentType = computed(() => {
+  if (props.to) return RouterLink
+  if (props.href) return 'a'
+  return 'button'
+})
 </script>
 
 <template>
   <component
-    :is="href ? 'a' : 'button'"
+    :is="componentType"
+    :to="to"
     :href="href"
+    :type="!to && !href ? 'button' : undefined"
     :class="[baseClasses, sizeClasses[size], variantClasses[variant]]"
   >
     <slot />
